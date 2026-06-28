@@ -49,6 +49,15 @@ EvidenceConnector = Literal["openalex", "pubmed"]
 
 EnrichmentSource = Literal["nih_reporter", "semantic_scholar", "manual"]
 
+PipelineStageName = Literal[
+    "institution_mapping",
+    "query_building",
+    "evidence_collection",
+    "candidate_extraction",
+    "candidate_ranking",
+    "candidate_enrichment",
+]
+
 OpeningSignalType = Literal[
     "explicit_postdoc_opening",
     "lab_hiring_statement",
@@ -442,6 +451,56 @@ class EnrichedCandidateReport(BaseModel):
     ranked_file: str
     run_summary: EnrichmentRunSummary
     candidates: list[EnrichedSupervisorCandidate] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+
+class PipelineConfig(BaseModel):
+    """Configuration for an end-to-end postdoc scouting pipeline run."""
+
+    institution: str
+    mode: str = "broad"
+    country: str = "us"
+    output_dir: str = "outputs"
+    sources: str = "openalex,pubmed"
+    enrichment_sources: str = "nih_reporter,semantic_scholar,manual"
+    limit_queries: int = 100
+    limit_per_source: int = 20
+    top_n: int | None = None
+    year_from: int | None = 2021
+    year_to: int | None = None
+    resume: bool = True
+    skip_evidence_collection: bool = False
+    skip_enrichment: bool = False
+    dry_run: bool = False
+    output_format: str = "all"
+
+
+class PipelineStageResult(BaseModel):
+    """Execution status for one pipeline stage."""
+
+    stage: PipelineStageName
+    status: str
+    output_files: list[str] = Field(default_factory=list)
+    reused_existing: bool = False
+    warnings: list[str] = Field(default_factory=list)
+    errors: list[str] = Field(default_factory=list)
+    metrics: dict[str, int | float | str | bool | None] = Field(default_factory=dict)
+
+
+class PipelineRunReport(BaseModel):
+    """Auditable end-to-end pipeline run report."""
+
+    institution: str
+    mode: str
+    country: str
+    output_dir: str
+    generated_at: str
+    dry_run: bool = False
+    config: PipelineConfig
+    stages: list[PipelineStageResult] = Field(default_factory=list)
+    output_files: list[str] = Field(default_factory=list)
+    metrics: dict[str, int | float | str | bool | None] = Field(default_factory=dict)
+    warnings: list[str] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
 
 
