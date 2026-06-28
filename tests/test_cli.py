@@ -7,6 +7,14 @@ from postdoc_scout.institution_mapper import (
     list_parent_institutions,
     map_institution_ecosystem,
 )
+from postdoc_scout.models import EvidenceItem, Publication, SupervisorCandidate
+from postdoc_scout.scoring import (
+    assign_priority_label,
+    calculate_weighted_score,
+    detect_method_heavy_profile,
+    numeric_score_to_stars,
+    score_candidate,
+)
 from postdoc_scout.seed_map_validation import validate_seed_map, validate_seed_payloads
 
 
@@ -29,6 +37,119 @@ def test_scout_command_smoke() -> None:
     assert result.exit_code == 0
     assert "Harvard Medical School" in result.output
     assert "not_started_placeholder" in result.output
+
+
+def test_candidate_models_can_be_created() -> None:
+    evidence = EvidenceItem(
+        evidence_id="ev_001",
+        source_type="publication",
+        title="Clinical AI paper",
+        source_name="Mock source",
+        quoted_or_paraphrased_evidence="Clinical AI and EHR/RWD evidence.",
+        relevance_domains=["clinical AI", "EHR/RWD"],
+        confidence=0.9,
+        note="Mock note.",
+    )
+    publication = Publication(
+        title="Clinical AI paper",
+        year=2025,
+        journal="Mock Journal",
+        authors=["A", "B"],
+        candidate_author_position="senior",
+        relevance_domains=["clinical AI", "EHR/RWD"],
+        evidence_items=[evidence],
+    )
+    candidate = SupervisorCandidate(
+        name="Dr. Test",
+        domains=["clinical AI", "EHR/RWD"],
+        publications=[publication],
+    )
+
+    assert candidate.publications[0].evidence_items[0].evidence_id == "ev_001"
+
+
+def test_weighted_score_calculation_and_traceability() -> None:
+    candidate = SupervisorCandidate(
+        name="Dr. Trace",
+        domains=["digital medicine", "clinical AI", "EHR/RWD", "oncology"],
+        profile_urls=["https://example.org/trace"],
+        publications=[
+            Publication(
+                title="Digital oncology EHR study",
+                year=2025,
+                journal="Mock Journal",
+                authors=["Dr. Trace"],
+                candidate_author_position="senior",
+                relevance_domains=["digital medicine", "clinical AI", "EHR/RWD", "oncology"],
+                is_high_impact_journal=True,
+                evidence_items=[
+                    EvidenceItem(
+                        evidence_id="trace_pub_001",
+                        source_type="publication",
+                        title="Digital oncology EHR study",
+                        source_name="Mock publication metadata",
+                        quoted_or_paraphrased_evidence="Digital oncology EHR evidence.",
+                        relevance_domains=[
+                            "digital medicine",
+                            "clinical AI",
+                            "EHR/RWD",
+                            "oncology",
+                        ],
+                        confidence=0.9,
+                        note="Mock note.",
+                    )
+                ],
+            )
+        ],
+    )
+
+    report = score_candidate(candidate)
+    dimension_total = calculate_weighted_score(report.score_breakdown.dimensions)
+    evidence_ids = {
+        evidence_id
+        for dimension in report.score_breakdown.dimensions
+        for evidence_id in dimension.supporting_evidence_ids
+    }
+
+    assert dimension_total >= report.score_breakdown.overall_score
+    assert "trace_pub_001" in evidence_ids
+
+
+def test_star_conversion_and_priority_labels() -> None:
+    assert numeric_score_to_stars(4.6) == "★★★★★"
+    assert numeric_score_to_stars(2.4) == "★★☆☆☆"
+    assert assign_priority_label(4.6) == "A+"
+    assert assign_priority_label(4.2) == "A"
+    assert assign_priority_label(3.8) == "A-"
+    assert assign_priority_label(3.2) == "B"
+    assert assign_priority_label(2.5) == "C"
+    assert assign_priority_label(2.49) == "D"
+
+
+def test_method_heavy_penalty_detection() -> None:
+    candidate = SupervisorCandidate(
+        name="Dr. Method",
+        domains=["statistical theory", "foundation model architecture"],
+        publications=[
+            Publication(
+                title="Benchmark-only foundation model architecture study",
+                year=2025,
+                journal="Mock Theory",
+                authors=["Dr. Method"],
+                candidate_author_position="senior",
+                relevance_domains=["statistical theory", "foundation model architecture"],
+                abstract="Benchmark-only simulation-only optimization theory.",
+            )
+        ],
+    )
+
+    penalty_applied, penalty, warnings = detect_method_heavy_profile(candidate)
+    report = score_candidate(candidate)
+
+    assert penalty_applied
+    assert penalty > 0
+    assert warnings
+    assert report.score_breakdown.method_heavy_penalty_applied
 
 
 def test_harvard_broad_mode_returns_expected_units() -> None:
@@ -212,3 +333,24 @@ def test_list_institutions_cli_smoke() -> None:
     assert result.exit_code == 0
     assert "Harvard University" in result.output
     assert "MD Anderson Cancer Center" in tier_a_names
+
+
+def test_score_mock_candidates_cli(tmp_path) -> None:
+    runner = CliRunner()
+
+    result = runner.invoke(
+        app,
+        [
+            "score-mock-candidates",
+            "--input",
+            "examples/mock_candidates.yml",
+            "--output-dir",
+            str(tmp_path),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "Dr. Maya Chen" in result.output
+    assert "Dr. Victor Stone" in result.output
+    assert (tmp_path / "mock_candidate_scores.json").exists()
+    assert (tmp_path / "mock_candidate_scores.md").exists()

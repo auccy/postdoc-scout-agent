@@ -117,6 +117,29 @@ The validator checks required parent and unit fields, controlled relationship la
 
 Relationship warnings are expected in the current seed layer. They flag cases where a unit is labeled `owned_by` or `affiliated_with` while still marked `curated_seed_needs_verification`. These warnings do not fail validation; they are reminders that the seed map is curated and requires future automated verification before it should be treated as evidence of formal affiliation.
 
+## Candidate Scoring Framework
+
+The candidate scoring framework defines how potential postdoctoral supervisors are represented, scored, ranked, and audited before any live data connectors are added.
+
+Digital medicine, clinical AI, disease-domain translation, EHR/RWD, oncology, AD/ADRD, clinical decision support, public health, trial enrichment, and patient stratification are weighted highly because the project is designed for translational supervisor scouting, not generic academic prestige ranking.
+
+Pure biostatistical theory, standalone algorithm development, benchmark-only machine learning, and foundation model architecture work are downweighted unless there is explicit evidence connecting the methods to clinical translation, real-world data, disease applications, or deployable digital medicine. Method-heavy profiles receive only a modest penalty so a strong translational methods candidate can still rank well.
+
+Each score dimension includes a numeric score, stars, weight, weighted contribution, explanation, warnings, and supporting evidence IDs. Candidate reports preserve publication, grant, lab-page, and manual-note evidence so scores can be traced back to auditable source items.
+
+Run deterministic mock scoring:
+
+```bash
+postdoc-scout score-mock-candidates --input examples/mock_candidates.yml --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/mock_candidate_scores.json
+outputs/mock_candidate_scores.md
+```
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:
