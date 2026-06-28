@@ -98,6 +98,25 @@ postdoc-scout map-institution --institution "MD Anderson Cancer Center" --mode b
 
 Academic medical centers, cancer centers, health systems, and independent research institutes are included alongside universities because translational digital medicine, clinical AI, EHR/RWD, AD/ADRD, oncology, clinical decision support, trial enrichment, and patient stratification work often lives outside traditional university departments.
 
+## Seed Map Validation
+
+Validate the curated U.S. seed map before extending it:
+
+```bash
+postdoc-scout validate-seed-map --country us --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/us_seed_map_validation.json
+outputs/us_seed_map_coverage.md
+```
+
+The validator checks required parent and unit fields, controlled relationship labels, priority tiers, duplicate names, list-shaped aliases/domains/source URLs, and unsupported relevance domains. It also generates coverage counts by tier, parent type, unit type, and relevance domain.
+
+Relationship warnings are expected in the current seed layer. They flag cases where a unit is labeled `owned_by` or `affiliated_with` while still marked `curated_seed_needs_verification`. These warnings do not fail validation; they are reminders that the seed map is curated and requires future automated verification before it should be treated as evidence of formal affiliation.
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:

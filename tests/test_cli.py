@@ -7,6 +7,7 @@ from postdoc_scout.institution_mapper import (
     list_parent_institutions,
     map_institution_ecosystem,
 )
+from postdoc_scout.seed_map_validation import validate_seed_map, validate_seed_payloads
 
 
 def test_scout_command_smoke() -> None:
@@ -48,6 +49,15 @@ def test_us_seed_map_loads_at_least_50_parent_institutions() -> None:
     assert len(institutions) >= 50
 
 
+def test_us_seed_map_validation_passes_current_files() -> None:
+    result = validate_seed_map(country="us")
+
+    assert result.valid
+    assert result.errors == []
+    assert result.coverage.total_parent_institutions >= 100
+    assert result.coverage.total_units >= 250
+
+
 def test_md_anderson_is_parent_institution() -> None:
     ecosystem = map_institution_ecosystem("MD Anderson Cancer Center", MappingMode.BROAD)
 
@@ -56,12 +66,78 @@ def test_md_anderson_is_parent_institution() -> None:
     assert any(unit.name == "MD Anderson Cancer Center" for unit in ecosystem.units)
 
 
+def test_memorial_sloan_kettering_is_parent_institution() -> None:
+    ecosystem = map_institution_ecosystem("Memorial Sloan Kettering Cancer Center")
+
+    assert ecosystem.institution.name == "Memorial Sloan Kettering Cancer Center"
+    assert ecosystem.institution.parent_type == "cancer_center"
+
+
 def test_rockefeller_is_independent_parent_institution() -> None:
     ecosystem = map_institution_ecosystem("Rockefeller", MappingMode.BROAD)
 
     assert ecosystem.institution.name == "Rockefeller University"
     assert ecosystem.institution.parent_type == "independent_research_institute"
     assert any(unit.name == "Rockefeller University" for unit in ecosystem.units)
+
+
+def test_validation_reports_are_generated(tmp_path) -> None:
+    runner = CliRunner()
+
+    result = runner.invoke(
+        app,
+        [
+            "validate-seed-map",
+            "--country",
+            "us",
+            "--output-dir",
+            str(tmp_path),
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert (tmp_path / "us_seed_map_validation.json").exists()
+    assert (tmp_path / "us_seed_map_coverage.md").exists()
+
+
+def test_unknown_fields_are_warnings_not_errors() -> None:
+    payloads = {
+        "test.yml": {
+            "institutions": [
+                {
+                    "canonical_name": "Example University",
+                    "aliases": [],
+                    "parent_type": "university",
+                    "city": "Example City",
+                    "state": "EX",
+                    "priority_tier": "C",
+                    "relevance_domains": ["clinical AI"],
+                    "notes": "Synthetic test entry.",
+                    "verification_status": "curated_seed_needs_verification",
+                    "unexpected_parent_field": "kept as warning",
+                    "units": [
+                        {
+                            "name": "Example Medical School",
+                            "unit_type": "medical_school",
+                            "relationship_to_parent": "needs_verification",
+                            "relevance_domains": ["clinical AI"],
+                            "priority": "low",
+                            "notes": "Synthetic test unit.",
+                            "source_urls": [],
+                            "verification_status": "curated_seed_needs_verification",
+                            "unexpected_unit_field": "kept as warning",
+                        }
+                    ],
+                }
+            ]
+        }
+    }
+
+    result = validate_seed_payloads(payloads)
+
+    assert result.valid
+    assert result.errors == []
+    assert len(result.warnings) == 2
 
 
 def test_narrow_mode_prioritizes_neurodegeneration_units() -> None:

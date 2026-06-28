@@ -16,6 +16,7 @@ from postdoc_scout.institution_mapper import (
     write_ecosystem_reports,
 )
 from postdoc_scout.scout import ScoutMode, ScoutRequest, run_placeholder_scout
+from postdoc_scout.seed_map_validation import validate_seed_map, write_validation_reports
 
 app = typer.Typer(
     name="postdoc-scout",
@@ -136,6 +137,41 @@ def list_institutions_command(
 
     console.print(table)
     console.print(f"{len(entries)} parent institutions listed.")
+
+
+@app.command("validate-seed-map")
+def validate_seed_map_command(
+    country: Annotated[
+        str,
+        typer.Option(help="Country seed layer to validate. Only 'us' is curated for now."),
+    ] = "us",
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where validation reports will be written."),
+    ] = Path("outputs"),
+) -> None:
+    """Validate curated seed-map schema and write coverage reports."""
+    result = validate_seed_map(country=country)
+    output_paths = write_validation_reports(result, output_dir)
+
+    table = Table(title="Seed Map Validation")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Country", result.country)
+    table.add_row("Valid", str(result.valid))
+    table.add_row("Parent institutions", str(result.coverage.total_parent_institutions))
+    table.add_row("Units", str(result.coverage.total_units))
+    table.add_row("Errors", str(len(result.errors)))
+    table.add_row(
+        "Warnings",
+        str(len(result.warnings) + len(result.relationship_warnings)),
+    )
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+
+    console.print(table)
+    if result.errors:
+        console.print("[red]Schema validation errors were found.[/red]")
+        raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":
