@@ -71,6 +71,16 @@ class BaseHTTPConnector:
     def _get_text(self, url: str, params: dict[str, Any]) -> str:
         return self._get(url, params).text
 
+    def _post_json(self, url: str, json_payload: dict[str, Any]) -> dict[str, Any]:
+        response = self._post(url, json_payload)
+        try:
+            data = response.json()
+        except ValueError as exc:
+            raise ConnectorError(self.connector_name, "Response was not valid JSON") from exc
+        if not isinstance(data, dict):
+            raise ConnectorError(self.connector_name, "Response JSON was not an object")
+        return data
+
     def _get(self, url: str, params: dict[str, Any]) -> httpx.Response:
         last_error: ConnectorError | None = None
         for attempt in range(self.max_retries + 1):
@@ -78,6 +88,40 @@ class BaseHTTPConnector:
                 time.sleep(self.delay_seconds)
             try:
                 response = self.client.get(url, params=params)
+                self.requests_made += 1
+                if response.status_code in {429, 500, 502, 503, 504}:
+                    last_error = ConnectorError(
+                        self.connector_name,
+                        response.text[:200] or "Transient HTTP failure",
+                        response.status_code,
+                    )
+                    if attempt < self.max_retries:
+                        time.sleep(2**attempt * max(self.delay_seconds, 0.1))
+                        continue
+                response.raise_for_status()
+                return response
+            except httpx.HTTPStatusError as exc:
+                raise ConnectorError(
+                    self.connector_name,
+                    exc.response.text[:200] or "HTTP status error",
+                    exc.response.status_code,
+                ) from exc
+            except httpx.RequestError as exc:
+                last_error = ConnectorError(self.connector_name, str(exc))
+                if attempt < self.max_retries:
+                    time.sleep(2**attempt * max(self.delay_seconds, 0.1))
+                    continue
+        if last_error is not None:
+            raise last_error
+        raise ConnectorError(self.connector_name, "Unknown connector failure")
+
+    def _post(self, url: str, json_payload: dict[str, Any]) -> httpx.Response:
+        last_error: ConnectorError | None = None
+        for attempt in range(self.max_retries + 1):
+            if self.delay_seconds > 0:
+                time.sleep(self.delay_seconds)
+            try:
+                response = self.client.post(url, json=json_payload)
                 self.requests_made += 1
                 if response.status_code in {429, 500, 502, 503, 504}:
                     last_error = ConnectorError(
