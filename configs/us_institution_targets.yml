@@ -1,0 +1,1116 @@
+# U.S. university and academic medical center seed targets.
+# Curated seed layer only. This is not a legal affiliation database.
+institutions:
+  - canonical_name: "Harvard University"
+    aliases: ["Harvard", "Harvard Medical School"]
+    parent_type: university
+    city: "Cambridge"
+    state: "MA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, oncology, EHR/RWD, public health, AD/ADRD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Harvard Medical School", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine, biomedical informatics], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Harvard T.H. Chan School of Public Health", unit_type: public_health_school, relationship_to_parent: affiliated_with, relevance_domains: [public health, EHR/RWD, population health], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Massachusetts General Hospital", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, neurology, neuroscience, translational medicine], priority: high, notes: "Harvard ecosystem seed unit; verify current relationship and labs.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Brigham and Women's Hospital", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine, translational medicine], priority: high, notes: "Harvard ecosystem seed unit; verify current relationship and labs.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Dana-Farber Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine], priority: high, notes: "Harvard cancer ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Broad Institute of MIT and Harvard", unit_type: partner_research_institute, relationship_to_parent: joint_institute, relevance_domains: [biomedical informatics, oncology, clinical AI, translational medicine], priority: high, notes: "Joint ecosystem seed unit; verify relevant groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Harvard NeuroDiscovery Center", unit_type: neuroscience_center, relationship_to_parent: needs_verification, relevance_domains: [AD/ADRD, aging, neurodegeneration, neurology, neuroscience], priority: high, notes: "Neurodegeneration seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Massachusetts Institute of Technology"
+    aliases: ["MIT"]
+    parent_type: university
+    city: "Cambridge"
+    state: "MA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, biomedical informatics, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "MIT Institute for Medical Engineering and Science", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [digital medicine, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "MIT Computer Science and Artificial Intelligence Laboratory", unit_type: biomedical_informatics_unit, relationship_to_parent: owned_by, relevance_domains: [clinical AI, biomedical informatics, digital medicine], priority: medium, notes: "Include when clinically translational work is present.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Broad Institute of MIT and Harvard", unit_type: partner_research_institute, relationship_to_parent: joint_institute, relevance_domains: [biomedical informatics, oncology, clinical AI], priority: high, notes: "Joint ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mass General Brigham clinical AI ecosystem", unit_type: affiliated_hospital, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: medium, notes: "Nearby ecosystem; do not assume formal affiliation.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Stanford University"
+    aliases: ["Stanford", "Stanford Medicine"]
+    parent_type: university
+    city: "Stanford"
+    state: "CA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, oncology, neuroscience]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Stanford School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, digital medicine, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Stanford Center for Biomedical Informatics Research", unit_type: biomedical_informatics_unit, relationship_to_parent: owned_by, relevance_domains: [biomedical informatics, clinical AI, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Stanford Health Care", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Stanford Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Cancer ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Johns Hopkins University"
+    aliases: ["Johns Hopkins", "JHU", "Johns Hopkins Medicine"]
+    parent_type: university
+    city: "Baltimore"
+    state: "MD"
+    priority_tier: A
+    relevance_domains: [clinical AI, public health, EHR/RWD, oncology, neurology]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Johns Hopkins School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine, neurology], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Johns Hopkins Bloomberg School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Johns Hopkins Hospital", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Sidney Kimmel Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of California, San Francisco"
+    aliases: ["UCSF", "UC San Francisco"]
+    parent_type: academic_medical_center
+    city: "San Francisco"
+    state: "CA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, oncology, neuroscience, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UCSF School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCSF Bakar Computational Health Sciences Institute", unit_type: biomedical_informatics_unit, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, biomedical informatics], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCSF Helen Diller Family Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCSF Memory and Aging Center", unit_type: aging_center, relationship_to_parent: affiliated_with, relevance_domains: [AD/ADRD, aging, neurodegeneration, neurology], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of California, Berkeley"
+    aliases: ["UC Berkeley", "Berkeley"]
+    parent_type: university
+    city: "Berkeley"
+    state: "CA"
+    priority_tier: A
+    relevance_domains: [public health, clinical AI, digital medicine, biomedical informatics]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UC Berkeley School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UC Berkeley data science and AI health ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, biomedical informatics, digital medicine], priority: medium, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCSF clinical partner ecosystem", unit_type: affiliated_hospital, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: high, notes: "Nearby/partner ecosystem; do not overclaim legal affiliation.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Berkeley neuroscience and aging research ecosystem", unit_type: neuroscience_center, relationship_to_parent: needs_verification, relevance_domains: [neuroscience, aging, AD/ADRD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Pennsylvania"
+    aliases: ["Penn", "UPenn", "Penn Medicine"]
+    parent_type: university
+    city: "Philadelphia"
+    state: "PA"
+    priority_tier: A
+    relevance_domains: [clinical AI, EHR/RWD, oncology, public health, neuroscience]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Perelman School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Penn Medicine", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Abramson Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Penn Institute for Biomedical Informatics", unit_type: biomedical_informatics_unit, relationship_to_parent: affiliated_with, relevance_domains: [biomedical informatics, EHR/RWD, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Columbia University"
+    aliases: ["Columbia", "Columbia University Irving Medical Center", "CUIMC"]
+    parent_type: university
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [clinical AI, public health, oncology, neurology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Vagelos College of Physicians and Surgeons", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine, neurology], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mailman School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "NewYork-Presbyterian/Columbia ecosystem", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Herbert Irving Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Yale University"
+    aliases: ["Yale", "Yale School of Medicine"]
+    parent_type: university
+    city: "New Haven"
+    state: "CT"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, public health, neuroscience, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Yale School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine, neuroscience], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Yale School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Yale New Haven Health ecosystem", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Yale Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Duke University"
+    aliases: ["Duke", "Duke Health"]
+    parent_type: university
+    city: "Durham"
+    state: "NC"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, oncology, EHR/RWD, aging]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Duke University School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Duke University Health System", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Duke Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Duke Clinical Research Institute", unit_type: clinical_trial_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical trials, EHR/RWD, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Vanderbilt University"
+    aliases: ["Vanderbilt", "Vanderbilt University Medical Center", "VUMC"]
+    parent_type: university
+    city: "Nashville"
+    state: "TN"
+    priority_tier: A
+    relevance_domains: [biomedical informatics, EHR/RWD, clinical AI, clinical decision support]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Vanderbilt University Medical Center", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Vanderbilt Department of Biomedical Informatics", unit_type: biomedical_informatics_unit, relationship_to_parent: affiliated_with, relevance_domains: [biomedical informatics, EHR/RWD, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Vanderbilt-Ingram Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, EHR/RWD, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Vanderbilt Institute for Medicine and Public Health", unit_type: public_health_school, relationship_to_parent: affiliated_with, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Washington University in St. Louis"
+    aliases: ["WashU", "Washington University School of Medicine"]
+    parent_type: university
+    city: "St. Louis"
+    state: "MO"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, aging, neuroscience, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Washington University School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine, neuroscience], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Barnes-Jewish Hospital", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Siteman Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Knight Alzheimer Disease Research Center", unit_type: aging_center, relationship_to_parent: affiliated_with, relevance_domains: [AD/ADRD, aging, neurodegeneration, neurology], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Michigan"
+    aliases: ["Michigan Medicine", "UMich"]
+    parent_type: university
+    city: "Ann Arbor"
+    state: "MI"
+    priority_tier: A
+    relevance_domains: [clinical AI, EHR/RWD, public health, oncology, aging]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Michigan Medicine", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Michigan School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Rogel Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Michigan Institute for Data Science health ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, biomedical informatics, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify specific biomedical groups.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Northwestern University"
+    aliases: ["Northwestern", "Northwestern Medicine"]
+    parent_type: university
+    city: "Chicago"
+    state: "IL"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Feinberg School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Northwestern Medicine", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Robert H. Lurie Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Northwestern biomedical informatics ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [biomedical informatics, EHR/RWD, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Chicago"
+    aliases: ["UChicago", "University of Chicago Medicine"]
+    parent_type: university
+    city: "Chicago"
+    state: "IL"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Chicago Pritzker School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Chicago Medicine", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UChicago Medicine Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Chicago data science and public health ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, public health, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Cornell University / Weill Cornell Medicine"
+    aliases: ["Cornell", "Weill Cornell", "Weill Cornell Medicine"]
+    parent_type: university
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [clinical AI, EHR/RWD, oncology, neuroscience]
+    notes: "Curated seed parent combining Cornell and Weill Cornell for discovery; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Weill Cornell Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "NewYork-Presbyterian/Weill Cornell ecosystem", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Meyer Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Weill Cornell biomedical informatics ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [biomedical informatics, clinical AI, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "New York University"
+    aliases: ["NYU", "NYU Langone"]
+    parent_type: university
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, oncology, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "NYU Grossman School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "NYU Langone Health", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Perlmutter Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "NYU population health and biomedical informatics ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [public health, EHR/RWD, clinical AI], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Icahn School of Medicine at Mount Sinai"
+    aliases: ["Mount Sinai", "ISMMS", "Mount Sinai Health System"]
+    parent_type: academic_medical_center
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, oncology, AD/ADRD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Icahn School of Medicine at Mount Sinai", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mount Sinai Health System", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Tisch Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mount Sinai data science and digital health ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, clinical AI, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Washington"
+    aliases: ["UW", "UW Medicine"]
+    parent_type: university
+    city: "Seattle"
+    state: "WA"
+    priority_tier: A
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD, neuroscience]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UW School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UW School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UW Medicine", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Fred Hutchinson Cancer Center ecosystem", unit_type: cancer_center, relationship_to_parent: partner_ecosystem, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Partner ecosystem; verify specific relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Pittsburgh"
+    aliases: ["Pitt", "UPMC"]
+    parent_type: university
+    city: "Pittsburgh"
+    state: "PA"
+    priority_tier: A
+    relevance_domains: [clinical AI, EHR/RWD, oncology, aging, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Pittsburgh School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UPMC clinical ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Hillman Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Pitt public health and aging research ecosystem", unit_type: aging_center, relationship_to_parent: needs_verification, relevance_domains: [public health, aging, AD/ADRD, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Emory University"
+    aliases: ["Emory", "Emory Healthcare"]
+    parent_type: university
+    city: "Atlanta"
+    state: "GA"
+    priority_tier: A
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD, neurology]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Emory School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Rollins School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Emory Healthcare", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Winship Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Texas Southwestern Medical Center"
+    aliases: ["UT Southwestern", "UTSW"]
+    parent_type: academic_medical_center
+    city: "Dallas"
+    state: "TX"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, neuroscience, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UT Southwestern Medical School", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UT Southwestern University Hospitals", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Simmons Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UT Southwestern biomedical informatics ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, biomedical informatics, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Baylor College of Medicine"
+    aliases: ["BCM", "Baylor Medicine"]
+    parent_type: academic_medical_center
+    city: "Houston"
+    state: "TX"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, pediatrics, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Baylor College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Texas Children's Hospital ecosystem", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, pediatrics], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Dan L Duncan Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Baylor biomedical informatics and precision health ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, biomedical informatics, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of North Carolina at Chapel Hill"
+    aliases: ["UNC", "UNC Chapel Hill", "UNC Health"]
+    parent_type: university
+    city: "Chapel Hill"
+    state: "NC"
+    priority_tier: A
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UNC School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UNC Gillings School of Global Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UNC Health", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Lineberger Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of California, San Diego"
+    aliases: ["UCSD", "UC San Diego"]
+    parent_type: university
+    city: "La Jolla"
+    state: "CA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, oncology, neuroscience, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UC San Diego School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UC San Diego Health", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Moores Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "San Diego independent biomedical institute ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, neuroscience, translational medicine], priority: medium, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of California, Los Angeles"
+    aliases: ["UCLA", "UCLA Health"]
+    parent_type: university
+    city: "Los Angeles"
+    state: "CA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, oncology, neuroscience, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "David Geffen School of Medicine at UCLA", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCLA Fielding School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, epidemiology, EHR/RWD], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCLA Health", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCLA Jonsson Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Southern California"
+    aliases: ["USC", "Keck Medicine of USC"]
+    parent_type: university
+    city: "Los Angeles"
+    state: "CA"
+    priority_tier: A
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD, aging]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Keck School of Medicine of USC", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Keck Medicine of USC", unit_type: academic_medical_center, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "USC Norris Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "USC Leonard Davis aging ecosystem", unit_type: aging_center, relationship_to_parent: needs_verification, relevance_domains: [aging, AD/ADRD, public health], priority: medium, notes: "Seed aging ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Mayo Clinic"
+    aliases: ["Mayo"]
+    parent_type: academic_medical_center
+    city: "Rochester"
+    state: "MN"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, oncology, clinical decision support]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Mayo Clinic Alix School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mayo Clinic Center for Digital Health", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, clinical AI, clinical decision support], priority: high, notes: "Digital health seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mayo Clinic Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mayo Clinic data science and EHR ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, EHR/RWD, biomedical informatics], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Cleveland Clinic"
+    aliases: ["Cleveland Clinic Lerner College of Medicine"]
+    parent_type: academic_medical_center
+    city: "Cleveland"
+    state: "OH"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, clinical decision support]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Cleveland Clinic Lerner College of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Cleveland Clinic health system", unit_type: health_system, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Cleveland Clinic Cancer Institute", unit_type: cancer_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Cleveland Clinic digital health and AI ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, clinical AI, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Case Western Reserve University"
+    aliases: ["Case Western", "CWRU"]
+    parent_type: university
+    city: "Cleveland"
+    state: "OH"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, oncology, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Case Western Reserve School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University Hospitals Cleveland Medical Center ecosystem", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Ohio State University"
+    aliases: ["Ohio State", "OSU", "The Ohio State University"]
+    parent_type: university
+    city: "Columbus"
+    state: "OH"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Ohio State College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "The James Cancer Hospital and Solove Research Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Wisconsin-Madison"
+    aliases: ["UW-Madison", "Wisconsin"]
+    parent_type: university
+    city: "Madison"
+    state: "WI"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, aging]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UW School of Medicine and Public Health", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, public health, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Carbone Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Minnesota"
+    aliases: ["UMN", "Minnesota"]
+    parent_type: university
+    city: "Minneapolis"
+    state: "MN"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Minnesota Medical School", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Masonic Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Indiana University"
+    aliases: ["IU", "Indiana University School of Medicine"]
+    parent_type: university
+    city: "Indianapolis"
+    state: "IN"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Indiana University School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Regenstrief Institute ecosystem", unit_type: partner_research_institute, relationship_to_parent: partner_ecosystem, relevance_domains: [EHR/RWD, clinical AI, biomedical informatics], priority: high, notes: "Partner ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Oregon Health & Science University"
+    aliases: ["OHSU", "Oregon Health and Science University"]
+    parent_type: academic_medical_center
+    city: "Portland"
+    state: "OR"
+    priority_tier: B
+    relevance_domains: [clinical AI, biomedical informatics, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "OHSU School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, biomedical informatics], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Knight Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of California, Irvine"
+    aliases: ["UC Irvine", "UCI"]
+    parent_type: university
+    city: "Irvine"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, oncology, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UCI School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCI Health and Chao Family Comprehensive Cancer Center ecosystem", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of California, Davis"
+    aliases: ["UC Davis", "UCD"]
+    parent_type: university
+    city: "Davis"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UC Davis School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UC Davis Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Colorado Anschutz Medical Campus"
+    aliases: ["Colorado Anschutz", "CU Anschutz"]
+    parent_type: academic_medical_center
+    city: "Aurora"
+    state: "CO"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Colorado School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Colorado Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Utah"
+    aliases: ["Utah", "U of U Health"]
+    parent_type: university
+    city: "Salt Lake City"
+    state: "UT"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, oncology, biomedical informatics]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Utah School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, biomedical informatics], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Huntsman Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Arizona"
+    aliases: ["Arizona", "UArizona"]
+    parent_type: university
+    city: "Tucson"
+    state: "AZ"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Arizona College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Arizona Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Arizona State University"
+    aliases: ["ASU"]
+    parent_type: university
+    city: "Tempe"
+    state: "AZ"
+    priority_tier: B
+    relevance_domains: [digital medicine, public health, clinical AI, biomedical engineering]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "ASU health solutions ecosystem", unit_type: public_health_school, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, public health, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mayo Clinic Arizona nearby ecosystem", unit_type: academic_medical_center, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: medium, notes: "Nearby ecosystem; do not assume formal affiliation.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Rice University"
+    aliases: ["Rice"]
+    parent_type: university
+    city: "Houston"
+    state: "TX"
+    priority_tier: B
+    relevance_domains: [digital medicine, clinical AI, biomedical engineering, oncology]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Rice bioengineering and digital health ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, clinical AI, biomedical engineering], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Texas Medical Center partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, oncology, EHR/RWD], priority: high, notes: "Partner ecosystem; verify specific relationships.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Georgia Institute of Technology"
+    aliases: ["Georgia Tech", "GaTech"]
+    parent_type: university
+    city: "Atlanta"
+    state: "GA"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, biomedical engineering]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Georgia Tech biomedical engineering and health AI ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, digital medicine, biomedical engineering], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Emory partner clinical ecosystem", unit_type: affiliated_hospital, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: medium, notes: "Partner ecosystem; verify specific relationships.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Carnegie Mellon University"
+    aliases: ["CMU", "Carnegie Mellon"]
+    parent_type: university
+    city: "Pittsburgh"
+    state: "PA"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, biomedical informatics]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "CMU health AI and machine learning ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, digital medicine, biomedical informatics], priority: medium, notes: "Prioritize clinically translational groups only.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Pittsburgh and UPMC partner ecosystem", unit_type: affiliated_hospital, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Princeton University"
+    aliases: ["Princeton"]
+    parent_type: university
+    city: "Princeton"
+    state: "NJ"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, biomedical data science]
+    notes: "Curated seed parent; verify translational fit before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Princeton biomedical data science ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, biomedical informatics], priority: low, notes: "Include only when linked to clinical translation.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "New Jersey clinical partner ecosystem", unit_type: affiliated_hospital, relationship_to_parent: nearby_ecosystem, relevance_domains: [EHR/RWD, clinical AI], priority: low, notes: "Nearby ecosystem; verify specific relationships.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "California Institute of Technology"
+    aliases: ["Caltech"]
+    parent_type: university
+    city: "Pasadena"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [clinical AI, neuroscience, biomedical engineering]
+    notes: "Curated seed parent; verify translational fit before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Caltech neuroscience and bioengineering ecosystem", unit_type: neuroscience_center, relationship_to_parent: needs_verification, relevance_domains: [neuroscience, clinical AI, biomedical engineering], priority: medium, notes: "Seed ecosystem unit; verify clinical translation.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Los Angeles biomedical partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, digital medicine], priority: low, notes: "Nearby ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Virginia"
+    aliases: ["UVA", "UVA Health"]
+    parent_type: university
+    city: "Charlottesville"
+    state: "VA"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UVA School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UVA Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Virginia Commonwealth University"
+    aliases: ["VCU", "VCU Health"]
+    parent_type: university
+    city: "Richmond"
+    state: "VA"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "VCU School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Massey Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Georgetown University"
+    aliases: ["Georgetown", "Georgetown University Medical Center"]
+    parent_type: university
+    city: "Washington"
+    state: "DC"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Georgetown University School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Lombardi Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Boston University"
+    aliases: ["BU", "Boston Medical Center"]
+    parent_type: university
+    city: "Boston"
+    state: "MA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, EHR/RWD, AD/ADRD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Boston University Chobanian & Avedisian School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Boston University School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, EHR/RWD, epidemiology], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Tufts University"
+    aliases: ["Tufts", "Tufts Medicine"]
+    parent_type: university
+    city: "Boston"
+    state: "MA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Tufts University School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Tufts Medicine clinical ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "UMass Chan Medical School"
+    aliases: ["UMass Chan", "University of Massachusetts Chan Medical School"]
+    parent_type: academic_medical_center
+    city: "Worcester"
+    state: "MA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UMass Chan Medical School", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UMass Memorial Health ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Rutgers University"
+    aliases: ["Rutgers", "Rutgers Health"]
+    parent_type: university
+    city: "New Brunswick"
+    state: "NJ"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Robert Wood Johnson Medical School", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Rutgers Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Thomas Jefferson University"
+    aliases: ["Jefferson", "Jefferson Health"]
+    parent_type: academic_medical_center
+    city: "Philadelphia"
+    state: "PA"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Sidney Kimmel Medical College", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Jefferson Health clinical ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Temple University"
+    aliases: ["Temple", "Temple Health"]
+    parent_type: university
+    city: "Philadelphia"
+    state: "PA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Lewis Katz School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Fox Chase Cancer Center ecosystem", unit_type: cancer_center, relationship_to_parent: partner_ecosystem, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Miami"
+    aliases: ["Miami", "UHealth"]
+    parent_type: university
+    city: "Miami"
+    state: "FL"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Miller School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Sylvester Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Florida"
+    aliases: ["UF", "UF Health"]
+    parent_type: university
+    city: "Gainesville"
+    state: "FL"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UF College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UF Health Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Alabama at Birmingham"
+    aliases: ["UAB", "UAB Medicine"]
+    parent_type: university
+    city: "Birmingham"
+    state: "AL"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UAB Heersink School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "O'Neal Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Iowa"
+    aliases: ["Iowa", "UI Health Care"]
+    parent_type: university
+    city: "Iowa City"
+    state: "IA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Carver College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Holden Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Kansas Medical Center"
+    aliases: ["KUMC", "KU Medical Center"]
+    parent_type: academic_medical_center
+    city: "Kansas City"
+    state: "KS"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Kansas School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Kansas Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Nebraska Medical Center"
+    aliases: ["UNMC"]
+    parent_type: academic_medical_center
+    city: "Omaha"
+    state: "NE"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UNMC College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Fred & Pamela Buffett Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Texas at Austin"
+    aliases: ["UT Austin", "Dell Medical School"]
+    parent_type: university
+    city: "Austin"
+    state: "TX"
+    priority_tier: B
+    relevance_domains: [digital medicine, clinical AI, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Dell Medical School", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, digital medicine, translational medicine], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UT Austin population health and data science ecosystem", unit_type: public_health_school, relationship_to_parent: needs_verification, relevance_domains: [public health, EHR/RWD, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "UTHealth Houston"
+    aliases: ["UT Health Houston", "The University of Texas Health Science Center at Houston"]
+    parent_type: academic_medical_center
+    city: "Houston"
+    state: "TX"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, biomedical informatics, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "McGovern Medical School", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UTHealth Houston School of Public Health", unit_type: public_health_school, relationship_to_parent: affiliated_with, relevance_domains: [public health, EHR/RWD, epidemiology], priority: high, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "UT Health San Antonio"
+    aliases: ["University of Texas Health Science Center at San Antonio"]
+    parent_type: academic_medical_center
+    city: "San Antonio"
+    state: "TX"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD, aging]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Long School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mays Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Maryland"
+    aliases: ["University of Maryland School of Medicine", "UMD"]
+    parent_type: university
+    city: "Baltimore"
+    state: "MD"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Maryland School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Greenebaum Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Cincinnati"
+    aliases: ["Cincinnati", "UC Health Cincinnati"]
+    parent_type: university
+    city: "Cincinnati"
+    state: "OH"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Cincinnati College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UC Health clinical ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Medical University of South Carolina"
+    aliases: ["MUSC"]
+    parent_type: academic_medical_center
+    city: "Charleston"
+    state: "SC"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD, public health]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "MUSC College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Hollings Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Wake Forest University"
+    aliases: ["Wake Forest", "Atrium Health Wake Forest Baptist"]
+    parent_type: university
+    city: "Winston-Salem"
+    state: "NC"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD, aging]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Wake Forest University School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Wake Forest Baptist Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Penn State College of Medicine"
+    aliases: ["Penn State Health", "Penn State Medicine"]
+    parent_type: academic_medical_center
+    city: "Hershey"
+    state: "PA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Penn State College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Penn State Cancer Institute", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Wayne State University"
+    aliases: ["Wayne State"]
+    parent_type: university
+    city: "Detroit"
+    state: "MI"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Wayne State School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Karmanos Cancer Institute ecosystem", unit_type: cancer_center, relationship_to_parent: partner_ecosystem, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Partner ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Illinois Chicago"
+    aliases: ["UIC", "UI Health"]
+    parent_type: university
+    city: "Chicago"
+    state: "IL"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UIC College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UI Health clinical ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Illinois Urbana-Champaign"
+    aliases: ["UIUC", "Illinois"]
+    parent_type: university
+    city: "Urbana"
+    state: "IL"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, biomedical engineering]
+    notes: "Curated seed parent; verify clinical partner relationships."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Carle Illinois College of Medicine ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, digital medicine, translational medicine], priority: medium, notes: "Partner ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UIUC health data science ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, biomedical informatics], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Virginia Tech"
+    aliases: ["VT", "Virginia Tech Carilion"]
+    parent_type: university
+    city: "Blacksburg"
+    state: "VA"
+    priority_tier: B
+    relevance_domains: [clinical AI, neuroscience, digital medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Virginia Tech Carilion School of Medicine", unit_type: medical_school, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, translational medicine, neuroscience], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Fralin Biomedical Research Institute ecosystem", unit_type: partner_research_institute, relationship_to_parent: affiliated_with, relevance_domains: [neuroscience, clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Tulane University"
+    aliases: ["Tulane"]
+    parent_type: university
+    city: "New Orleans"
+    state: "LA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Tulane University School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Tulane School of Public Health and Tropical Medicine", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, EHR/RWD], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "LSU Health Sciences Center"
+    aliases: ["LSU Health", "LSUHSC"]
+    parent_type: academic_medical_center
+    city: "New Orleans"
+    state: "LA"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "LSU Health School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "LSU Health public health and clinical data ecosystem", unit_type: public_health_school, relationship_to_parent: needs_verification, relevance_domains: [public health, EHR/RWD, clinical AI], priority: low, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Kentucky"
+    aliases: ["UK", "UK HealthCare"]
+    parent_type: university
+    city: "Lexington"
+    state: "KY"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, public health, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Kentucky College of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Markey Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of Louisville"
+    aliases: ["Louisville", "UofL"]
+    parent_type: university
+    city: "Louisville"
+    state: "KY"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "University of Louisville School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Brown Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: low, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "University of New Mexico"
+    aliases: ["UNM", "UNM Health"]
+    parent_type: university
+    city: "Albuquerque"
+    state: "NM"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "UNM School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UNM Comprehensive Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Medical College of Wisconsin"
+    aliases: ["MCW"]
+    parent_type: academic_medical_center
+    city: "Milwaukee"
+    state: "WI"
+    priority_tier: B
+    relevance_domains: [clinical AI, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Medical College of Wisconsin", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Froedtert & MCW clinical ecosystem", unit_type: health_system, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, oncology], priority: medium, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Brown University"
+    aliases: ["Brown", "Brown University Health ecosystem"]
+    parent_type: university
+    city: "Providence"
+    state: "RI"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, aging, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Warren Alpert Medical School", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Brown School of Public Health", unit_type: public_health_school, relationship_to_parent: owned_by, relevance_domains: [public health, EHR/RWD, aging], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Dartmouth College"
+    aliases: ["Dartmouth", "Geisel School of Medicine"]
+    parent_type: university
+    city: "Hanover"
+    state: "NH"
+    priority_tier: B
+    relevance_domains: [clinical AI, public health, oncology, EHR/RWD]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Geisel School of Medicine", unit_type: medical_school, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Dartmouth Cancer Center", unit_type: cancer_center, relationship_to_parent: affiliated_with, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Curated seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}

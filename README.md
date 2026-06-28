@@ -65,6 +65,39 @@ Use `--mode narrow` for AD/ADRD, aging, neurodegeneration, neurology, and neuros
 
 The mapper currently uses only `configs/institution_affiliates.yml`. The curated entries are seed data, not exhaustive institutional truth. They should be verified before outreach, ranking, or publication-quality reporting. The module does not scrape websites, call external APIs, or require API keys.
 
+## U.S. Curated Seed Map
+
+The mapper now includes a U.S.-focused curated seed layer for universities, academic medical centers, cancer centers, health systems, pediatric hospitals, and independent biomedical research institutes.
+
+This seed layer is not a legal affiliation database. It is a pragmatic discovery aid for postdoctoral supervisor scouting, where relevant labs may sit in medical schools, hospitals, cancer centers, public health schools, biomedical informatics units, digital medicine groups, or independent institutes near a university ecosystem.
+
+Every U.S. parent institution and unit is marked `curated_seed_needs_verification` until automated verification is implemented. Relationship labels are intentionally conservative:
+
+- `owned_by` is used only for obvious parent-owned units in the seed map.
+- `affiliated_with`, `partner_ecosystem`, and `nearby_ecosystem` are used when useful for scouting but should not be read as a legal affiliation claim.
+- `needs_verification` is used where the unit is a plausible discovery target but requires confirmation before outreach or reporting.
+
+List available U.S. seed parents:
+
+```bash
+postdoc-scout list-institutions --country us --tier all
+postdoc-scout list-institutions --country us --tier A
+```
+
+Map a university ecosystem:
+
+```bash
+postdoc-scout map-institution --institution "Harvard University" --mode broad --country us
+```
+
+Map a cancer center as a parent institution:
+
+```bash
+postdoc-scout map-institution --institution "MD Anderson Cancer Center" --mode broad --country us
+```
+
+Academic medical centers, cancer centers, health systems, and independent research institutes are included alongside universities because translational digital medicine, clinical AI, EHR/RWD, AD/ADRD, oncology, clinical decision support, trial enrichment, and patient stratification work often lives outside traditional university departments.
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:
@@ -73,6 +106,9 @@ The `configs/` directory contains initial YAML configuration for:
 - `domain_keywords.yml`: positive and negative domain signals
 - `scoring_weights.yml`: initial scoring dimensions and weights
 - `institution_affiliates.yml`: curated institution ecosystem seed entries
+- `us_institution_targets.yml`: U.S. university and academic medical center seed parents
+- `us_institution_affiliates.yml`: U.S. cancer center, pediatric hospital, and health-system seed parents
+- `us_independent_research_institutes.yml`: U.S. independent research institute seed parents
 
 These files are intentionally simple so the project can evolve without hard-coded private assumptions.
 

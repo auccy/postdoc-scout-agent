@@ -1,0 +1,162 @@
+# U.S. independent biomedical research institute seed parents.
+# Curated seed layer only. Partner ecosystem labels are intentionally conservative.
+institutions:
+  - canonical_name: "Broad Institute"
+    aliases: ["Broad", "Broad Institute of MIT and Harvard"]
+    parent_type: independent_research_institute
+    city: "Cambridge"
+    state: "MA"
+    priority_tier: A
+    relevance_domains: [clinical AI, biomedical informatics, oncology, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify current programs and partner relationships before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Broad Institute of MIT and Harvard", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [biomedical informatics, clinical AI, oncology], priority: high, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Broad clinical and translational data science ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: high, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Harvard Medical School partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "MIT partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: partner_ecosystem, relevance_domains: [digital medicine, clinical AI], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Rockefeller University"
+    aliases: ["Rockefeller"]
+    parent_type: independent_research_institute
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [translational medicine, neuroscience, clinical AI, disease biology]
+    notes: "Curated seed parent; treat as independent parent institution."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Rockefeller University", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [translational medicine, neuroscience, disease biology], priority: high, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Rockefeller translational biomedical research ecosystem", unit_type: partner_research_institute, relationship_to_parent: needs_verification, relevance_domains: [translational medicine, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Weill Cornell nearby ecosystem", unit_type: medical_school, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Nearby ecosystem; do not assume formal affiliation.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Memorial Sloan Kettering nearby ecosystem", unit_type: cancer_center, relationship_to_parent: nearby_ecosystem, relevance_domains: [oncology, clinical AI], priority: medium, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Salk Institute"
+    aliases: ["Salk", "Salk Institute for Biological Studies"]
+    parent_type: independent_research_institute
+    city: "La Jolla"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [neuroscience, aging, AD/ADRD, translational medicine]
+    notes: "Curated seed parent; verify translational digital medicine fit before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Salk Institute neuroscience and aging ecosystem", unit_type: neuroscience_center, relationship_to_parent: owned_by, relevance_domains: [neuroscience, aging, AD/ADRD, neurodegeneration], priority: high, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UC San Diego nearby ecosystem", unit_type: medical_school, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Nearby ecosystem; do not assume formal affiliation.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Scripps Research"
+    aliases: ["The Scripps Research Institute", "Scripps"]
+    parent_type: independent_research_institute
+    city: "La Jolla"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [translational medicine, digital medicine, clinical AI, genomics]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Scripps Research translational biomedical ecosystem", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [translational medicine, clinical AI], priority: high, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Scripps digital medicine ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, clinical AI, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify specific programs before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Sanford Burnham Prebys"
+    aliases: ["Sanford Burnham Prebys Medical Discovery Institute", "SBP"]
+    parent_type: independent_research_institute
+    city: "La Jolla"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [translational medicine, oncology, neurodegeneration]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Sanford Burnham Prebys disease biology ecosystem", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [oncology, neurodegeneration, translational medicine], priority: medium, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "San Diego biomedical partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: low, notes: "Nearby ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "La Jolla Institute for Immunology"
+    aliases: ["LJI", "La Jolla Institute"]
+    parent_type: independent_research_institute
+    city: "La Jolla"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [translational medicine, immunology, clinical AI]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "La Jolla Institute immunology research ecosystem", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [translational medicine, clinical AI], priority: medium, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UC San Diego nearby ecosystem", unit_type: medical_school, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: low, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Allen Institute"
+    aliases: ["Allen Institute for Brain Science"]
+    parent_type: independent_research_institute
+    city: "Seattle"
+    state: "WA"
+    priority_tier: B
+    relevance_domains: [neuroscience, clinical AI, AD/ADRD, neurodegeneration]
+    notes: "Curated seed parent; prioritize clinically translational links when present."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Allen Institute neuroscience ecosystem", unit_type: neuroscience_center, relationship_to_parent: owned_by, relevance_domains: [neuroscience, neurodegeneration, AD/ADRD], priority: high, notes: "Parent institute seed unit; verify translational links.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Washington nearby ecosystem", unit_type: medical_school, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, neurology, EHR/RWD], priority: medium, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Gladstone Institutes"
+    aliases: ["Gladstone"]
+    parent_type: independent_research_institute
+    city: "San Francisco"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [neuroscience, AD/ADRD, translational medicine, clinical AI]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Gladstone neurological disease ecosystem", unit_type: neuroscience_center, relationship_to_parent: owned_by, relevance_domains: [AD/ADRD, neurodegeneration, neuroscience], priority: high, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "UCSF nearby ecosystem", unit_type: medical_school, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: medium, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Buck Institute for Research on Aging"
+    aliases: ["Buck Institute"]
+    parent_type: independent_research_institute
+    city: "Novato"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [aging, AD/ADRD, neurodegeneration, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Buck Institute aging research ecosystem", unit_type: aging_center, relationship_to_parent: owned_by, relevance_domains: [aging, AD/ADRD, neurodegeneration], priority: high, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Bay Area clinical translation partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: low, notes: "Nearby ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Cold Spring Harbor Laboratory"
+    aliases: ["CSHL", "Cold Spring Harbor"]
+    parent_type: independent_research_institute
+    city: "Cold Spring Harbor"
+    state: "NY"
+    priority_tier: B
+    relevance_domains: [neuroscience, oncology, translational medicine]
+    notes: "Curated seed parent; verify clinical translation fit before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Cold Spring Harbor Laboratory biomedical research ecosystem", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [neuroscience, oncology, translational medicine], priority: medium, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "New York clinical partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: low, notes: "Nearby ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Jackson Laboratory"
+    aliases: ["The Jackson Laboratory", "JAX"]
+    parent_type: independent_research_institute
+    city: "Bar Harbor"
+    state: "ME"
+    priority_tier: B
+    relevance_domains: [genomics, oncology, AD/ADRD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Jackson Laboratory disease genomics ecosystem", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [oncology, AD/ADRD, translational medicine], priority: medium, notes: "Parent institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "JAX clinical translation partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, disease risk prediction], priority: low, notes: "Seed ecosystem unit; verify specific partners.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "St. Jude Children's Research Hospital"
+    aliases: ["St Jude", "St. Jude"]
+    parent_type: independent_research_institute
+    city: "Memphis"
+    state: "TN"
+    priority_tier: B
+    relevance_domains: [oncology, clinical AI, pediatrics, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "St. Jude Children's Research Hospital", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [oncology, pediatrics, translational medicine], priority: high, notes: "Parent pediatric research hospital seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "St. Jude pediatric oncology data ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [oncology, clinical AI, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}

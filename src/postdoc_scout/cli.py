@@ -8,8 +8,10 @@ from rich.console import Console
 from rich.table import Table
 
 from postdoc_scout.institution_mapper import (
+    InstitutionTier,
     MappingMode,
     OutputFormat,
+    list_parent_institutions,
     map_institution_ecosystem,
     write_ecosystem_reports,
 )
@@ -68,13 +70,17 @@ def map_institution_command(
         Path,
         typer.Option(help="Directory where ecosystem reports will be written."),
     ] = Path("outputs"),
+    country: Annotated[
+        str,
+        typer.Option(help="Country seed layer to use. Only 'us' is curated for now."),
+    ] = "us",
     output_format: Annotated[
         OutputFormat,
         typer.Option("--format", help="Report format to write."),
     ] = OutputFormat.BOTH,
 ) -> None:
     """Map an institution into an auditable biomedical research ecosystem."""
-    ecosystem = map_institution_ecosystem(institution=institution, mode=mode)
+    ecosystem = map_institution_ecosystem(institution=institution, mode=mode, country=country)
     output_paths = write_ecosystem_reports(ecosystem, output_dir, output_format)
 
     table = Table(title="Institution Ecosystem Map")
@@ -96,6 +102,40 @@ def map_institution_command(
         console.print(
             "[yellow]No curated institution match found; empty reports were written.[/yellow]"
         )
+
+
+@app.command("list-institutions")
+def list_institutions_command(
+    country: Annotated[
+        str,
+        typer.Option(help="Country seed layer to list. Only 'us' is curated for now."),
+    ] = "us",
+    tier: Annotated[
+        InstitutionTier,
+        typer.Option(help="Priority tier filter."),
+    ] = InstitutionTier.ALL,
+) -> None:
+    """List curated parent institutions available to the mapper."""
+    entries = list_parent_institutions(country=country, tier=tier)
+
+    table = Table(title="Curated Institution Seed Map")
+    table.add_column("Tier", style="bold")
+    table.add_column("Institution")
+    table.add_column("Type")
+    table.add_column("Location")
+    table.add_column("Units", justify="right")
+
+    for entry in entries:
+        table.add_row(
+            str(entry.get("priority_tier", "C")),
+            str(entry.get("canonical_name") or entry.get("name")),
+            str(entry.get("parent_type", "other")),
+            f"{entry.get('city', '')}, {entry.get('state', '')}".strip(", "),
+            str(len(entry.get("units", []))),
+        )
+
+    console.print(table)
+    console.print(f"{len(entries)} parent institutions listed.")
 
 
 if __name__ == "__main__":

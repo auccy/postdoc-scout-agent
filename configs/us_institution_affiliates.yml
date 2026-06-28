@@ -1,0 +1,274 @@
+# U.S. cancer center, pediatric hospital, and health system seed parents.
+# Curated seed layer only. Relationship labels are conservative.
+institutions:
+  - canonical_name: "MD Anderson Cancer Center"
+    aliases: ["MD Anderson", "University of Texas MD Anderson Cancer Center"]
+    parent_type: cancer_center
+    city: "Houston"
+    state: "TX"
+    priority_tier: A
+    relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine, trial enrichment]
+    notes: "Curated seed parent; treat as a parent institution, not only an affiliate."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "MD Anderson Cancer Center", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "MD Anderson clinical data and informatics ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [EHR/RWD, clinical AI, clinical decision support], priority: high, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "MD Anderson clinical trials ecosystem", unit_type: clinical_trial_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, trial enrichment, patient stratification], priority: high, notes: "Seed ecosystem unit; verify specific programs before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Texas Medical Center partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: medium, notes: "Partner ecosystem; do not overclaim legal affiliation.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Memorial Sloan Kettering Cancer Center"
+    aliases: ["MSK", "MSKCC", "Memorial Sloan Kettering"]
+    parent_type: cancer_center
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Memorial Sloan Kettering Cancer Center", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "MSK computational oncology and clinical AI ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [oncology, clinical AI, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "MSK clinical trials ecosystem", unit_type: clinical_trial_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, trial enrichment, patient stratification], priority: high, notes: "Seed ecosystem unit; verify specific programs before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Weill Cornell and Rockefeller nearby ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [translational medicine, clinical AI], priority: medium, notes: "Nearby ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Dana-Farber Cancer Institute"
+    aliases: ["Dana-Farber", "DFCI"]
+    parent_type: cancer_center
+    city: "Boston"
+    state: "MA"
+    priority_tier: A
+    relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; also appears in Harvard ecosystem."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Dana-Farber Cancer Institute", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, clinical AI, translational medicine], priority: high, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Dana-Farber clinical informatics and real-world data ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [EHR/RWD, clinical AI, oncology], priority: high, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Dana-Farber clinical trials ecosystem", unit_type: clinical_trial_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, trial enrichment, patient stratification], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Harvard Medical School partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Fred Hutchinson Cancer Center"
+    aliases: ["Fred Hutch", "Fred Hutchinson"]
+    parent_type: cancer_center
+    city: "Seattle"
+    state: "WA"
+    priority_tier: A
+    relevance_domains: [oncology, clinical AI, public health, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Fred Hutchinson Cancer Center", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, translational medicine], priority: high, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Fred Hutch public health and cancer prevention ecosystem", unit_type: public_health_school, relationship_to_parent: needs_verification, relevance_domains: [public health, oncology, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify specific groups.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Fred Hutch clinical trials ecosystem", unit_type: clinical_trial_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, trial enrichment, patient stratification], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "University of Washington partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "City of Hope"
+    aliases: ["City of Hope National Medical Center"]
+    parent_type: cancer_center
+    city: "Duarte"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [oncology, clinical AI, translational medicine, trial enrichment]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "City of Hope cancer research ecosystem", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, translational medicine], priority: high, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "City of Hope clinical trials and precision oncology ecosystem", unit_type: clinical_trial_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, clinical AI, trial enrichment, patient stratification], priority: high, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Cedars-Sinai"
+    aliases: ["Cedars Sinai", "Cedars-Sinai Medical Center"]
+    parent_type: academic_medical_center
+    city: "Los Angeles"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, oncology]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Cedars-Sinai Medical Center", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Cedars-Sinai cancer and digital health ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [digital medicine, oncology, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Kaiser Permanente Division of Research"
+    aliases: ["Kaiser Permanente Northern California Division of Research", "Kaiser Permanente DOR"]
+    parent_type: health_system
+    city: "Oakland"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [EHR/RWD, clinical AI, public health, disease risk prediction]
+    notes: "Curated seed parent for real-world data and health system research; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Kaiser Permanente Division of Research", unit_type: health_system, relationship_to_parent: owned_by, relevance_domains: [EHR/RWD, public health, clinical AI], priority: high, notes: "Parent research unit seed entry; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Kaiser Permanente population health and prediction ecosystem", unit_type: population_health_unit, relationship_to_parent: needs_verification, relevance_domains: [disease risk prediction, patient stratification, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Moffitt Cancer Center"
+    aliases: ["Moffitt"]
+    parent_type: cancer_center
+    city: "Tampa"
+    state: "FL"
+    priority_tier: B
+    relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Moffitt Cancer Center", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, clinical AI], priority: high, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Moffitt integrated mathematical oncology and data ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [oncology, clinical AI, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify translational fit.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Fox Chase Cancer Center"
+    aliases: ["Fox Chase"]
+    parent_type: cancer_center
+    city: "Philadelphia"
+    state: "PA"
+    priority_tier: B
+    relevance_domains: [oncology, clinical AI, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Fox Chase Cancer Center", unit_type: cancer_center, relationship_to_parent: owned_by, relevance_domains: [oncology, translational medicine], priority: medium, notes: "Parent cancer center seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Temple Health partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: low, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Houston Methodist Research Institute"
+    aliases: ["Houston Methodist"]
+    parent_type: health_system
+    city: "Houston"
+    state: "TX"
+    priority_tier: B
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, translational medicine]
+    notes: "Curated seed parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Houston Methodist Research Institute", unit_type: partner_research_institute, relationship_to_parent: owned_by, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Parent research institute seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Houston Methodist clinical AI and health data ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, digital medicine, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Intermountain Health"
+    aliases: ["Intermountain Healthcare"]
+    parent_type: health_system
+    city: "Salt Lake City"
+    state: "UT"
+    priority_tier: B
+    relevance_domains: [EHR/RWD, clinical decision support, clinical AI, population health]
+    notes: "Curated seed health system parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Intermountain Health clinical data ecosystem", unit_type: health_system, relationship_to_parent: owned_by, relevance_domains: [EHR/RWD, clinical decision support, clinical AI], priority: medium, notes: "Health system seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Intermountain population health and prediction ecosystem", unit_type: population_health_unit, relationship_to_parent: needs_verification, relevance_domains: [population health, disease risk prediction, EHR/RWD], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Henry Ford Health"
+    aliases: ["Henry Ford Health System"]
+    parent_type: health_system
+    city: "Detroit"
+    state: "MI"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, oncology, population health]
+    notes: "Curated seed health system parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Henry Ford Health clinical ecosystem", unit_type: health_system, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD], priority: medium, notes: "Health system seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Henry Ford oncology and population health ecosystem", unit_type: cancer_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, population health, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Mass General Brigham"
+    aliases: ["MGB", "Partners HealthCare"]
+    parent_type: health_system
+    city: "Boston"
+    state: "MA"
+    priority_tier: A
+    relevance_domains: [clinical AI, digital medicine, EHR/RWD, AD/ADRD, oncology]
+    notes: "Curated seed health system parent; verify specific institutional relationships before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Massachusetts General Hospital", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, neurology, neuroscience], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Brigham and Women's Hospital", unit_type: affiliated_hospital, relationship_to_parent: affiliated_with, relevance_domains: [clinical AI, EHR/RWD, digital medicine], priority: high, notes: "Clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Mass General Brigham clinical AI and digital health ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, digital medicine, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify specific groups before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Harvard Medical School partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "NewYork-Presbyterian"
+    aliases: ["NYP", "New York Presbyterian"]
+    parent_type: health_system
+    city: "New York"
+    state: "NY"
+    priority_tier: A
+    relevance_domains: [clinical AI, EHR/RWD, clinical decision support, oncology]
+    notes: "Curated seed health system parent; verify specific academic relationships before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "NewYork-Presbyterian clinical data ecosystem", unit_type: health_system, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, clinical decision support], priority: high, notes: "Health system seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Columbia University partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Weill Cornell Medicine partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, EHR/RWD], priority: high, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "NYP oncology and digital medicine ecosystem", unit_type: digital_medicine_center, relationship_to_parent: needs_verification, relevance_domains: [oncology, digital medicine, clinical AI], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Children's Hospital of Philadelphia"
+    aliases: ["CHOP", "Children's Hospital Philadelphia"]
+    parent_type: academic_medical_center
+    city: "Philadelphia"
+    state: "PA"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, pediatrics, translational medicine]
+    notes: "Curated seed pediatric parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Children's Hospital of Philadelphia", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, pediatrics], priority: high, notes: "Pediatric clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "CHOP pediatric informatics and translational research ecosystem", unit_type: biomedical_informatics_unit, relationship_to_parent: needs_verification, relevance_domains: [clinical AI, EHR/RWD, translational medicine], priority: medium, notes: "Seed ecosystem unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Boston Children's Hospital"
+    aliases: ["BCH", "Boston Childrens Hospital"]
+    parent_type: academic_medical_center
+    city: "Boston"
+    state: "MA"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, pediatrics, translational medicine]
+    notes: "Curated seed pediatric parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Boston Children's Hospital", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, pediatrics], priority: high, notes: "Pediatric clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Harvard Medical School partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Texas Children's Hospital"
+    aliases: ["Texas Childrens Hospital", "TCH"]
+    parent_type: academic_medical_center
+    city: "Houston"
+    state: "TX"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, pediatrics, translational medicine]
+    notes: "Curated seed pediatric parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Texas Children's Hospital", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, pediatrics], priority: high, notes: "Pediatric clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Baylor College of Medicine partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Children's Hospital Los Angeles"
+    aliases: ["CHLA", "Childrens Hospital Los Angeles"]
+    parent_type: academic_medical_center
+    city: "Los Angeles"
+    state: "CA"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, pediatrics, oncology]
+    notes: "Curated seed pediatric parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Children's Hospital Los Angeles", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, pediatrics], priority: high, notes: "Pediatric clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "USC partner ecosystem", unit_type: medical_school, relationship_to_parent: partner_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: medium, notes: "Partner ecosystem; verify relationship before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Children's National Hospital"
+    aliases: ["Childrens National", "Children's National"]
+    parent_type: academic_medical_center
+    city: "Washington"
+    state: "DC"
+    priority_tier: B
+    relevance_domains: [clinical AI, EHR/RWD, pediatrics, translational medicine]
+    notes: "Curated seed pediatric parent; verify before use."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Children's National Hospital", unit_type: affiliated_hospital, relationship_to_parent: owned_by, relevance_domains: [clinical AI, EHR/RWD, pediatrics], priority: high, notes: "Pediatric clinical ecosystem seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "Washington DC academic medicine partner ecosystem", unit_type: partner_research_institute, relationship_to_parent: nearby_ecosystem, relevance_domains: [clinical AI, translational medicine], priority: low, notes: "Nearby ecosystem; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+
+  - canonical_name: "Veterans Health Administration research ecosystem"
+    aliases: ["VHA research", "VA research", "Veterans Affairs research"]
+    parent_type: health_system
+    city: "Washington"
+    state: "DC"
+    priority_tier: B
+    relevance_domains: [EHR/RWD, clinical AI, clinical decision support, population health]
+    notes: "Curated seed health-system research ecosystem; verify local centers and access rules."
+    verification_status: curated_seed_needs_verification
+    units:
+      - {name: "Veterans Health Administration research ecosystem", unit_type: health_system, relationship_to_parent: owned_by, relevance_domains: [EHR/RWD, clinical AI, population health], priority: high, notes: "National health-system seed unit; verify before use.", source_urls: [], verification_status: curated_seed_needs_verification}
+      - {name: "VA clinical decision support and real-world data ecosystem", unit_type: clinical_trial_center, relationship_to_parent: needs_verification, relevance_domains: [clinical decision support, disease risk prediction, EHR/RWD], priority: high, notes: "Seed ecosystem unit; verify specific centers before use.", source_urls: [], verification_status: curated_seed_needs_verification}

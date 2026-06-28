@@ -5,7 +5,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Any
 
-from postdoc_scout.config import load_named_config
+from postdoc_scout.config import CONFIG_DIR, load_named_config
 from postdoc_scout.models import EvidenceItem, Institution, InstitutionEcosystem, InstitutionUnit
 
 
@@ -24,6 +24,15 @@ class OutputFormat(str, Enum):
     BOTH = "both"
 
 
+class InstitutionTier(str, Enum):
+    """Supported institution priority tier filters."""
+
+    A = "A"
+    B = "B"
+    C = "C"
+    ALL = "all"
+
+
 MODE_DOMAIN_WEIGHTS = {
     MappingMode.BROAD: {
         "digital medicine": 0.18,
@@ -31,9 +40,15 @@ MODE_DOMAIN_WEIGHTS = {
         "oncology": 0.14,
         "EHR/RWD": 0.14,
         "public health": 0.11,
+        "population health": 0.11,
+        "epidemiology": 0.10,
         "translational medicine": 0.11,
         "biomedical informatics": 0.09,
         "clinical decision support": 0.05,
+        "trial enrichment": 0.05,
+        "patient stratification": 0.05,
+        "disease risk prediction": 0.05,
+        "pediatrics": 0.04,
     },
     MappingMode.NARROW: {
         "AD/ADRD": 0.24,
@@ -48,7 +63,10 @@ MODE_DOMAIN_WEIGHTS = {
 
 UNIT_TYPE_PRIORS = {
     "medical_school": 0.10,
+    "academic_medical_center": 0.10,
+    "health_system": 0.10,
     "public_health_school": 0.08,
+    "population_health_unit": 0.08,
     "affiliated_hospital": 0.10,
     "cancer_center": 0.12,
     "aging_center": 0.12,
@@ -68,6 +86,12 @@ DEFAULT_LIMITATIONS = [
     "No web scraping, external APIs, or private data sources are used in this MVP module.",
 ]
 
+US_SEED_FILES = [
+    "us_institution_targets.yml",
+    "us_institution_affiliates.yml",
+    "us_independent_research_institutes.yml",
+]
+
 
 def normalize_institution_name(name: str) -> str:
     """Normalize institution names and aliases for conservative matching."""
@@ -82,19 +106,60 @@ def slugify_institution_name(name: str) -> str:
     return normalized.replace(" ", "_") or "unknown_institution"
 
 
-def _load_affiliate_entries() -> list[dict[str, Any]]:
-    data = load_named_config("institution_affiliates.yml")
+def _read_seed_file(name: str) -> list[dict[str, Any]]:
+    if not (CONFIG_DIR / name).exists():
+        return []
+    data = load_named_config(name)
     institutions = data.get("institutions", [])
     if not isinstance(institutions, list):
         return []
     return [entry for entry in institutions if isinstance(entry, dict)]
 
 
-def _find_institution_entry(query: str) -> tuple[dict[str, Any] | None, list[str]]:
+def _entry_name(entry: dict[str, Any]) -> str:
+    return str(entry.get("canonical_name") or entry.get("name") or "Unknown institution")
+
+
+def _load_institution_entries(country: str = "us") -> list[dict[str, Any]]:
+    entries: list[dict[str, Any]] = []
+    if country.casefold() == "us":
+        for seed_file in US_SEED_FILES:
+            entries.extend(_read_seed_file(seed_file))
+    else:
+        entries.extend(_read_seed_file("institution_affiliates.yml"))
+
+    seen: set[str] = set()
+    deduped: list[dict[str, Any]] = []
+    for entry in entries:
+        normalized_name = normalize_institution_name(_entry_name(entry))
+        if normalized_name not in seen:
+            seen.add(normalized_name)
+            deduped.append(entry)
+    return deduped
+
+
+def list_parent_institutions(
+    country: str = "us",
+    tier: InstitutionTier = InstitutionTier.ALL,
+) -> list[dict[str, Any]]:
+    """List curated parent institutions for CLI inspection and tests."""
+    entries = _load_institution_entries(country)
+    if tier == InstitutionTier.ALL:
+        return sorted(entries, key=lambda entry: (_entry_name(entry)))
+    return sorted(
+        [entry for entry in entries if str(entry.get("priority_tier", "C")) == tier.value],
+        key=lambda entry: _entry_name(entry),
+    )
+
+
+def _find_institution_entry(
+    query: str,
+    country: str = "us",
+) -> tuple[dict[str, Any] | None, list[str]]:
     normalized_query = normalize_institution_name(query)
 
-    for entry in _load_affiliate_entries():
-        names = [entry.get("name", ""), *entry.get("aliases", [])]
+    for entry in _load_institution_entries(country):
+        names = [_entry_name(entry), *entry.get("aliases", [])]
         normalized_aliases = {
             normalize_institution_name(alias): alias for alias in names if isinstance(alias, str)
         }
@@ -142,15 +207,20 @@ def _build_unit(raw_unit: dict[str, Any], parent_name: str, mode: MappingMode) -
         source_urls=source_urls,
         evidence_items=evidence_items,
         notes=str(raw_unit.get("notes", "Curated seed entry; verify before use.")),
+        priority=str(raw_unit.get("priority", "medium")),
+        verification_status=str(
+            raw_unit.get("verification_status", "curated_seed_needs_verification")
+        ),
     )
 
 
 def map_institution_ecosystem(
     institution: str,
     mode: MappingMode = MappingMode.BROAD,
+    country: str = "us",
 ) -> InstitutionEcosystem:
     """Map an institution query to relevant biomedical ecosystem units."""
-    entry, matched_aliases = _find_institution_entry(institution)
+    entry, matched_aliases = _find_institution_entry(institution, country)
     normalized_query = normalize_institution_name(institution)
 
     if entry is None:
@@ -161,6 +231,8 @@ def map_institution_ecosystem(
                 name=institution,
                 normalized_name=normalized_query,
                 aliases=[],
+                verification_status="curated_seed_needs_verification",
+                confidence=0.1,
             ),
             matched_aliases=[],
             units=[],
@@ -170,7 +242,7 @@ def map_institution_ecosystem(
             ],
         )
 
-    canonical_name = str(entry.get("name", institution))
+    canonical_name = _entry_name(entry)
     aliases = [str(alias) for alias in entry.get("aliases", [])]
     units = [
         _build_unit(raw_unit, canonical_name, mode)
@@ -186,6 +258,16 @@ def map_institution_ecosystem(
             name=canonical_name,
             normalized_name=normalize_institution_name(canonical_name),
             aliases=aliases,
+            parent_type=str(entry.get("parent_type", "other")),
+            city=entry.get("city"),
+            state=entry.get("state"),
+            priority_tier=str(entry.get("priority_tier", "C")),
+            relevance_domains=[str(domain) for domain in entry.get("relevance_domains", [])],
+            notes=str(entry.get("notes", "Curated seed entry; verify before use.")),
+            verification_status=str(
+                entry.get("verification_status", "curated_seed_needs_verification")
+            ),
+            confidence=float(entry.get("confidence", 0.5)),
         ),
         matched_aliases=matched_aliases,
         units=units,
@@ -215,6 +297,11 @@ def write_ecosystem_markdown(ecosystem: InstitutionEcosystem, output_dir: Path) 
         "",
         f"- Query: {ecosystem.query}",
         f"- Normalized: {ecosystem.institution.normalized_name}",
+        f"- Parent type: {ecosystem.institution.parent_type}",
+        f"- Location: {ecosystem.institution.city or 'Unknown'}, "
+        f"{ecosystem.institution.state or 'Unknown'}",
+        f"- Priority tier: {ecosystem.institution.priority_tier}",
+        f"- Verification status: {ecosystem.institution.verification_status}",
         f"- Mode: {ecosystem.mode}",
         "",
         "## Matched Aliases",
@@ -231,6 +318,8 @@ def write_ecosystem_markdown(ecosystem: InstitutionEcosystem, output_dir: Path) 
                     "",
                     f"- Type: {unit.unit_type}",
                     f"- Relationship: {unit.relationship_to_parent}",
+                    f"- Priority: {unit.priority}",
+                    f"- Verification status: {unit.verification_status}",
                     f"- Relevance score: {unit.relevance_score:.3f}",
                     f"- Confidence: {unit.confidence:.2f}",
                     f"- Relevance domains: {', '.join(unit.relevance_domains) or 'None listed'}",

@@ -18,6 +18,14 @@ class Institution(BaseModel):
     name: str
     normalized_name: str
     aliases: list[str] = Field(default_factory=list)
+    parent_type: str = "other"
+    city: str | None = None
+    state: str | None = None
+    priority_tier: str = "C"
+    relevance_domains: list[str] = Field(default_factory=list)
+    notes: str = ""
+    verification_status: str = "curated_seed_needs_verification"
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
 
 
 class InstitutionUnit(BaseModel):
@@ -33,6 +41,8 @@ class InstitutionUnit(BaseModel):
     source_urls: list[str] = Field(default_factory=list)
     evidence_items: list[EvidenceItem] = Field(default_factory=list)
     notes: str = ""
+    priority: str = "medium"
+    verification_status: str = "curated_seed_needs_verification"
 
 
 class InstitutionEcosystem(BaseModel):
