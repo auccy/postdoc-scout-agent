@@ -7,6 +7,11 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from postdoc_scout.evidence_collector import (
+    collect_evidence_from_query_file,
+    parse_sources,
+    write_evidence_collection_reports,
+)
 from postdoc_scout.institution_mapper import (
     InstitutionTier,
     MappingMode,
@@ -259,6 +264,75 @@ def build_queries_command(
             console.print(f"- {query.source} | {query.unit_name}: {query.query_text}")
     else:
         console.print("[yellow]No high-priority queries were generated.[/yellow]")
+
+
+@app.command("collect-evidence")
+def collect_evidence_command(
+    query_file: Annotated[
+        Path,
+        typer.Option(help="Path to a discovery query bundle JSON file."),
+    ],
+    sources: Annotated[
+        str,
+        typer.Option(help="Comma-separated evidence sources: openalex,pubmed."),
+    ] = "openalex,pubmed",
+    limit_per_source: Annotated[
+        int,
+        typer.Option(min=0, help="Maximum publications to collect from each source."),
+    ] = 20,
+    year_from: Annotated[
+        int | None,
+        typer.Option(help="Optional lower publication year bound."),
+    ] = 2021,
+    year_to: Annotated[
+        int | None,
+        typer.Option(help="Optional upper publication year bound."),
+    ] = None,
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where evidence collection reports will be written."),
+    ] = Path("outputs"),
+    output_format: Annotated[
+        OutputFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = OutputFormat.BOTH,
+) -> None:
+    """Collect publication evidence from OpenAlex and/or PubMed query templates."""
+    try:
+        parse_sources(sources)
+    except ValueError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+
+    collection = collect_evidence_from_query_file(
+        query_file=query_file,
+        sources=sources,
+        limit_per_source=limit_per_source,
+        year_from=year_from,
+        year_to=year_to,
+    )
+    output_paths = write_evidence_collection_reports(
+        collection=collection,
+        output_dir=output_dir,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="Publication Evidence Collection")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Institution", collection.institution)
+    table.add_row("Sources", ", ".join(collection.sources))
+    table.add_row("Queries run", str(collection.total_queries_run))
+    table.add_row("Retrieved", str(collection.total_publications_retrieved))
+    table.add_row("Deduplicated", str(collection.deduplicated_publications))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if collection.warnings:
+        console.print("[yellow]Warnings[/yellow]")
+        for warning in collection.warnings[:5]:
+            console.print(f"- {warning}")
+    else:
+        console.print("[green]No connector warnings were recorded.[/green]")
 
 
 if __name__ == "__main__":
