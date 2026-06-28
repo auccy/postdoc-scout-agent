@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use Postdoc Scout Agent, please cite this repository. Metadata is a placeholder and should be edited by the repository owner before archival release."
+title: "Postdoc Scout Agent"
+version: "0.1.0-unreleased"
+date-released: "2026-06-29"
+authors:
+  - name: "auccy"
+repository-code: "https://github.com/auccy/postdoc-scout-agent"
+license: "MIT"
+keywords:
+  - "digital medicine"
+  - "clinical AI"
+  - "biomedical informatics"
+  - "postdoc search"
+  - "research software"
+
