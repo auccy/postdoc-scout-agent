@@ -140,6 +140,29 @@ outputs/mock_candidate_scores.json
 outputs/mock_candidate_scores.md
 ```
 
+## Supervisor Discovery Query Builder
+
+The query builder bridges institution ecosystem mapping and future source connectors. It turns a mapped institution and its relevant units into auditable query templates before any PubMed, OpenAlex, Semantic Scholar, NIH RePORTER, or web/lab-page API calls are made.
+
+Query generation happens first so the search strategy can be inspected, deduplicated, and tuned before live evidence collection. Each query preserves the institution unit, unit type, mode, relevance domains, priority, expected evidence type, and rationale.
+
+Broad mode emphasizes digital medicine, clinical AI, EHR/RWD, oncology digital medicine, clinical decision support, risk prediction, patient stratification, trial enrichment, public health, and biomedical informatics. Narrow mode emphasizes AD/ADRD, Alzheimer's disease, dementia, aging, neurodegeneration, cognitive decline, neurology, memory centers, and biomarker terms.
+
+Run:
+
+```bash
+postdoc-scout build-queries --institution "Harvard University" --mode broad --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/harvard_university_discovery_queries.json
+outputs/harvard_university_discovery_queries.md
+```
+
+The generated bundle is deterministic and does not call external APIs, scrape websites, require API keys, or claim that any evidence has already been collected. Future connectors will consume these query bundles and attach source evidence to supervisor candidates.
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:

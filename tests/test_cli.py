@@ -8,6 +8,7 @@ from postdoc_scout.institution_mapper import (
     map_institution_ecosystem,
 )
 from postdoc_scout.models import EvidenceItem, Publication, SupervisorCandidate
+from postdoc_scout.query_builder import build_query_bundle
 from postdoc_scout.scoring import (
     assign_priority_label,
     calculate_weighted_score,
@@ -354,3 +355,90 @@ def test_score_mock_candidates_cli(tmp_path) -> None:
     assert "Dr. Victor Stone" in result.output
     assert (tmp_path / "mock_candidate_scores.json").exists()
     assert (tmp_path / "mock_candidate_scores.md").exists()
+
+
+def test_harvard_broad_query_builder_generates_expected_unit_queries() -> None:
+    bundle = build_query_bundle("Harvard University", MappingMode.BROAD, limit=100)
+    unit_names = {query.unit_name for query in bundle.queries}
+    query_text = "\n".join(query.query_text for query in bundle.queries)
+
+    assert "Harvard Medical School" in unit_names
+    assert "Massachusetts General Hospital" in unit_names
+    assert "Brigham and Women's Hospital" in unit_names
+    assert "Dana-Farber Cancer Institute" in unit_names
+    assert "Broad Institute of MIT and Harvard" in unit_names
+    assert "clinical AI" in query_text
+    assert "digital medicine" in query_text
+
+
+def test_harvard_narrow_query_builder_generates_neuro_queries() -> None:
+    bundle = build_query_bundle("Harvard University", MappingMode.NARROW, limit=100)
+    query_text = "\n".join(query.query_text for query in bundle.queries)
+
+    assert "AD/ADRD" in query_text or "Alzheimer" in query_text
+    assert "aging" in query_text
+    assert "neuro" in query_text.casefold() or "memory center" in query_text
+
+
+def test_md_anderson_broad_query_builder_generates_oncology_queries() -> None:
+    bundle = build_query_bundle("MD Anderson Cancer Center", MappingMode.BROAD, limit=100)
+    query_text = "\n".join(query.query_text for query in bundle.queries)
+
+    assert bundle.institution == "MD Anderson Cancer Center"
+    assert "oncology" in query_text
+    assert "real-world data" in query_text or "EHR" in query_text
+    assert "clinical decision support" in query_text or "trial enrichment" in query_text
+
+
+def test_rockefeller_query_builder_handles_independent_parent() -> None:
+    bundle = build_query_bundle("Rockefeller University", MappingMode.BROAD, limit=100)
+
+    assert bundle.institution == "Rockefeller University"
+    assert bundle.queries
+    assert any("nearby ecosystem" in query.unit_name.casefold() for query in bundle.queries)
+
+
+def test_unknown_institution_query_builder_returns_empty_bundle() -> None:
+    bundle = build_query_bundle("Unknown Example Institute", MappingMode.BROAD)
+
+    assert bundle.institution == "Unknown Example Institute"
+    assert bundle.queries == []
+    assert bundle.limitations
+
+
+def test_query_deduplication_produces_unique_source_unit_text_keys() -> None:
+    bundle = build_query_bundle("Harvard University", MappingMode.BROAD, limit=100)
+    keys = {
+        (query.source, query.unit_name.casefold(), query.query_text.casefold())
+        for query in bundle.queries
+    }
+
+    assert len(keys) == len(bundle.queries)
+
+
+def test_build_queries_cli_generates_json_and_markdown(tmp_path) -> None:
+    runner = CliRunner()
+
+    result = runner.invoke(
+        app,
+        [
+            "build-queries",
+            "--institution",
+            "Harvard University",
+            "--mode",
+            "broad",
+            "--country",
+            "us",
+            "--output-dir",
+            str(tmp_path),
+            "--limit",
+            "100",
+            "--format",
+            "both",
+        ],
+    )
+
+    assert result.exit_code == 0
+    assert "Harvard University" in result.output
+    assert (tmp_path / "harvard_university_discovery_queries.json").exists()
+    assert (tmp_path / "harvard_university_discovery_queries.md").exists()
