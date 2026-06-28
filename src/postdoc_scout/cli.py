@@ -36,8 +36,14 @@ from postdoc_scout.institution_mapper import (
     write_ecosystem_reports,
 )
 from postdoc_scout.models import PipelineConfig
+from postdoc_scout.opening_signals import detect_openings_from_file
 from postdoc_scout.pipeline import run_pipeline
 from postdoc_scout.query_builder import build_query_bundle, write_query_bundle_reports
+from postdoc_scout.review_tracker import (
+    export_shortlist,
+    init_review_tracker,
+    update_candidate_review,
+)
 from postdoc_scout.scoring import score_candidates_from_file
 from postdoc_scout.scout import ScoutMode, ScoutRequest, run_placeholder_scout
 from postdoc_scout.seed_map_validation import validate_seed_map, write_validation_reports
@@ -83,6 +89,37 @@ class PipelineFormat(str, Enum):
     JSON = "json"
     MD = "md"
     ALL = "all"
+
+
+class OpeningSignalFormat(str, Enum):
+    """Supported opening-signal output formats."""
+
+    JSON = "json"
+    MD = "md"
+    CSV = "csv"
+    ALL = "all"
+
+
+class ReviewStatusOption(str, Enum):
+    """Manual review status options."""
+
+    INTERESTED = "interested"
+    MAYBE = "maybe"
+    LOW_PRIORITY = "low_priority"
+    DO_NOT_CONTACT = "do_not_contact"
+    NEEDS_MORE_REVIEW = "needs_more_review"
+
+
+class OutreachStatusOption(str, Enum):
+    """Manual outreach tracking status options."""
+
+    NOT_CONTACTED = "not_contacted"
+    DRAFTED = "drafted"
+    CONTACTED = "contacted"
+    REPLIED = "replied"
+    FOLLOW_UP_NEEDED = "follow_up_needed"
+    REJECTED = "rejected"
+    ARCHIVED = "archived"
 
 
 @app.callback()
@@ -593,6 +630,162 @@ def enrich_candidates_command(
             )
     else:
         console.print("[yellow]No ranked candidates were enriched.[/yellow]")
+
+
+@app.command("detect-openings")
+def detect_openings_command(
+    ranked_file: Annotated[
+        Path,
+        typer.Option(help="Path to ranked_supervisors.json or enriched_supervisors.json."),
+    ],
+    manual_signals: Annotated[
+        Path | None,
+        typer.Option(help="Optional YAML/CSV with manual snippets or URLs."),
+    ] = None,
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where opening-signal reports will be written."),
+    ] = Path("outputs"),
+    top_n: Annotated[
+        int | None,
+        typer.Option(help="Optional maximum number of ranked candidates to assess."),
+    ] = None,
+    output_format: Annotated[
+        OpeningSignalFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = OpeningSignalFormat.ALL,
+) -> None:
+    """Detect deterministic lab/profile/opening signals from manual evidence."""
+    report, output_paths = detect_openings_from_file(
+        ranked_file=ranked_file,
+        manual_signals=manual_signals,
+        output_dir=output_dir,
+        top_n=top_n,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="Opening Signal Discovery")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Ranked file", str(ranked_file))
+    table.add_row("Manual signals", str(manual_signals) if manual_signals else "None")
+    table.add_row("Candidates assessed", str(report.candidate_count))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if report.candidates:
+        console.print("[bold]Top opening assessments[/bold]")
+        for candidate in report.candidates[:5]:
+            console.print(
+                f"- {candidate.display_name}: {candidate.opening_signal_type} "
+                f"({candidate.opening_signal_strength}, confidence={candidate.confidence:.2f})"
+            )
+    console.print(
+        "[yellow]Opening signals are preliminary and require manual verification before "
+        "outreach.[/yellow]"
+    )
+
+
+@app.command("init-review-tracker")
+def init_review_tracker_command(
+    ranked_file: Annotated[
+        Path,
+        typer.Option(help="Path to ranked_supervisors.json or enriched_supervisors.json."),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(help="CSV tracker path to create."),
+    ] = Path("outputs/review_tracker.csv"),
+    opening_signals_file: Annotated[
+        Path | None,
+        typer.Option(help="Optional opening_signals.json to merge into tracker rows."),
+    ] = None,
+) -> None:
+    """Initialize a manual candidate review tracker CSV."""
+    reviews = init_review_tracker(
+        ranked_file=ranked_file,
+        output=output,
+        opening_signals_file=opening_signals_file,
+    )
+    table = Table(title="Review Tracker Initialized")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Candidates", str(len(reviews)))
+    table.add_row("Output", str(output))
+    console.print(table)
+
+
+@app.command("review-candidate")
+def review_candidate_command(
+    tracker: Annotated[
+        Path,
+        typer.Option(help="Path to review_tracker.csv."),
+    ],
+    candidate_id: Annotated[str, typer.Option(help="Candidate ID to update.")],
+    review_status: Annotated[
+        ReviewStatusOption | None,
+        typer.Option(help="Manual review status."),
+    ] = None,
+    outreach_status: Annotated[
+        OutreachStatusOption | None,
+        typer.Option(help="Outreach tracking status."),
+    ] = None,
+    note: Annotated[
+        str | None,
+        typer.Option(help="Manual review note to append."),
+    ] = None,
+    next_action: Annotated[
+        str | None,
+        typer.Option(help="Optional next manual action."),
+    ] = None,
+) -> None:
+    """Update one candidate row in the manual review tracker."""
+    review = update_candidate_review(
+        tracker=tracker,
+        candidate_id=candidate_id,
+        review_status=review_status.value if review_status else None,
+        outreach_status=outreach_status.value if outreach_status else None,
+        note=note,
+        next_action=next_action,
+    )
+    table = Table(title="Candidate Review Updated")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Candidate", review.display_name)
+    table.add_row("Review status", review.review_status)
+    table.add_row("Outreach status", review.outreach_status)
+    table.add_row("Notes", review.user_notes or "None")
+    console.print(table)
+
+
+@app.command("export-shortlist")
+def export_shortlist_command(
+    tracker: Annotated[
+        Path,
+        typer.Option(help="Path to review_tracker.csv."),
+    ],
+    status: Annotated[
+        ReviewStatusOption | None,
+        typer.Option(help="Review status to export."),
+    ] = ReviewStatusOption.INTERESTED,
+    output: Annotated[
+        Path,
+        typer.Option(help="CSV path for shortlist export."),
+    ] = Path("outputs/shortlist.csv"),
+) -> None:
+    """Export a manual-review shortlist CSV."""
+    report = export_shortlist(
+        tracker=tracker,
+        output=output,
+        status=status.value if status else None,
+    )
+    table = Table(title="Shortlist Exported")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Status filter", report.status_filter or "all")
+    table.add_row("Candidates", str(report.candidate_count))
+    table.add_row("Output", str(output))
+    console.print(table)
 
 
 @app.command("run-pipeline")

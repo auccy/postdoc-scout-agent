@@ -62,8 +62,31 @@ OpeningSignalType = Literal[
     "explicit_postdoc_opening",
     "lab_hiring_statement",
     "contact_for_positions",
+    "recent_grant_possible_hiring",
     "no_signal_found",
+    "outdated_signal",
+    "mismatch_signal",
     "manual_note",
+]
+
+OpeningSignalStrength = Literal["high", "medium", "low", "none"]
+
+ReviewStatus = Literal[
+    "interested",
+    "maybe",
+    "low_priority",
+    "do_not_contact",
+    "needs_more_review",
+]
+
+OutreachStatus = Literal[
+    "not_contacted",
+    "drafted",
+    "contacted",
+    "replied",
+    "follow_up_needed",
+    "rejected",
+    "archived",
 ]
 
 ExpectedEvidenceType = Literal[
@@ -407,6 +430,71 @@ class OpeningSignal(BaseModel):
     warnings: list[str] = Field(default_factory=list)
 
 
+class LabProfileSignal(BaseModel):
+    """Lab/profile URL and search-query hints for one ranked candidate."""
+
+    candidate_id: str
+    display_name: str
+    possible_affiliations: list[str] = Field(default_factory=list)
+    generated_search_queries: list[str] = Field(default_factory=list)
+    profile_urls: list[str] = Field(default_factory=list)
+    lab_urls: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    warnings: list[str] = Field(default_factory=list)
+    evidence_items: list[EvidenceItem] = Field(default_factory=list)
+
+
+class OpeningSignalEvidence(BaseModel):
+    """One deterministic opening-signal classification from manual text or URL evidence."""
+
+    candidate_id: str
+    display_name: str
+    opening_signal_type: OpeningSignalType = "no_signal_found"
+    opening_signal_strength: OpeningSignalStrength = "none"
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    source_url: str | None = None
+    evidence_snippet: str = ""
+    source_query: str = ""
+    opportunity_score_adjustment: float = 0.0
+    warnings: list[str] = Field(default_factory=list)
+    evidence_items: list[EvidenceItem] = Field(default_factory=list)
+
+
+class CandidateOpportunityAssessment(BaseModel):
+    """Opening-signal assessment for one ranked supervisor candidate."""
+
+    candidate_id: str
+    display_name: str
+    possible_affiliations: list[str] = Field(default_factory=list)
+    original_priority_label: str = ""
+    original_score: float = 0.0
+    generated_search_queries: list[str] = Field(default_factory=list)
+    profile_urls: list[str] = Field(default_factory=list)
+    lab_urls: list[str] = Field(default_factory=list)
+    opening_signal_type: OpeningSignalType = "no_signal_found"
+    opening_signal_strength: OpeningSignalStrength = "none"
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    source_url: str | None = None
+    evidence_snippet: str = ""
+    source_query: str = ""
+    opportunity_score_adjustment: float = 0.0
+    suggested_next_manual_check: str = ""
+    warnings: list[str] = Field(default_factory=list)
+    evidence_items: list[EvidenceItem] = Field(default_factory=list)
+
+
+class OpeningSignalReport(BaseModel):
+    """Auditable opening-signal report for ranked or enriched supervisor candidates."""
+
+    generated_at: str
+    ranked_file: str
+    manual_signals_file: str | None = None
+    candidate_count: int = 0
+    candidates: list[CandidateOpportunityAssessment] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+
+
 class CandidateProfileEnrichment(BaseModel):
     """Profile, funding, and opening enrichment for one ranked candidate."""
 
@@ -452,6 +540,37 @@ class EnrichedCandidateReport(BaseModel):
     run_summary: EnrichmentRunSummary
     candidates: list[EnrichedSupervisorCandidate] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
+
+
+class CandidateReview(BaseModel):
+    """Manual review-tracker row for one candidate."""
+
+    candidate_id: str
+    display_name: str
+    possible_affiliations: str = ""
+    original_priority_label: str = ""
+    original_score: float = 0.0
+    review_status: ReviewStatus = "needs_more_review"
+    outreach_status: OutreachStatus = "not_contacted"
+    user_notes: str = ""
+    last_updated: str = ""
+    next_action: str = ""
+    contact_url: str = ""
+    email: str = ""
+    opening_signal_type: OpeningSignalType = "no_signal_found"
+    opening_signal_strength: OpeningSignalStrength = "none"
+    opportunity_score_adjustment: float = 0.0
+
+
+class ShortlistReport(BaseModel):
+    """Summary of exported manual-review shortlist rows."""
+
+    generated_at: str
+    tracker_file: str
+    output_file: str
+    status_filter: ReviewStatus | None = None
+    candidate_count: int = 0
+    candidates: list[CandidateReview] = Field(default_factory=list)
 
 
 class PipelineConfig(BaseModel):

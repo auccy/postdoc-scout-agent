@@ -200,6 +200,56 @@ The project downweights profiles dominated by pure statistical theory, benchmark
 
 This is intentionally a modest penalty rather than a hard exclusion. A strong methods researcher can still rank well if the evidence shows real clinical data, disease applications, digital medicine translation, or implementation-facing work.
 
+## Lab Website / Opening Signal Discovery
+
+Opening-signal discovery adds a conservative opportunity-assessment layer after candidate ranking or enrichment. It generates manual web/profile search queries and classifies provided snippets or URLs into explicit postdoc openings, general hiring statements, contact-for-positions guidance, recent-grant possible hiring signals, outdated signals, mismatch signals, or no signal found.
+
+Run:
+
+```bash
+postdoc-scout detect-openings --ranked-file outputs/ranked_supervisors.json --output-dir outputs --format all
+```
+
+Optional manual signals can be supplied as YAML or CSV:
+
+```bash
+postdoc-scout detect-openings --ranked-file outputs/ranked_supervisors.json --manual-signals examples/manual_opening_signals.yml --output-dir outputs --format all
+```
+
+This writes:
+
+```text
+outputs/opening_signals.json
+outputs/opening_signals.md
+outputs/opening_signals.csv
+```
+
+The detector does not scrape arbitrary websites or call live web search. It does not claim that a candidate is hiring unless explicit current evidence is manually provided and verified.
+
+## Manual Review + Shortlist Tracker
+
+The review tracker helps convert ranked candidates into a manual shortlist without generating outreach drafts. It is designed for annotation, prioritization, and status tracking.
+
+Initialize a tracker:
+
+```bash
+postdoc-scout init-review-tracker --ranked-file outputs/ranked_supervisors.json --output outputs/review_tracker.csv
+```
+
+Update a candidate:
+
+```bash
+postdoc-scout review-candidate --tracker outputs/review_tracker.csv --candidate-id CAND_001 --review-status interested --outreach-status not_contacted --note "Strong digital medicine fit"
+```
+
+Export a shortlist:
+
+```bash
+postdoc-scout export-shortlist --tracker outputs/review_tracker.csv --status interested --output outputs/shortlist.csv
+```
+
+The tracker is intentionally manual. It does not implement cold email generation, contact-angle drafting, authentication, or database persistence.
+
 ## Example Output Snippets
 
 Mock ranked supervisor row:
