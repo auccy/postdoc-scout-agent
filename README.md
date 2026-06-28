@@ -248,6 +248,36 @@ outputs/ranked_supervisors.md
 outputs/ranked_supervisors.csv
 ```
 
+## Candidate Profile Enrichment
+
+Candidate profile enrichment runs after ranking so additional profile and funding evidence can annotate an already auditable ranked candidate list without changing the original score or rank. The enrichment layer preserves the original ranking fields and adds a clearly labeled preliminary enrichment-adjusted score.
+
+NIH RePORTER is used to look for recent grant and project evidence by PI name and organization hints. Semantic Scholar is used for preliminary author profile evidence such as author IDs, affiliation strings, paper counts, citation counts, h-index, and fields of study. Profile matching is conservative: multiple matches, missing affiliations, and weak affiliation overlap are surfaced as warnings rather than treated as identity certainty.
+
+Manual profile and opening evidence is currently a placeholder layer. The project does not scrape arbitrary lab websites yet, so opening signals require human review of lab pages, department pages, and institutional profiles before contacting any PI.
+
+Run:
+
+```bash
+postdoc-scout enrich-candidates --ranked-file outputs/ranked_supervisors.json --sources nih_reporter,semantic_scholar,manual --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/enriched_supervisors.json
+outputs/enriched_supervisors.md
+outputs/enriched_supervisors.csv
+```
+
+Limitations:
+
+- profile matches are preliminary
+- NIH RePORTER may miss non-NIH funding
+- Semantic Scholar author disambiguation can be incomplete
+- lab openings are not fully scraped yet
+- human review is required before contacting any PI
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:

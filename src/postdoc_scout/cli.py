@@ -1,5 +1,6 @@
 """Command-line interface for postdoc-scout-agent."""
 
+from datetime import UTC, datetime
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -8,6 +9,11 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from postdoc_scout.candidate_enricher import (
+    enrich_candidates_from_file,
+    parse_enrichment_sources,
+    write_enriched_candidate_reports,
+)
 from postdoc_scout.candidate_extractor import (
     extract_candidates_from_file,
     write_candidate_extraction_reports,
@@ -53,6 +59,15 @@ class CandidateExtractionFormat(str, Enum):
 
 class CandidateRankingFormat(str, Enum):
     """Supported candidate ranking output formats."""
+
+    JSON = "json"
+    MD = "md"
+    CSV = "csv"
+    ALL = "all"
+
+
+class EnrichmentFormat(str, Enum):
+    """Supported enrichment output formats."""
 
     JSON = "json"
     MD = "md"
@@ -487,6 +502,87 @@ def rank_candidates_command(
             )
     else:
         console.print("[yellow]No candidates met the ranking threshold.[/yellow]")
+
+
+@app.command("enrich-candidates")
+def enrich_candidates_command(
+    ranked_file: Annotated[
+        Path,
+        typer.Option(help="Path to a ranked supervisors JSON file."),
+    ],
+    sources: Annotated[
+        str,
+        typer.Option(
+            help="Comma-separated enrichment sources: nih_reporter,semantic_scholar,manual."
+        ),
+    ] = "nih_reporter,semantic_scholar,manual",
+    year_from: Annotated[
+        int | None,
+        typer.Option(help="Optional lower fiscal year bound for funding searches."),
+    ] = datetime.now(UTC).year - 5,
+    year_to: Annotated[
+        int | None,
+        typer.Option(help="Optional upper fiscal year bound for funding searches."),
+    ] = None,
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where enriched supervisor reports will be written."),
+    ] = Path("outputs"),
+    top_n: Annotated[
+        int | None,
+        typer.Option(help="Optional maximum number of ranked candidates to enrich."),
+    ] = None,
+    output_format: Annotated[
+        EnrichmentFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = EnrichmentFormat.ALL,
+) -> None:
+    """Enrich ranked candidates with preliminary profile, funding, and opening evidence."""
+    try:
+        parse_enrichment_sources(sources)
+    except ValueError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+
+    report = enrich_candidates_from_file(
+        ranked_file=ranked_file,
+        sources=sources,
+        year_from=year_from,
+        year_to=year_to,
+        top_n=top_n,
+    )
+    output_paths = write_enriched_candidate_reports(
+        report=report,
+        output_dir=output_dir,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="Enriched Supervisor Candidates")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Sources", ", ".join(report.run_summary.sources))
+    table.add_row("Candidates processed", str(report.run_summary.candidates_processed))
+    table.add_row(
+        "With funding",
+        str(report.run_summary.candidates_with_funding_evidence),
+    )
+    table.add_row(
+        "With profiles",
+        str(report.run_summary.candidates_with_author_profile_evidence),
+    )
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if report.candidates:
+        console.print("[bold]Top enriched candidates[/bold]")
+        for candidate in report.candidates[:5]:
+            ranked = candidate.ranked_candidate
+            adjusted = candidate.enrichment_adjusted_score or ranked.overall_score
+            console.print(
+                f"- {ranked.rank}. {ranked.display_name} "
+                f"(original={ranked.overall_score:.3f}, adjusted={adjusted:.3f})"
+            )
+    else:
+        console.print("[yellow]No ranked candidates were enriched.[/yellow]")
 
 
 if __name__ == "__main__":

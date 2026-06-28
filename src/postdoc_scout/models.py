@@ -47,6 +47,16 @@ QuerySource = Literal[
 
 EvidenceConnector = Literal["openalex", "pubmed"]
 
+EnrichmentSource = Literal["nih_reporter", "semantic_scholar", "manual"]
+
+OpeningSignalType = Literal[
+    "explicit_postdoc_opening",
+    "lab_hiring_statement",
+    "contact_for_positions",
+    "no_signal_found",
+    "manual_note",
+]
+
 ExpectedEvidenceType = Literal[
     "publication",
     "grant",
@@ -342,6 +352,97 @@ class CandidateRankingReport(BaseModel):
     methodology_note: str = ""
     limitations: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+
+
+class FundingEvidence(BaseModel):
+    """Grant or funding evidence from NIH RePORTER or similar sources."""
+
+    title: str = ""
+    funder: str = ""
+    project_number: str | None = None
+    fiscal_years: list[int] = Field(default_factory=list)
+    role: str = ""
+    organization: str = ""
+    url: str | None = None
+    relevance_domains: list[str] = Field(default_factory=list)
+    evidence_id: str = ""
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    notes: str = ""
+
+
+class AuthorProfileEvidence(BaseModel):
+    """External author/profile evidence for a preliminary supervisor candidate."""
+
+    source: str
+    profile_url: str | None = None
+    author_id: str | None = None
+    name: str = ""
+    affiliations: list[str] = Field(default_factory=list)
+    paper_count: int | None = None
+    citation_count: int | None = None
+    h_index: int | None = None
+    fields_of_study: list[str] = Field(default_factory=list)
+    matched_by: str = ""
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    warnings: list[str] = Field(default_factory=list)
+
+
+class OpeningSignal(BaseModel):
+    """Manual or future connector-derived lab opening signal."""
+
+    signal_type: OpeningSignalType = "no_signal_found"
+    source_url: str | None = None
+    text_or_note: str = ""
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    evidence_id: str = ""
+    warnings: list[str] = Field(default_factory=list)
+
+
+class CandidateProfileEnrichment(BaseModel):
+    """Profile, funding, and opening enrichment for one ranked candidate."""
+
+    candidate_id: str
+    display_name: str
+    possible_affiliations: list[str] = Field(default_factory=list)
+    profile_urls: list[str] = Field(default_factory=list)
+    semantic_scholar_profiles: list[AuthorProfileEvidence] = Field(default_factory=list)
+    nih_reporter_grants: list[FundingEvidence] = Field(default_factory=list)
+    manual_profile_notes: list[str] = Field(default_factory=list)
+    opening_signals: list[OpeningSignal] = Field(default_factory=list)
+    enrichment_warnings: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    evidence_items: list[EvidenceItem] = Field(default_factory=list)
+
+
+class EnrichedSupervisorCandidate(BaseModel):
+    """Ranked supervisor candidate plus deterministic enrichment annotations."""
+
+    ranked_candidate: RankedSupervisorCandidate
+    enrichment: CandidateProfileEnrichment
+    enrichment_adjusted_score: float | None = None
+    enrichment_notes: list[str] = Field(default_factory=list)
+    next_manual_check: str = ""
+
+
+class EnrichmentRunSummary(BaseModel):
+    """Summary of one candidate enrichment run."""
+
+    sources: list[EnrichmentSource] = Field(default_factory=list)
+    candidates_processed: int = 0
+    candidates_with_funding_evidence: int = 0
+    candidates_with_author_profile_evidence: int = 0
+    candidates_with_opening_signals: int = 0
+    warnings: list[str] = Field(default_factory=list)
+
+
+class EnrichedCandidateReport(BaseModel):
+    """Auditable enriched supervisor report."""
+
+    generated_at: str
+    ranked_file: str
+    run_summary: EnrichmentRunSummary
+    candidates: list[EnrichedSupervisorCandidate] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
 
 
 class Institution(BaseModel):
