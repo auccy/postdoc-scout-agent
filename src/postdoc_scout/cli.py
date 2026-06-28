@@ -12,6 +12,10 @@ from postdoc_scout.candidate_extractor import (
     extract_candidates_from_file,
     write_candidate_extraction_reports,
 )
+from postdoc_scout.candidate_ranker import (
+    rank_candidates_from_files,
+    write_candidate_ranking_reports,
+)
 from postdoc_scout.evidence_collector import (
     collect_evidence_from_query_file,
     parse_sources,
@@ -40,6 +44,15 @@ console = Console()
 
 class CandidateExtractionFormat(str, Enum):
     """Supported candidate extraction output formats."""
+
+    JSON = "json"
+    MD = "md"
+    CSV = "csv"
+    ALL = "all"
+
+
+class CandidateRankingFormat(str, Enum):
+    """Supported candidate ranking output formats."""
 
     JSON = "json"
     MD = "md"
@@ -406,6 +419,74 @@ def extract_candidates_command(
             )
     else:
         console.print("[yellow]No candidate clusters met the extraction threshold.[/yellow]")
+
+
+@app.command("rank-candidates")
+def rank_candidates_command(
+    candidate_file: Annotated[
+        Path,
+        typer.Option(help="Path to a candidate extraction JSON file."),
+    ],
+    institution: Annotated[str, typer.Option(help="Institution context for ranking.")],
+    mode: Annotated[
+        MappingMode,
+        typer.Option(help="Ranking mode matching the source extraction report."),
+    ] = MappingMode.BROAD,
+    evidence_file: Annotated[
+        Path | None,
+        typer.Option(help="Optional path to the original evidence collection JSON file."),
+    ] = None,
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where ranked supervisor reports will be written."),
+    ] = Path("outputs"),
+    min_score: Annotated[
+        float | None,
+        typer.Option(help="Optional minimum overall score to include."),
+    ] = None,
+    top_n: Annotated[
+        int | None,
+        typer.Option(help="Optional maximum number of ranked candidates to include."),
+    ] = None,
+    output_format: Annotated[
+        CandidateRankingFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = CandidateRankingFormat.ALL,
+) -> None:
+    """Rank extracted candidate clusters with the deterministic scoring framework."""
+    report = rank_candidates_from_files(
+        candidate_file=candidate_file,
+        evidence_file=evidence_file,
+        institution=institution,
+        mode=mode.value,
+        min_score=min_score,
+        top_n=top_n,
+    )
+    output_paths = write_candidate_ranking_reports(
+        report=report,
+        output_dir=output_dir,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="Ranked Supervisor Candidates")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Institution", report.institution)
+    table.add_row("Mode", report.mode)
+    table.add_row("Clusters processed", str(report.clusters_processed))
+    table.add_row("Ranked candidates", str(report.ranked_candidate_count))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if report.ranked_candidates:
+        console.print("[bold]Top ranked candidates[/bold]")
+        for candidate in report.ranked_candidates[:5]:
+            console.print(
+                f"- {candidate.rank}. {candidate.display_name} "
+                f"({candidate.priority_label}, score={candidate.overall_score:.3f})"
+            )
+    else:
+        console.print("[yellow]No candidates met the ranking threshold.[/yellow]")
 
 
 if __name__ == "__main__":

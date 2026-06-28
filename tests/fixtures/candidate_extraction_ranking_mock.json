@@ -1,0 +1,215 @@
+{
+  "institution": "Harvard University",
+  "mode": "broad",
+  "source_evidence_file": "tests/fixtures/evidence_collection_mock.json",
+  "total_publications_processed": 3,
+  "total_author_mentions": 5,
+  "total_candidate_clusters": 2,
+  "candidate_clusters": [
+    {
+      "candidate_id": "cand_0001",
+      "display_name": "Nora Senior",
+      "normalized_name": "nora senior",
+      "possible_affiliations": ["Harvard Medical School"],
+      "matched_institution_units": ["Harvard Medical School"],
+      "publications": [
+        {
+          "title": "Clinical AI risk prediction using EHR data",
+          "year": 2024,
+          "journal": "Mock Digital Medicine",
+          "authors": ["Alice First", "Nora Senior"],
+          "affiliations": ["Harvard Medical School"],
+          "author_affiliations": {
+            "Nora Senior": ["Harvard Medical School"]
+          },
+          "corresponding_authors": [],
+          "candidate_author_position": "unknown",
+          "doi": "10.1000/mock-one",
+          "abstract": "Clinical AI and EHR real-world data prediction study.",
+          "relevance_domains": ["clinical AI", "EHR/RWD", "digital medicine"],
+          "evidence_items": [
+            {
+              "evidence_id": "fixture:openalex:1",
+              "source_type": "publication",
+              "title": "Clinical AI risk prediction using EHR data",
+              "source_name": "OpenAlex",
+              "quoted_or_paraphrased_evidence": "Clinical AI and EHR real-world data prediction study.",
+              "relevance_domains": ["clinical AI", "EHR/RWD"],
+              "note": "Fixture evidence.",
+              "confidence": 0.8
+            }
+          ]
+        },
+        {
+          "title": "Real-world data progression modeling for clinical decision support",
+          "year": 2024,
+          "journal": "Mock Translational Informatics",
+          "authors": ["Bob First", "Nora Senior"],
+          "affiliations": ["Harvard Medical School"],
+          "author_affiliations": {
+            "Nora Senior": ["Harvard Medical School"]
+          },
+          "corresponding_authors": ["Nora Senior"],
+          "candidate_author_position": "unknown",
+          "pmid": "999001",
+          "abstract": "Clinical decision support using EHR real-world data.",
+          "relevance_domains": ["clinical decision support", "EHR/RWD"],
+          "evidence_items": [
+            {
+              "evidence_id": "fixture:pubmed:1",
+              "source_type": "publication",
+              "title": "Real-world data progression modeling for clinical decision support",
+              "source_name": "PubMed",
+              "quoted_or_paraphrased_evidence": "Clinical decision support using EHR real-world data.",
+              "relevance_domains": ["clinical decision support", "EHR/RWD"],
+              "note": "Fixture evidence.",
+              "confidence": 0.8
+            }
+          ]
+        }
+      ],
+      "author_mentions": [
+        {
+          "author_name": "Nora Senior",
+          "normalized_author_name": "nora senior",
+          "publication_title": "Clinical AI risk prediction using EHR data",
+          "publication_year": 2024,
+          "journal": "Mock Digital Medicine",
+          "author_position": "last",
+          "affiliations": ["Harvard Medical School"],
+          "matched_institution_units": ["Harvard Medical School"],
+          "source_connector": "openalex",
+          "evidence_id": "fixture:openalex:1",
+          "originating_query_id": "q_0001_openalex",
+          "relevance_domains": ["clinical AI", "EHR/RWD", "digital medicine"],
+          "confidence": 0.8,
+          "warnings": []
+        },
+        {
+          "author_name": "Nora Senior",
+          "normalized_author_name": "nora senior",
+          "publication_title": "Real-world data progression modeling for clinical decision support",
+          "publication_year": 2024,
+          "journal": "Mock Translational Informatics",
+          "author_position": "corresponding",
+          "affiliations": ["Harvard Medical School"],
+          "matched_institution_units": ["Harvard Medical School"],
+          "source_connector": "pubmed",
+          "evidence_id": "fixture:pubmed:1",
+          "originating_query_id": "q_0002_pubmed",
+          "relevance_domains": ["clinical decision support", "EHR/RWD"],
+          "confidence": 0.8,
+          "warnings": []
+        }
+      ],
+      "evidence_items": [
+        {
+          "evidence_id": "fixture:openalex:1",
+          "source_type": "publication",
+          "title": "Clinical AI risk prediction using EHR data",
+          "source_name": "OpenAlex",
+          "quoted_or_paraphrased_evidence": "Clinical AI and EHR real-world data prediction study.",
+          "relevance_domains": ["clinical AI", "EHR/RWD"],
+          "note": "Fixture evidence.",
+          "confidence": 0.8
+        },
+        {
+          "evidence_id": "fixture:pubmed:1",
+          "source_type": "publication",
+          "title": "Real-world data progression modeling for clinical decision support",
+          "source_name": "PubMed",
+          "quoted_or_paraphrased_evidence": "Clinical decision support using EHR real-world data.",
+          "relevance_domains": ["clinical decision support", "EHR/RWD"],
+          "note": "Fixture evidence.",
+          "confidence": 0.8
+        }
+      ],
+      "senior_author_count": 1,
+      "corresponding_author_count": 1,
+      "first_author_count": 0,
+      "recent_publication_count": 2,
+      "high_impact_publication_count": 0,
+      "field_leading_publication_count": 0,
+      "relevance_domains": ["clinical AI", "EHR/RWD", "digital medicine", "clinical decision support"],
+      "candidate_confidence": 1.0,
+      "ambiguity_warnings": [],
+      "notes": "Preliminary author cluster only."
+    },
+    {
+      "candidate_id": "cand_0002",
+      "display_name": "Victor Method",
+      "normalized_name": "victor method",
+      "possible_affiliations": ["Unknown Institute"],
+      "matched_institution_units": [],
+      "publications": [
+        {
+          "title": "Benchmark-only foundation model architecture for optimization theory",
+          "year": 2024,
+          "journal": "Mock Methods",
+          "authors": ["Victor Method"],
+          "affiliations": ["Unknown Institute"],
+          "author_affiliations": {
+            "Victor Method": ["Unknown Institute"]
+          },
+          "candidate_author_position": "unknown",
+          "abstract": "Benchmark-only simulation-only optimization theory without clinical translation.",
+          "relevance_domains": ["statistical theory", "foundation model architecture"],
+          "evidence_items": [
+            {
+              "evidence_id": "fixture:method:1",
+              "source_type": "publication",
+              "title": "Benchmark-only foundation model architecture for optimization theory",
+              "source_name": "Mock Methods",
+              "quoted_or_paraphrased_evidence": "Benchmark-only simulation-only optimization theory.",
+              "relevance_domains": ["statistical theory", "foundation model architecture"],
+              "note": "Fixture method-heavy evidence.",
+              "confidence": 0.8
+            }
+          ]
+        }
+      ],
+      "author_mentions": [
+        {
+          "author_name": "Victor Method",
+          "normalized_author_name": "victor method",
+          "publication_title": "Benchmark-only foundation model architecture for optimization theory",
+          "publication_year": 2024,
+          "journal": "Mock Methods",
+          "author_position": "unknown",
+          "affiliations": ["Unknown Institute"],
+          "matched_institution_units": [],
+          "source_connector": "openalex",
+          "evidence_id": "fixture:method:1",
+          "originating_query_id": "q_method_openalex",
+          "relevance_domains": ["statistical theory", "foundation model architecture"],
+          "confidence": 0.4,
+          "warnings": ["Method-heavy publication with limited clinical/digital medicine signal."]
+        }
+      ],
+      "evidence_items": [
+        {
+          "evidence_id": "fixture:method:1",
+          "source_type": "publication",
+          "title": "Benchmark-only foundation model architecture for optimization theory",
+          "source_name": "Mock Methods",
+          "quoted_or_paraphrased_evidence": "Benchmark-only simulation-only optimization theory.",
+          "relevance_domains": ["statistical theory", "foundation model architecture"],
+          "note": "Fixture method-heavy evidence.",
+          "confidence": 0.8
+        }
+      ],
+      "senior_author_count": 0,
+      "corresponding_author_count": 0,
+      "first_author_count": 0,
+      "recent_publication_count": 1,
+      "high_impact_publication_count": 0,
+      "field_leading_publication_count": 0,
+      "relevance_domains": ["statistical theory", "foundation model architecture"],
+      "candidate_confidence": 0.4,
+      "ambiguity_warnings": ["Method-heavy publication with limited clinical/digital medicine signal."],
+      "notes": "Preliminary method-heavy cluster."
+    }
+  ],
+  "limitations": ["Fixture candidate extraction report."],
+  "warnings": []
+}
