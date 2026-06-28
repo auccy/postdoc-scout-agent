@@ -1,0 +1,245 @@
+# Curated seed entries for Institution Ecosystem Mapper.
+# These entries are intentionally non-exhaustive and should be verified before use.
+institutions:
+  - name: Harvard University
+    aliases:
+      - Harvard
+      - Harvard Medical School
+      - Harvard University ecosystem
+    limitations:
+      - Curated seed entry; verify affiliations, center names, and current URLs before use.
+      - This map is not exhaustive and does not imply supervisor suitability.
+      - No web scraping or external API calls were used.
+    units:
+      - name: Harvard Medical School
+        unit_type: medical_school
+        relationship_to_parent: school associated with the Harvard ecosystem
+        relevance_domains: [clinical AI, translational medicine, biomedical informatics]
+        confidence: 0.85
+        source_urls: [https://hms.harvard.edu/]
+        evidence_items:
+          - source_name: Harvard Medical School homepage
+            url: https://hms.harvard.edu/
+            note: Curated seed entry; verify before use.
+            confidence: 0.85
+        notes: Curated seed entry; verify before use.
+      - name: Harvard T.H. Chan School of Public Health
+        unit_type: public_health_school
+        relationship_to_parent: school associated with the Harvard ecosystem
+        relevance_domains: [public health, EHR/RWD, translational medicine]
+        confidence: 0.8
+        source_urls: [https://www.hsph.harvard.edu/]
+        evidence_items:
+          - source_name: Harvard T.H. Chan School of Public Health homepage
+            url: https://www.hsph.harvard.edu/
+            note: Curated seed entry; verify before use.
+            confidence: 0.8
+        notes: Curated seed entry; verify before use.
+      - name: Massachusetts General Hospital
+        unit_type: affiliated_hospital
+        relationship_to_parent: Harvard-affiliated teaching hospital seed entry
+        relevance_domains: [clinical AI, EHR/RWD, neurology, neuroscience, translational medicine]
+        confidence: 0.75
+        source_urls: [https://www.massgeneral.org/]
+        evidence_items:
+          - source_name: Massachusetts General Hospital homepage
+            url: https://www.massgeneral.org/
+            note: Curated seed entry; verify current affiliation and relevant labs before use.
+            confidence: 0.75
+        notes: Curated seed entry; verify before use.
+      - name: Brigham and Women's Hospital
+        unit_type: affiliated_hospital
+        relationship_to_parent: Harvard-affiliated teaching hospital seed entry
+        relevance_domains: [clinical AI, EHR/RWD, digital medicine, translational medicine]
+        confidence: 0.75
+        source_urls: [https://www.brighamandwomens.org/]
+        evidence_items:
+          - source_name: Brigham and Women's Hospital homepage
+            url: https://www.brighamandwomens.org/
+            note: Curated seed entry; verify current affiliation and relevant labs before use.
+            confidence: 0.75
+        notes: Curated seed entry; verify before use.
+      - name: Dana-Farber Cancer Institute
+        unit_type: cancer_center
+        relationship_to_parent: Harvard-affiliated cancer center seed entry
+        relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+        confidence: 0.75
+        source_urls: [https://www.dana-farber.org/]
+        evidence_items:
+          - source_name: Dana-Farber Cancer Institute homepage
+            url: https://www.dana-farber.org/
+            note: Curated seed entry; verify current affiliation and relevant labs before use.
+            confidence: 0.75
+        notes: Curated seed entry; verify before use.
+      - name: Broad Institute of MIT and Harvard
+        unit_type: partner_research_institute
+        relationship_to_parent: partner research institute in the Harvard/MIT ecosystem
+        relevance_domains: [biomedical informatics, oncology, translational medicine, clinical AI]
+        confidence: 0.7
+        source_urls: [https://www.broadinstitute.org/]
+        evidence_items:
+          - source_name: Broad Institute homepage
+            url: https://www.broadinstitute.org/
+            note: Curated seed entry; verify relevant clinical translation groups before use.
+            confidence: 0.7
+        notes: Curated seed entry; verify before use.
+      - name: Harvard NeuroDiscovery Center
+        unit_type: neuroscience_center
+        relationship_to_parent: neuroscience center seed entry in the Harvard ecosystem
+        relevance_domains: [AD/ADRD, aging, neurodegeneration, neuroscience, neurology]
+        confidence: 0.65
+        source_urls: [https://neurodiscovery.harvard.edu/]
+        evidence_items:
+          - source_name: Harvard NeuroDiscovery Center homepage
+            url: https://neurodiscovery.harvard.edu/
+            note: Curated seed entry; verify current programs before use.
+            confidence: 0.65
+        notes: Curated seed entry; verify before use.
+
+  - name: Stanford University
+    aliases: [Stanford, Stanford Medicine]
+    units:
+      - name: Stanford School of Medicine
+        unit_type: medical_school
+        relationship_to_parent: school associated with the Stanford ecosystem
+        relevance_domains: [clinical AI, digital medicine, translational medicine]
+        confidence: 0.8
+        source_urls: [https://med.stanford.edu/]
+        evidence_items: [{source_name: Stanford Medicine homepage, url: https://med.stanford.edu/, note: Curated seed entry; verify before use., confidence: 0.8}]
+        notes: Curated seed entry; verify before use.
+      - name: Stanford Center for Biomedical Informatics Research
+        unit_type: biomedical_informatics_unit
+        relationship_to_parent: biomedical informatics unit seed entry
+        relevance_domains: [biomedical informatics, clinical AI, EHR/RWD]
+        confidence: 0.7
+        source_urls: [https://bmir.stanford.edu/]
+        evidence_items: [{source_name: Stanford BMIR homepage, url: https://bmir.stanford.edu/, note: Curated seed entry; verify before use., confidence: 0.7}]
+        notes: Curated seed entry; verify before use.
+
+  - name: Massachusetts Institute of Technology
+    aliases: [MIT, Massachusetts Institute of Technology ecosystem]
+    units:
+      - name: MIT Institute for Medical Engineering and Science
+        unit_type: partner_research_institute
+        relationship_to_parent: translational medical engineering unit seed entry
+        relevance_domains: [digital medicine, clinical AI, translational medicine]
+        confidence: 0.75
+        source_urls: [https://imes.mit.edu/]
+        evidence_items: [{source_name: MIT IMES homepage, url: https://imes.mit.edu/, note: Curated seed entry; verify before use., confidence: 0.75}]
+        notes: Curated seed entry; verify before use.
+      - name: Broad Institute of MIT and Harvard
+        unit_type: partner_research_institute
+        relationship_to_parent: partner research institute in the MIT/Harvard ecosystem
+        relevance_domains: [biomedical informatics, oncology, translational medicine, clinical AI]
+        confidence: 0.7
+        source_urls: [https://www.broadinstitute.org/]
+        evidence_items: [{source_name: Broad Institute homepage, url: https://www.broadinstitute.org/, note: Curated seed entry; verify before use., confidence: 0.7}]
+        notes: Curated seed entry; verify before use.
+
+  - name: Mayo Clinic
+    aliases: [Mayo, Mayo Clinic ecosystem]
+    units:
+      - name: Mayo Clinic Center for Digital Health
+        unit_type: digital_medicine_center
+        relationship_to_parent: digital health unit seed entry
+        relevance_domains: [digital medicine, clinical AI, EHR/RWD, clinical decision support]
+        confidence: 0.75
+        source_urls: [https://www.mayoclinic.org/]
+        evidence_items: [{source_name: Mayo Clinic homepage, url: https://www.mayoclinic.org/, note: Curated seed entry; verify specific center details before use., confidence: 0.7}]
+        notes: Curated seed entry; verify before use.
+
+  - name: Memorial Sloan Kettering Cancer Center
+    aliases: [MSK, MSKCC, Memorial Sloan Kettering]
+    units:
+      - name: Memorial Sloan Kettering Cancer Center
+        unit_type: cancer_center
+        relationship_to_parent: cancer center and parent institution
+        relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+        confidence: 0.85
+        source_urls: [https://www.mskcc.org/]
+        evidence_items: [{source_name: MSK homepage, url: https://www.mskcc.org/, note: Curated seed entry; verify before use., confidence: 0.85}]
+        notes: Curated seed entry; verify before use.
+
+  - name: Dana-Farber Cancer Institute
+    aliases: [Dana-Farber, DFCI]
+    units:
+      - name: Dana-Farber Cancer Institute
+        unit_type: cancer_center
+        relationship_to_parent: cancer center and parent institution
+        relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+        confidence: 0.85
+        source_urls: [https://www.dana-farber.org/]
+        evidence_items: [{source_name: Dana-Farber homepage, url: https://www.dana-farber.org/, note: Curated seed entry; verify before use., confidence: 0.85}]
+        notes: Curated seed entry; verify before use.
+
+  - name: MD Anderson Cancer Center
+    aliases: [MD Anderson, University of Texas MD Anderson Cancer Center]
+    units:
+      - name: MD Anderson Cancer Center
+        unit_type: cancer_center
+        relationship_to_parent: cancer center and parent institution
+        relevance_domains: [oncology, clinical AI, EHR/RWD, translational medicine]
+        confidence: 0.85
+        source_urls: [https://www.mdanderson.org/]
+        evidence_items: [{source_name: MD Anderson homepage, url: https://www.mdanderson.org/, note: Curated seed entry; verify before use., confidence: 0.85}]
+        notes: Curated seed entry; verify before use.
+
+  - name: National University of Singapore
+    aliases: [NUS]
+    units:
+      - name: Yong Loo Lin School of Medicine
+        unit_type: medical_school
+        relationship_to_parent: medical school seed entry
+        relevance_domains: [clinical AI, digital medicine, translational medicine]
+        confidence: 0.75
+        source_urls: [https://medicine.nus.edu.sg/]
+        evidence_items: [{source_name: NUS Medicine homepage, url: https://medicine.nus.edu.sg/, note: Curated seed entry; verify before use., confidence: 0.75}]
+        notes: Curated seed entry; verify before use.
+
+  - name: University of Melbourne
+    aliases: [Melbourne, UniMelb]
+    units:
+      - name: Melbourne Medical School
+        unit_type: medical_school
+        relationship_to_parent: medical school seed entry
+        relevance_domains: [clinical AI, public health, translational medicine]
+        confidence: 0.75
+        source_urls: [https://medicine.unimelb.edu.au/]
+        evidence_items: [{source_name: Melbourne Medical School homepage, url: https://medicine.unimelb.edu.au/, note: Curated seed entry; verify before use., confidence: 0.75}]
+        notes: Curated seed entry; verify before use.
+
+  - name: University of Oxford
+    aliases: [Oxford, Oxford University]
+    units:
+      - name: Oxford Medical Sciences Division
+        unit_type: medical_school
+        relationship_to_parent: medical sciences division seed entry
+        relevance_domains: [clinical AI, public health, translational medicine, EHR/RWD]
+        confidence: 0.75
+        source_urls: [https://www.medsci.ox.ac.uk/]
+        evidence_items: [{source_name: Oxford Medical Sciences homepage, url: https://www.medsci.ox.ac.uk/, note: Curated seed entry; verify before use., confidence: 0.75}]
+        notes: Curated seed entry; verify before use.
+
+  - name: University of Cambridge
+    aliases: [Cambridge, Cambridge University]
+    units:
+      - name: Cambridge School of Clinical Medicine
+        unit_type: medical_school
+        relationship_to_parent: clinical medicine school seed entry
+        relevance_domains: [clinical AI, translational medicine, neuroscience]
+        confidence: 0.75
+        source_urls: [https://www.medschl.cam.ac.uk/]
+        evidence_items: [{source_name: Cambridge School of Clinical Medicine homepage, url: https://www.medschl.cam.ac.uk/, note: Curated seed entry; verify before use., confidence: 0.75}]
+        notes: Curated seed entry; verify before use.
+
+  - name: Karolinska Institutet
+    aliases: [Karolinska Institute, KI]
+    units:
+      - name: Karolinska Institutet
+        unit_type: medical_school
+        relationship_to_parent: medical university and parent institution
+        relevance_domains: [clinical AI, translational medicine, public health, neuroscience]
+        confidence: 0.8
+        source_urls: [https://ki.se/en]
+        evidence_items: [{source_name: Karolinska Institutet homepage, url: https://ki.se/en, note: Curated seed entry; verify before use., confidence: 0.8}]
+        notes: Curated seed entry; verify before use.
