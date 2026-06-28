@@ -34,6 +34,8 @@ QuerySource = Literal[
     "generic",
 ]
 
+EvidenceConnector = Literal["openalex", "pubmed"]
+
 ExpectedEvidenceType = Literal[
     "publication",
     "grant",
@@ -189,6 +191,47 @@ class QueryBundle(BaseModel):
     queries: list[SearchQuery] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
     ecosystem_summary: dict[str, object] = Field(default_factory=dict)
+
+
+class ConnectorRunSummary(BaseModel):
+    """Summary of one external connector run."""
+
+    source_connector: EvidenceConnector
+    queries_attempted: int = 0
+    requests_made: int = 0
+    publications_retrieved: int = 0
+    errors: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
+class RetrievedPublicationEvidence(BaseModel):
+    """Publication evidence retrieved from one connector and traced to one query."""
+
+    publication: Publication
+    source_connector: EvidenceConnector
+    originating_query_id: str
+    originating_query_text: str
+    matched_unit_name: str
+    relevance_domains: list[str] = Field(default_factory=list)
+    retrieval_warnings: list[str] = Field(default_factory=list)
+
+
+class EvidenceCollection(BaseModel):
+    """Deduplicated publication evidence collection for a query bundle."""
+
+    institution: str
+    normalized_institution: str
+    generated_at: str
+    query_file: str | None = None
+    sources: list[EvidenceConnector] = Field(default_factory=list)
+    total_queries_run: int = 0
+    total_publications_retrieved: int = 0
+    deduplicated_publications: int = 0
+    duplicate_publications_removed: int = 0
+    publications: list[RetrievedPublicationEvidence] = Field(default_factory=list)
+    connector_summaries: list[ConnectorRunSummary] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
 
 
 class Institution(BaseModel):

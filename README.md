@@ -163,6 +163,43 @@ outputs/harvard_university_discovery_queries.md
 
 The generated bundle is deterministic and does not call external APIs, scrape websites, require API keys, or claim that any evidence has already been collected. Future connectors will consume these query bundles and attach source evidence to supervisor candidates.
 
+## External Connector Layer v0
+
+The external connector layer consumes generated discovery query bundles and collects publication evidence candidates from public scholarly sources. This stage still does not rank supervisors or verify individual candidate identity.
+
+OpenAlex is used for open scholarly graph search. PubMed/NCBI E-utilities is used for biomedical publication retrieval. API keys are optional where supported, and tests use mocked HTTP responses rather than live network calls.
+
+Optional environment variables:
+
+```bash
+POSTDOC_SCOUT_CONTACT_EMAIL="you@example.org"
+NCBI_API_KEY="optional_ncbi_key"
+```
+
+Build queries, then collect publication evidence:
+
+```bash
+postdoc-scout build-queries --institution "Harvard University" --mode broad --output-dir outputs
+postdoc-scout collect-evidence --query-file outputs/harvard_university_discovery_queries.json --sources openalex,pubmed --limit-per-source 20 --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/evidence_collection.json
+outputs/evidence_collection.md
+```
+
+The evidence collection report includes connector summaries, query counts, publication counts before and after deduplication, top retrieved publications grouped by source and institution unit, retrieval warnings, and limitations.
+
+Limitations:
+
+- author disambiguation is not solved yet
+- retrieved publications are evidence candidates, not verified supervisor profiles
+- affiliation metadata may be incomplete
+- results require later scoring and verification
+- this layer does not scrape websites or implement full supervisor ranking
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:
