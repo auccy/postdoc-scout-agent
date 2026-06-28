@@ -73,6 +73,7 @@ More detail:
 - [Pipeline](docs/pipeline.md)
 - [Scoring Framework](docs/scoring_framework.md)
 - [Seed Map](docs/seed_map.md)
+- [Dashboard](docs/dashboard.md)
 - [Limitations](docs/limitations.md)
 - [Roadmap](docs/roadmap.md)
 
@@ -159,6 +160,33 @@ ranked_supervisors.json / ranked_supervisors.md / ranked_supervisors.csv
 enriched_supervisors.json / enriched_supervisors.md / enriched_supervisors.csv
 pipeline_run.json / pipeline_summary.md
 ```
+
+## Streamlit Dashboard
+
+Install dashboard dependencies:
+
+```bash
+pip install -e ".[dashboard]"
+```
+
+Run:
+
+```bash
+streamlit run app.py
+```
+
+The dashboard supports:
+
+- institution ecosystem mapping
+- discovery query generation
+- dry-run pipeline execution
+- existing Markdown report viewing
+- mock candidate scoring
+- downloads for generated JSON, Markdown, and CSV outputs
+
+The dashboard is demo-safe by default. It does not call external APIs on page load, does not scrape websites, and does not require API keys for dry-run or mock-scoring workflows. Full pipeline mode is available but is clearly marked as API-dependent and requires explicit confirmation.
+
+Dashboard outputs are preliminary and require human verification before outreach.
 
 ## Broad vs Narrow Mode
 

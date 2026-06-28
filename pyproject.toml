@@ -26,6 +26,9 @@ dev = [
   "pytest",
   "ruff",
 ]
+dashboard = [
+  "streamlit",
+]
 
 [project.scripts]
 postdoc-scout = "postdoc_scout.cli:app"
