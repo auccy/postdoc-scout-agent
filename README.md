@@ -278,6 +278,65 @@ Limitations:
 - lab openings are not fully scraped yet
 - human review is required before contacting any PI
 
+## End-to-End Pipeline
+
+The full pipeline orchestrator runs the scouting workflow from institution mapping through query generation, publication evidence collection, candidate extraction, ranking, and optional candidate enrichment. It is designed to make every stage auditable and resumable, with structured stage status, warnings, metrics, and output paths.
+
+Run a dry run first to inspect the ecosystem map and discovery queries without calling external APIs:
+
+```bash
+postdoc-scout run-pipeline --institution "Harvard University" --mode broad --country us --output-dir outputs/harvard --dry-run
+```
+
+Run the full pipeline:
+
+```bash
+postdoc-scout run-pipeline --institution "Harvard University" --mode broad --country us --output-dir outputs/harvard
+```
+
+Common controls:
+
+- `--sources openalex,pubmed` selects publication evidence connectors.
+- `--enrichment-sources nih_reporter,semantic_scholar,manual` selects enrichment sources.
+- `--limit-queries`, `--limit-per-source`, and `--top-n` constrain runtime and output size.
+- `--year-from` and `--year-to` bound publication and funding searches where supported.
+- `--resume` reuses existing stage outputs when present; `--no-resume` overwrites them.
+- `--skip-evidence-collection` reuses an existing `evidence_collection.json`.
+- `--skip-enrichment` stops after ranked supervisor reports.
+- `--format json|md|all` records the preferred pipeline report format while stage outputs remain auditable.
+
+For `outputs/harvard`, the canonical outputs are:
+
+```text
+outputs/harvard/ecosystem.json
+outputs/harvard/ecosystem.md
+outputs/harvard/discovery_queries.json
+outputs/harvard/discovery_queries.md
+outputs/harvard/evidence_collection.json
+outputs/harvard/evidence_collection.md
+outputs/harvard/candidate_extraction.json
+outputs/harvard/candidate_extraction.md
+outputs/harvard/candidate_extraction.csv
+outputs/harvard/ranked_supervisors.json
+outputs/harvard/ranked_supervisors.md
+outputs/harvard/ranked_supervisors.csv
+outputs/harvard/enriched_supervisors.json
+outputs/harvard/enriched_supervisors.md
+outputs/harvard/enriched_supervisors.csv
+outputs/harvard/pipeline_run.json
+outputs/harvard/pipeline_summary.md
+```
+
+Demo workflow:
+
+```bash
+postdoc-scout run-pipeline --institution "Harvard University" --mode broad --country us --output-dir outputs/harvard --dry-run --limit-queries 20
+postdoc-scout run-pipeline --institution "Harvard University" --mode broad --country us --output-dir outputs/harvard --limit-queries 20 --limit-per-source 5 --top-n 20
+postdoc-scout run-pipeline --institution "Harvard University" --mode broad --country us --output-dir outputs/harvard --skip-enrichment
+```
+
+The pipeline does not scrape arbitrary lab websites or use private data. Candidate identity, institutional affiliation, lab openings, and supervisor suitability remain preliminary and require human review before outreach.
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:

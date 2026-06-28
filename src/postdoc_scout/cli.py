@@ -35,6 +35,8 @@ from postdoc_scout.institution_mapper import (
     map_institution_ecosystem,
     write_ecosystem_reports,
 )
+from postdoc_scout.models import PipelineConfig
+from postdoc_scout.pipeline import run_pipeline
 from postdoc_scout.query_builder import build_query_bundle, write_query_bundle_reports
 from postdoc_scout.scoring import score_candidates_from_file
 from postdoc_scout.scout import ScoutMode, ScoutRequest, run_placeholder_scout
@@ -72,6 +74,14 @@ class EnrichmentFormat(str, Enum):
     JSON = "json"
     MD = "md"
     CSV = "csv"
+    ALL = "all"
+
+
+class PipelineFormat(str, Enum):
+    """Supported pipeline output formats."""
+
+    JSON = "json"
+    MD = "md"
     ALL = "all"
 
 
@@ -583,6 +593,109 @@ def enrich_candidates_command(
             )
     else:
         console.print("[yellow]No ranked candidates were enriched.[/yellow]")
+
+
+@app.command("run-pipeline")
+def run_pipeline_command(
+    institution: Annotated[str, typer.Option(help="Institution to scout end to end.")],
+    mode: Annotated[
+        MappingMode,
+        typer.Option(help="Pipeline mode for broad or narrow discovery."),
+    ] = MappingMode.BROAD,
+    country: Annotated[
+        str,
+        typer.Option(help="Country seed layer to use. Only 'us' is curated for now."),
+    ] = "us",
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Base or institution-specific pipeline output directory."),
+    ] = Path("outputs"),
+    sources: Annotated[
+        str,
+        typer.Option(help="Comma-separated evidence sources: openalex,pubmed."),
+    ] = "openalex,pubmed",
+    enrichment_sources: Annotated[
+        str,
+        typer.Option(help="Comma-separated enrichment sources."),
+    ] = "nih_reporter,semantic_scholar,manual",
+    limit_queries: Annotated[
+        int,
+        typer.Option(min=0, help="Maximum discovery queries to generate."),
+    ] = 100,
+    limit_per_source: Annotated[
+        int,
+        typer.Option(min=0, help="Maximum evidence records to collect per source."),
+    ] = 20,
+    top_n: Annotated[
+        int | None,
+        typer.Option(help="Optional maximum ranked/enriched candidates to keep."),
+    ] = None,
+    year_from: Annotated[
+        int | None,
+        typer.Option(help="Optional lower publication/funding year bound."),
+    ] = 2021,
+    year_to: Annotated[
+        int | None,
+        typer.Option(help="Optional upper publication/funding year bound."),
+    ] = None,
+    resume: Annotated[
+        bool,
+        typer.Option("--resume/--no-resume", help="Reuse existing stage outputs when present."),
+    ] = True,
+    skip_evidence_collection: Annotated[
+        bool,
+        typer.Option(help="Skip evidence collection and reuse existing evidence file."),
+    ] = False,
+    skip_enrichment: Annotated[
+        bool,
+        typer.Option(help="Skip candidate enrichment."),
+    ] = False,
+    dry_run: Annotated[
+        bool,
+        typer.Option(help="Generate map/query outputs only; do not call external APIs."),
+    ] = False,
+    output_format: Annotated[
+        PipelineFormat,
+        typer.Option("--format", help="Pipeline report format to emphasize."),
+    ] = PipelineFormat.ALL,
+) -> None:
+    """Run the deterministic end-to-end postdoc scouting pipeline."""
+    config = PipelineConfig(
+        institution=institution,
+        mode=mode.value,
+        country=country,
+        output_dir=str(output_dir),
+        sources=sources,
+        enrichment_sources=enrichment_sources,
+        limit_queries=limit_queries,
+        limit_per_source=limit_per_source,
+        top_n=top_n,
+        year_from=year_from,
+        year_to=year_to,
+        resume=resume,
+        skip_evidence_collection=skip_evidence_collection,
+        skip_enrichment=skip_enrichment,
+        dry_run=dry_run,
+        output_format=output_format.value,
+    )
+    report = run_pipeline(config)
+
+    table = Table(title="Postdoc Scout Pipeline")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Institution", report.institution)
+    table.add_row("Mode", report.mode)
+    table.add_row("Output dir", report.output_dir)
+    table.add_row("Dry run", str(report.dry_run))
+    table.add_row("Stages", ", ".join(f"{stage.stage}:{stage.status}" for stage in report.stages))
+    table.add_row("Pipeline JSON", str(Path(report.output_dir) / "pipeline_run.json"))
+    table.add_row("Summary MD", str(Path(report.output_dir) / "pipeline_summary.md"))
+    console.print(table)
+
+    if report.warnings:
+        console.print("[yellow]Warnings[/yellow]")
+        for warning in report.warnings[:8]:
+            console.print(f"- {warning}")
 
 
 if __name__ == "__main__":
