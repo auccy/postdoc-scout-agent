@@ -90,7 +90,14 @@ class OpenAlexConnector(BaseHTTPConnector):
         url = str(work.get("id") or work.get("doi") or "").strip() or None
         abstract = _openalex_abstract(work.get("abstract_inverted_index"))
         authors = _openalex_authors(work)
-        institutions = _openalex_institutions(work)
+        author_affiliations = _openalex_author_affiliations(work)
+        institutions = _dedupe(
+            [
+                institution
+                for author_institutions in author_affiliations.values()
+                for institution in author_institutions
+            ]
+        )
         relevance_domains = _infer_relevance_domains(
             " ".join([title, abstract, " ".join(query.relevance_domains)]),
             query.relevance_domains,
@@ -117,6 +124,8 @@ class OpenAlexConnector(BaseHTTPConnector):
             year=year,
             journal=source_name,
             authors=authors,
+            affiliations=institutions,
+            author_affiliations=author_affiliations,
             doi=doi,
             url=url,
             abstract=abstract,
@@ -187,15 +196,21 @@ def _openalex_authors(work: dict[str, Any]) -> list[str]:
     return _dedupe(authors)
 
 
-def _openalex_institutions(work: dict[str, Any]) -> list[str]:
-    institutions = []
+def _openalex_author_affiliations(work: dict[str, Any]) -> dict[str, list[str]]:
+    author_affiliations: dict[str, list[str]] = {}
     for authorship in work.get("authorships", []):
         if not isinstance(authorship, dict):
             continue
+        author = authorship.get("author")
+        if not isinstance(author, dict) or not author.get("display_name"):
+            continue
+        author_name = str(author["display_name"])
+        institutions = []
         for institution in authorship.get("institutions", []):
             if isinstance(institution, dict) and institution.get("display_name"):
                 institutions.append(str(institution["display_name"]))
-    return _dedupe(institutions)
+        author_affiliations[author_name] = _dedupe(institutions)
+    return author_affiliations
 
 
 def _infer_relevance_domains(text: str, query_domains: list[str]) -> list[str]:
