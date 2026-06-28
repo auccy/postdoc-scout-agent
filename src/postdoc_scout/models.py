@@ -98,6 +98,24 @@ OutreachStatus = Literal[
     "archived",
 ]
 
+FitDimensionName = Literal[
+    "domain_fit",
+    "data_fit",
+    "translational_fit",
+    "disease_fit",
+    "method_fit",
+    "opportunity_fit",
+    "mismatch_risk",
+]
+
+FitPriority = Literal[
+    "strong_fit",
+    "good_fit",
+    "possible_fit",
+    "low_fit",
+    "avoid_or_review",
+]
+
 ExpectedEvidenceType = Literal[
     "publication",
     "grant",
@@ -652,6 +670,74 @@ class ShortlistReport(BaseModel):
     status_filter: ReviewStatus | None = None
     candidate_count: int = 0
     candidates: list[CandidateReview] = Field(default_factory=list)
+
+
+class UserResearchProfile(BaseModel):
+    """A user-supplied research profile for deterministic candidate-fit matching."""
+
+    name: str = ""
+    current_position: str = ""
+    current_affiliation: str = ""
+    website: str | None = None
+    github: str | None = None
+    email: str | None = None
+    research_summary: str = ""
+    target_role: str = ""
+    preferred_domains: list[str] = Field(default_factory=list)
+    secondary_domains: list[str] = Field(default_factory=list)
+    methods: list[str] = Field(default_factory=list)
+    datasets: list[str] = Field(default_factory=list)
+    disease_areas: list[str] = Field(default_factory=list)
+    translational_strengths: list[str] = Field(default_factory=list)
+    publications_summary: str = ""
+    avoid_directions: dict[str, bool] = Field(default_factory=dict)
+    preferred_geographies: list[str] = Field(default_factory=list)
+    preferred_institution_types: list[str] = Field(default_factory=list)
+    notes: str = ""
+
+
+class FitDimension(BaseModel):
+    """One auditable fit dimension for a personalized candidate assessment."""
+
+    name: FitDimensionName
+    score: float = Field(ge=0.0, le=5.0)
+    weight: float
+    weighted_contribution: float
+    matched_terms: list[str] = Field(default_factory=list)
+    explanation: str = ""
+    supporting_evidence_ids: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
+class CandidateFitAssessment(BaseModel):
+    """Personalized deterministic fit assessment for one ranked candidate."""
+
+    candidate_id: str
+    display_name: str
+    original_priority_label: str = ""
+    original_score: float = 0.0
+    fit_score: float = Field(ge=0.0, le=5.0)
+    fit_priority: FitPriority
+    recommended_shortlist_status: ReviewStatus = "needs_more_review"
+    dimensions: list[FitDimension] = Field(default_factory=list)
+    transferable_strengths: list[str] = Field(default_factory=list)
+    mismatch_warnings: list[str] = Field(default_factory=list)
+    evidence_ids: list[str] = Field(default_factory=list)
+    explanation: str = ""
+    human_review_checklist: list[str] = Field(default_factory=list)
+
+
+class FitMatchingReport(BaseModel):
+    """Personalized fit-matching report for a user profile and ranked candidates."""
+
+    generated_at: str
+    ranked_file: str
+    user_profile_file: str
+    user_profile: UserResearchProfile
+    candidate_count: int = 0
+    candidates: list[CandidateFitAssessment] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
 
 
 class PipelineConfig(BaseModel):

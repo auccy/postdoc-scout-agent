@@ -1,0 +1,62 @@
+name: Example Researcher
+current_position: PhD candidate
+current_affiliation: Example University
+website: https://example.org/researcher
+github: https://github.com/example-researcher
+email:
+research_summary: >
+  Mock profile for a researcher focused on translational digital medicine,
+  clinical AI, disease risk prediction, and real-world clinical data.
+target_role: Postdoctoral researcher in translational clinical AI
+preferred_domains:
+  - clinical AI
+  - digital medicine
+  - EHR/RWD
+  - clinical decision support
+secondary_domains:
+  - AD/ADRD
+  - oncology
+  - public health
+methods:
+  - risk prediction
+  - progression modeling
+  - patient stratification
+  - survival analysis
+  - causal inference
+datasets:
+  - EHR
+  - real-world data
+  - clinical cohorts
+  - registries
+  - clinical trials
+disease_areas:
+  - AD/ADRD
+  - oncology
+  - aging
+  - chronic disease
+translational_strengths:
+  - clinical decision support
+  - disease risk prediction
+  - trial enrichment
+  - implementation-facing AI
+  - cohort-based biomedical AI
+publications_summary: >
+  Placeholder summary of peer-reviewed work in clinical prediction,
+  longitudinal modeling, and translational biomedical AI.
+avoid_directions:
+  pure_statistical_theory: true
+  pure_algorithm_architecture: true
+  wet_lab_only: true
+  clinical_fellowship_only: true
+preferred_geographies:
+  - United States
+  - Northeast
+  - California
+preferred_institution_types:
+  - academic medical center
+  - cancer center
+  - school of public health
+  - independent biomedical research institute
+notes: >
+  Example-only profile for testing deterministic fit matching. Replace with a
+  real profile before using reports for personal scouting.

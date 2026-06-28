@@ -73,6 +73,7 @@ More detail:
 - [Pipeline](docs/pipeline.md)
 - [Scoring Framework](docs/scoring_framework.md)
 - [Publication Calibration](docs/publication_calibration.md)
+- [CV-to-PI Fit Matching](docs/fit_matching.md)
 - [Seed Map](docs/seed_map.md)
 - [Limitations](docs/limitations.md)
 - [Roadmap](docs/roadmap.md)
@@ -122,6 +123,12 @@ Score deterministic mock candidates:
 
 ```bash
 postdoc-scout score-mock-candidates --input examples/mock_candidates.yml --output-dir outputs/mock_scoring
+```
+
+Match ranked or enriched supervisors to a user profile:
+
+```bash
+postdoc-scout match-fit --ranked-file outputs/enriched_supervisors.json --user-profile examples/user_profile.example.yml --output-dir outputs --format all
 ```
 
 ## Dry-Run Example
@@ -246,6 +253,40 @@ outputs/opening_signals.csv
 ```
 
 The detector does not scrape arbitrary websites or call live web search. It does not claim that a candidate is hiring unless explicit current evidence is manually provided and verified.
+
+## CV-to-PI Fit Matching
+
+Fit matching adds a personalized assessment layer after candidate ranking,
+enrichment, or opening-signal review. It compares a user research profile YAML
+against candidate evidence using deterministic dimensions for domain fit, data
+fit, translational fit, disease fit, method fit, opportunity fit, and mismatch
+risk.
+
+Start from the placeholder profile:
+
+```text
+examples/user_profile.example.yml
+```
+
+Run:
+
+```bash
+postdoc-scout match-fit --ranked-file outputs/enriched_supervisors.json --user-profile examples/user_profile.example.yml --output-dir outputs --format all
+```
+
+This writes:
+
+```text
+outputs/fit_assessments.json
+outputs/fit_assessments.md
+outputs/fit_assessments.csv
+```
+
+The matcher does not call external APIs, scrape websites, generate cold emails,
+or create contact angles. It uses only supplied profile fields and existing
+candidate evidence. Fit assessments are triage outputs and require human review
+for current affiliation, lab activity, mentorship environment, funding fit, and
+postdoctoral capacity.
 
 ## Manual Review + Shortlist Tracker
 

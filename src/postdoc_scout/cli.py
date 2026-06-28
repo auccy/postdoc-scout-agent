@@ -27,6 +27,7 @@ from postdoc_scout.evidence_collector import (
     parse_sources,
     write_evidence_collection_reports,
 )
+from postdoc_scout.fit_matching import match_fit_from_files
 from postdoc_scout.institution_mapper import (
     InstitutionTier,
     MappingMode,
@@ -103,6 +104,15 @@ class OpeningSignalFormat(str, Enum):
 
 class PublicationCalibrationFormat(str, Enum):
     """Supported publication calibration output formats."""
+
+    JSON = "json"
+    MD = "md"
+    CSV = "csv"
+    ALL = "all"
+
+
+class FitMatchingFormat(str, Enum):
+    """Supported CV-to-PI fit-matching output formats."""
 
     JSON = "json"
     MD = "md"
@@ -733,6 +743,61 @@ def detect_openings_command(
     console.print(
         "[yellow]Opening signals are preliminary and require manual verification before "
         "outreach.[/yellow]"
+    )
+
+
+@app.command("match-fit")
+def match_fit_command(
+    ranked_file: Annotated[
+        Path,
+        typer.Option(help="Path to ranked_supervisors.json or enriched_supervisors.json."),
+    ],
+    user_profile: Annotated[
+        Path,
+        typer.Option(help="Path to user research profile YAML."),
+    ],
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where fit assessment reports will be written."),
+    ] = Path("outputs"),
+    top_n: Annotated[
+        int | None,
+        typer.Option(help="Optional maximum number of ranked candidates to assess."),
+    ] = None,
+    output_format: Annotated[
+        FitMatchingFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = FitMatchingFormat.ALL,
+) -> None:
+    """Match ranked supervisor candidates to a user research profile."""
+    report, output_paths = match_fit_from_files(
+        ranked_file=ranked_file,
+        user_profile=user_profile,
+        output_dir=output_dir,
+        top_n=top_n,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="CV-to-PI Fit Matching")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Ranked file", str(ranked_file))
+    table.add_row("User profile", str(user_profile))
+    table.add_row("Candidates assessed", str(report.candidate_count))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if report.candidates:
+        console.print("[bold]Top fit assessments[/bold]")
+        for candidate in report.candidates[:5]:
+            console.print(
+                f"- {candidate.display_name}: fit={candidate.fit_score:.3f}, "
+                f"priority={candidate.fit_priority}, "
+                f"review={candidate.recommended_shortlist_status}"
+            )
+    console.print(
+        "[yellow]Fit assessments are deterministic triage outputs and require human "
+        "review before application decisions.[/yellow]"
     )
 
 
