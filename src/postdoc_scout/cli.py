@@ -15,6 +15,7 @@ from postdoc_scout.institution_mapper import (
     map_institution_ecosystem,
     write_ecosystem_reports,
 )
+from postdoc_scout.scoring import score_candidates_from_file
 from postdoc_scout.scout import ScoutMode, ScoutRequest, run_placeholder_scout
 from postdoc_scout.seed_map_validation import validate_seed_map, write_validation_reports
 
@@ -172,6 +173,43 @@ def validate_seed_map_command(
     if result.errors:
         console.print("[red]Schema validation errors were found.[/red]")
         raise typer.Exit(code=1)
+
+
+@app.command("score-mock-candidates")
+def score_mock_candidates_command(
+    input_path: Annotated[
+        Path,
+        typer.Option("--input", help="Path to mock candidate YAML."),
+    ] = Path("examples/mock_candidates.yml"),
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where candidate score reports will be written."),
+    ] = Path("outputs"),
+) -> None:
+    """Score mock candidates and write auditable ranking reports."""
+    ranked, output_paths = score_candidates_from_file(input_path=input_path, output_dir=output_dir)
+
+    table = Table(title="Mock Candidate Scores")
+    table.add_column("Rank", justify="right")
+    table.add_column("Candidate")
+    table.add_column("Score", justify="right")
+    table.add_column("Priority")
+    table.add_column("Method Penalty")
+
+    for report in ranked.candidates:
+        breakdown = report.score_breakdown
+        table.add_row(
+            str(report.rank),
+            report.candidate.name,
+            f"{breakdown.overall_score:.3f}",
+            breakdown.priority_label,
+            "yes" if breakdown.method_heavy_penalty_applied else "no",
+        )
+
+    console.print(table)
+    console.print("Outputs:")
+    for output_path in output_paths:
+        console.print(f"- {output_path}")
 
 
 if __name__ == "__main__":

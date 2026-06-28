@@ -1,0 +1,243 @@
+candidates:
+  - name: "Dr. Maya Chen"
+    current_affiliations:
+      - "Mass General Brigham"
+      - "Harvard Medical School"
+    institution_units:
+      - "Brigham and Women's Hospital"
+      - "Harvard Medical School"
+    departments_or_centers:
+      - "Digital medicine program"
+      - "Memory and aging clinical research group"
+    domains:
+      - "digital medicine"
+      - "clinical AI"
+      - "AD/ADRD"
+      - "aging"
+      - "EHR/RWD"
+      - "disease progression"
+    profile_urls:
+      - "https://example.org/maya-chen"
+    email: "maya.chen@example.org"
+    contact_url: "https://example.org/maya-chen/contact"
+    current_opening_signal: "Lab page notes interest in postdoctoral fellows for dementia digital biomarkers."
+    notes: "Mock strong AD/digital medicine candidate for deterministic scoring tests."
+    publications:
+      - title: "Wearable digital biomarkers for Alzheimer's disease progression in routine care"
+        year: 2025
+        journal: "npj Digital Medicine"
+        authors: ["Maya Chen", "A. Fellow", "B. Clinician"]
+        candidate_author_position: "senior"
+        doi: "10.0000/mock-ad-digital"
+        pmid: "00000001"
+        url: "https://example.org/pub/ad-digital"
+        abstract: "Clinical AI and wearable data were used to model dementia progression in an EHR-linked cohort."
+        relevance_domains:
+          - "digital medicine"
+          - "clinical AI"
+          - "AD/ADRD"
+          - "EHR/RWD"
+          - "disease progression"
+        is_high_impact_journal: true
+        is_field_leading_journal: true
+        evidence_items:
+          - evidence_id: "chen_pub_001"
+            source_type: "publication"
+            title: "Wearable digital biomarkers for Alzheimer's disease progression in routine care"
+            url: "https://example.org/pub/ad-digital"
+            year: 2025
+            source_name: "Mock publication metadata"
+            quoted_or_paraphrased_evidence: "Senior-authored digital medicine study using EHR-linked wearable data for AD progression."
+            relevance_domains: ["digital medicine", "clinical AI", "AD/ADRD", "EHR/RWD"]
+            confidence: 0.9
+            note: "Mock evidence item."
+    grants:
+      - title: "Digital phenotyping for dementia progression and clinical decision support"
+        funder: "NIH"
+        project_number: "R01-MOCK-AD-DIGITAL"
+        start_year: 2024
+        end_year: 2028
+        role: "PI"
+        amount: 2500000
+        url: "https://example.org/grant/ad-digital"
+        relevance_domains: ["digital medicine", "AD/ADRD", "clinical decision support"]
+        evidence_items:
+          - evidence_id: "chen_grant_001"
+            source_type: "grant"
+            title: "Digital phenotyping for dementia progression and clinical decision support"
+            url: "https://example.org/grant/ad-digital"
+            year: 2024
+            source_name: "Mock grant metadata"
+            quoted_or_paraphrased_evidence: "Active mock grant focused on dementia digital phenotyping and decision support."
+            relevance_domains: ["digital medicine", "AD/ADRD", "clinical decision support"]
+            confidence: 0.9
+            note: "Mock evidence item."
+    evidence_items:
+      - evidence_id: "chen_lab_001"
+        source_type: "lab_page"
+        title: "Mock lab page"
+        url: "https://example.org/maya-chen/lab"
+        year: 2026
+        source_name: "Mock lab page"
+        quoted_or_paraphrased_evidence: "Lab advertises dementia digital biomarker and EHR-based prediction projects."
+        relevance_domains: ["digital medicine", "EHR/RWD", "AD/ADRD"]
+        confidence: 0.85
+        note: "Mock evidence item."
+
+  - name: "Dr. Rafael Ortiz"
+    current_affiliations:
+      - "MD Anderson Cancer Center"
+    institution_units:
+      - "MD Anderson clinical data and informatics ecosystem"
+      - "MD Anderson clinical trials ecosystem"
+    departments_or_centers:
+      - "Digital oncology program"
+      - "Real-world data research group"
+    domains:
+      - "oncology"
+      - "clinical AI"
+      - "EHR/RWD"
+      - "real-world data"
+      - "trial enrichment"
+      - "patient stratification"
+    profile_urls:
+      - "https://example.org/rafael-ortiz"
+    contact_url: "https://example.org/rafael-ortiz/contact"
+    current_opening_signal: "Group page lists openings for fellows in digital oncology and real-world data."
+    notes: "Mock strong digital oncology/RWD candidate."
+    publications:
+      - title: "Real-world oncology data for clinical AI trial enrichment"
+        year: 2024
+        journal: "The Lancet Digital Health"
+        authors: ["Rafael Ortiz", "C. Oncologist", "D. Scientist"]
+        candidate_author_position: "corresponding"
+        doi: "10.0000/mock-onc-rwd"
+        pmid: "00000002"
+        url: "https://example.org/pub/onc-rwd"
+        abstract: "A clinical AI model used EHR and registry data for oncology patient stratification."
+        relevance_domains:
+          - "oncology"
+          - "clinical AI"
+          - "EHR/RWD"
+          - "real-world data"
+          - "trial enrichment"
+          - "patient stratification"
+        is_high_impact_journal: true
+        is_field_leading_journal: true
+        evidence_items:
+          - evidence_id: "ortiz_pub_001"
+            source_type: "publication"
+            title: "Real-world oncology data for clinical AI trial enrichment"
+            url: "https://example.org/pub/onc-rwd"
+            year: 2024
+            source_name: "Mock publication metadata"
+            quoted_or_paraphrased_evidence: "Corresponding-author digital oncology paper using EHR/RWD for trial enrichment."
+            relevance_domains: ["oncology", "clinical AI", "EHR/RWD", "trial enrichment"]
+            confidence: 0.9
+            note: "Mock evidence item."
+    grants:
+      - title: "Real-world oncology data for patient stratification"
+        funder: "Cancer Foundation"
+        project_number: "MOCK-ONC-RWD"
+        start_year: 2023
+        end_year: 2027
+        role: "PI"
+        amount: 1800000
+        url: "https://example.org/grant/onc-rwd"
+        relevance_domains: ["oncology", "EHR/RWD", "patient stratification"]
+        evidence_items:
+          - evidence_id: "ortiz_grant_001"
+            source_type: "grant"
+            title: "Real-world oncology data for patient stratification"
+            url: "https://example.org/grant/onc-rwd"
+            year: 2023
+            source_name: "Mock grant metadata"
+            quoted_or_paraphrased_evidence: "Active mock oncology RWD grant with patient stratification aims."
+            relevance_domains: ["oncology", "EHR/RWD", "patient stratification"]
+            confidence: 0.85
+            note: "Mock evidence item."
+
+  - name: "Dr. Victor Stone"
+    current_affiliations:
+      - "Prestige Institute of Technology"
+    institution_units:
+      - "Machine learning theory group"
+    departments_or_centers:
+      - "Computer science department"
+    domains:
+      - "statistical theory"
+      - "optimization theory"
+      - "foundation model architecture"
+      - "pure methodology"
+    profile_urls:
+      - "https://example.org/victor-stone"
+    notes: "Mock famous but method-heavy candidate with limited clinical translation evidence."
+    publications:
+      - title: "Optimization theory for foundation model architecture benchmarks"
+        year: 2025
+        journal: "Journal of Machine Learning Theory"
+        authors: ["Victor Stone", "E. Theorist"]
+        candidate_author_position: "senior"
+        doi: "10.0000/mock-method-heavy"
+        url: "https://example.org/pub/method-heavy"
+        abstract: "Benchmark-only algorithm design and simulation-only optimization theory."
+        relevance_domains:
+          - "statistical theory"
+          - "optimization theory"
+          - "foundation model architecture"
+        is_high_impact_journal: true
+        is_field_leading_journal: true
+        evidence_items:
+          - evidence_id: "stone_pub_001"
+            source_type: "publication"
+            title: "Optimization theory for foundation model architecture benchmarks"
+            url: "https://example.org/pub/method-heavy"
+            year: 2025
+            source_name: "Mock publication metadata"
+            quoted_or_paraphrased_evidence: "Benchmark-only, simulation-only method paper without disease or clinical data evidence."
+            relevance_domains: ["statistical theory", "foundation model architecture"]
+            confidence: 0.9
+            note: "Mock evidence item."
+
+  - name: "Dr. Elena Park"
+    current_affiliations:
+      - "University Community Medical Center"
+    institution_units:
+      - "Clinical decision support group"
+    departments_or_centers:
+      - "General internal medicine"
+    domains:
+      - "clinical decision support"
+      - "EHR/RWD"
+      - "public health"
+      - "disease risk prediction"
+    profile_urls:
+      - "https://example.org/elena-park"
+    email: "elena.park@example.org"
+    notes: "Mock clinically relevant candidate with fewer recent high-impact publications."
+    publications:
+      - title: "EHR-based risk prediction for hospital readmission"
+        year: 2019
+        journal: "Journal of Clinical Informatics"
+        authors: ["Elena Park", "F. Resident"]
+        candidate_author_position: "senior"
+        doi: "10.0000/mock-cds"
+        url: "https://example.org/pub/cds"
+        abstract: "A clinical decision support model used EHR data for disease risk prediction."
+        relevance_domains:
+          - "clinical decision support"
+          - "EHR/RWD"
+          - "disease risk prediction"
+        is_high_impact_journal: false
+        is_field_leading_journal: false
+        evidence_items:
+          - evidence_id: "park_pub_001"
+            source_type: "publication"
+            title: "EHR-based risk prediction for hospital readmission"
+            url: "https://example.org/pub/cds"
+            year: 2019
+            source_name: "Mock publication metadata"
+            quoted_or_paraphrased_evidence: "Senior-authored clinical decision support paper using EHR data."
+            relevance_domains: ["clinical decision support", "EHR/RWD", "disease risk prediction"]
+            confidence: 0.8
+            note: "Mock evidence item."
