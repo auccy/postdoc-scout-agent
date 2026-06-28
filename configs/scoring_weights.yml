@@ -1,0 +1,13 @@
+# Initial scoring weights. Values should sum to 1.0.
+weights:
+  translational_clinical_fit: 0.30
+  disease_area_relevance: 0.20
+  clinical_data_depth: 0.20
+  supervisor_track_record: 0.15
+  mentorship_and_training_signal: 0.10
+  methods_only_penalty: 0.05
+
+thresholds:
+  strong_candidate: 0.75
+  review_candidate: 0.50
+  low_fit: 0.25

@@ -1,0 +1,24 @@
+# Placeholder journal and venue tiers for future evidence scoring.
+tiers:
+  translational_clinical_ai:
+    weight: 1.0
+    examples:
+      - npj Digital Medicine
+      - The Lancet Digital Health
+      - Journal of Medical Internet Research
+  disease_area_clinical:
+    weight: 0.9
+    examples:
+      - Alzheimer's & Dementia
+      - JAMA Oncology
+      - Journal of Clinical Oncology
+  real_world_data:
+    weight: 0.8
+    examples:
+      - Journal of Biomedical Informatics
+      - JAMIA
+      - eClinicalMedicine
+  methods_only:
+    weight: 0.3
+    examples:
+      - Methodology-focused venues without clinical translation evidence

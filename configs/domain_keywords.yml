@@ -1,0 +1,44 @@
+# Initial keyword taxonomy for translational supervisor scouting.
+preferred_domains:
+  digital_medicine:
+    - digital medicine
+    - remote monitoring
+    - wearable
+    - patient-generated data
+  clinical_ai:
+    - clinical ai
+    - medical ai
+    - predictive model
+    - risk prediction
+    - clinical decision support
+  disease_areas:
+    - Alzheimer's disease
+    - ADRD
+    - dementia
+    - oncology
+    - cancer
+    - neurodegeneration
+  clinical_data:
+    - electronic health record
+    - EHR
+    - real-world data
+    - registry
+    - cohort
+  translational_tasks:
+    - disease progression
+    - patient stratification
+    - prognosis
+    - treatment response
+    - implementation
+
+lower_priority_domains:
+  pure_methods:
+    - statistical theory
+    - asymptotic
+    - estimator
+    - causal identification theory
+  algorithm_development:
+    - foundation model architecture
+    - benchmark-only
+    - novel optimizer
+    - architecture search
