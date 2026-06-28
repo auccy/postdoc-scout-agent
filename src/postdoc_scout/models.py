@@ -20,8 +20,19 @@ AuthorPosition = Literal[
     "first",
     "co_first",
     "middle",
+    "last",
     "senior",
     "corresponding",
+    "unknown",
+]
+
+AuthorMentionPosition = Literal[
+    "first",
+    "co_first",
+    "middle",
+    "senior",
+    "corresponding",
+    "last",
     "unknown",
 ]
 
@@ -70,6 +81,9 @@ class Publication(BaseModel):
     year: int | None = None
     journal: str = ""
     authors: list[str] = Field(default_factory=list)
+    affiliations: list[str] = Field(default_factory=list)
+    author_affiliations: dict[str, list[str]] = Field(default_factory=dict)
+    corresponding_authors: list[str] = Field(default_factory=list)
     candidate_author_position: AuthorPosition = "unknown"
     doi: str | None = None
     pmid: str | None = None
@@ -232,6 +246,62 @@ class EvidenceCollection(BaseModel):
     connector_summaries: list[ConnectorRunSummary] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
+
+
+class AuthorMention(BaseModel):
+    """One author mention extracted from a retrieved publication."""
+
+    author_name: str
+    normalized_author_name: str
+    publication_title: str
+    publication_year: int | None = None
+    journal: str = ""
+    author_position: AuthorMentionPosition = "unknown"
+    affiliations: list[str] = Field(default_factory=list)
+    matched_institution_units: list[str] = Field(default_factory=list)
+    source_connector: EvidenceConnector
+    evidence_id: str
+    originating_query_id: str
+    relevance_domains: list[str] = Field(default_factory=list)
+    confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    warnings: list[str] = Field(default_factory=list)
+
+
+class CandidateCluster(BaseModel):
+    """Conservative cluster of repeated author mentions into a possible candidate."""
+
+    candidate_id: str
+    display_name: str
+    normalized_name: str
+    possible_affiliations: list[str] = Field(default_factory=list)
+    matched_institution_units: list[str] = Field(default_factory=list)
+    publications: list[Publication] = Field(default_factory=list)
+    author_mentions: list[AuthorMention] = Field(default_factory=list)
+    evidence_items: list[EvidenceItem] = Field(default_factory=list)
+    senior_author_count: int = 0
+    corresponding_author_count: int = 0
+    first_author_count: int = 0
+    recent_publication_count: int = 0
+    high_impact_publication_count: int = 0
+    field_leading_publication_count: int = 0
+    relevance_domains: list[str] = Field(default_factory=list)
+    candidate_confidence: float = Field(default=0.5, ge=0.0, le=1.0)
+    ambiguity_warnings: list[str] = Field(default_factory=list)
+    notes: str = ""
+
+
+class CandidateExtractionReport(BaseModel):
+    """Candidate extraction report with traceable author clusters."""
+
+    institution: str
+    mode: str
+    source_evidence_file: str
+    total_publications_processed: int = 0
+    total_author_mentions: int = 0
+    total_candidate_clusters: int = 0
+    candidate_clusters: list[CandidateCluster] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
 
 
 class Institution(BaseModel):

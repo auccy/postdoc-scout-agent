@@ -1,0 +1,86 @@
+{
+  "institution": "Harvard University",
+  "normalized_institution": "harvard university",
+  "generated_at": "2026-06-29T00:00:00+00:00",
+  "query_file": "tests/fixtures/query_bundle_mock.json",
+  "sources": ["openalex", "pubmed"],
+  "total_queries_run": 2,
+  "total_publications_retrieved": 2,
+  "deduplicated_publications": 2,
+  "duplicate_publications_removed": 0,
+  "publications": [
+    {
+      "publication": {
+        "title": "Clinical AI risk prediction using EHR data",
+        "year": 2024,
+        "journal": "Mock Digital Medicine",
+        "authors": ["Alice First", "Nora Senior"],
+        "affiliations": ["Harvard Medical School"],
+        "author_affiliations": {
+          "Alice First": ["Harvard Medical School"],
+          "Nora Senior": ["Harvard Medical School"]
+        },
+        "corresponding_authors": [],
+        "doi": "10.1000/mock-one",
+        "abstract": "Clinical AI and EHR real-world data prediction study.",
+        "relevance_domains": ["clinical AI", "EHR/RWD", "digital medicine"],
+        "evidence_items": [
+          {
+            "evidence_id": "fixture:openalex:1",
+            "source_type": "publication",
+            "title": "Clinical AI risk prediction using EHR data",
+            "source_name": "OpenAlex",
+            "quoted_or_paraphrased_evidence": "Clinical AI and EHR real-world data prediction study.",
+            "relevance_domains": ["clinical AI", "EHR/RWD"],
+            "note": "Fixture evidence.",
+            "confidence": 0.8
+          }
+        ]
+      },
+      "source_connector": "openalex",
+      "originating_query_id": "q_0001_openalex",
+      "originating_query_text": "\"Harvard Medical School\" \"clinical AI\"",
+      "matched_unit_name": "Harvard Medical School",
+      "relevance_domains": ["clinical AI", "EHR/RWD"],
+      "retrieval_warnings": []
+    },
+    {
+      "publication": {
+        "title": "Real-world data progression modeling for clinical decision support",
+        "year": 2024,
+        "journal": "Mock Translational Informatics",
+        "authors": ["Bob First", "Nora Senior"],
+        "affiliations": ["Harvard Medical School"],
+        "author_affiliations": {
+          "Bob First": ["Harvard Medical School"],
+          "Nora Senior": ["Harvard Medical School"]
+        },
+        "corresponding_authors": ["Nora Senior"],
+        "pmid": "999001",
+        "abstract": "Clinical decision support using EHR real-world data.",
+        "relevance_domains": ["clinical decision support", "EHR/RWD"],
+        "evidence_items": [
+          {
+            "evidence_id": "fixture:pubmed:1",
+            "source_type": "publication",
+            "title": "Real-world data progression modeling for clinical decision support",
+            "source_name": "PubMed",
+            "quoted_or_paraphrased_evidence": "Clinical decision support using EHR real-world data.",
+            "relevance_domains": ["clinical decision support", "EHR/RWD"],
+            "note": "Fixture evidence.",
+            "confidence": 0.8
+          }
+        ]
+      },
+      "source_connector": "pubmed",
+      "originating_query_id": "q_0002_pubmed",
+      "originating_query_text": "\"Harvard Medical School\"[Affiliation] clinical AI",
+      "matched_unit_name": "Harvard Medical School",
+      "relevance_domains": ["clinical decision support", "EHR/RWD"],
+      "retrieval_warnings": []
+    }
+  ],
+  "connector_summaries": [],
+  "warnings": [],
+  "limitations": ["Fixture evidence collection for deterministic tests."]
+}

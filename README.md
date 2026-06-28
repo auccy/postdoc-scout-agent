@@ -200,6 +200,32 @@ Limitations:
 - results require later scoring and verification
 - this layer does not scrape websites or implement full supervisor ranking
 
+## Author Extraction and Candidate Clustering
+
+Author extraction runs after evidence collection because it needs normalized publication records with authors, affiliations, query IDs, evidence IDs, and relevance domains. It turns publication-level evidence into preliminary author mentions, then conservatively clusters repeated mentions into possible supervisor candidates.
+
+The extractor uses ordered author lists to infer first, middle, and last-author positions. Last, corresponding, and senior-style mentions are prioritized because translational biomedical labs are often represented by senior or corresponding authors on clinically relevant publications. Repeated appearances across relevant publications and affiliation overlap with matched institution units increase preliminary confidence.
+
+Candidate identity remains preliminary. The extractor does not solve author disambiguation, does not verify employment or supervisor status, and does not merge identities aggressively when affiliation metadata is missing or inconsistent. Ambiguity warnings are preserved in JSON, Markdown, and CSV outputs.
+
+Evidence traceability is preserved through publication titles, source connectors, originating query IDs, matched institution units, relevance domains, and evidence IDs.
+
+Run:
+
+```bash
+postdoc-scout extract-candidates --evidence-file outputs/evidence_collection.json --institution "Harvard University" --mode broad --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/candidate_extraction.json
+outputs/candidate_extraction.md
+outputs/candidate_extraction.csv
+```
+
+This is candidate discovery, not final supervisor ranking.
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:

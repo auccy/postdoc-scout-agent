@@ -1,5 +1,6 @@
 """Command-line interface for postdoc-scout-agent."""
 
+from enum import Enum
 from pathlib import Path
 from typing import Annotated
 
@@ -7,6 +8,10 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from postdoc_scout.candidate_extractor import (
+    extract_candidates_from_file,
+    write_candidate_extraction_reports,
+)
 from postdoc_scout.evidence_collector import (
     collect_evidence_from_query_file,
     parse_sources,
@@ -31,6 +36,15 @@ app = typer.Typer(
     no_args_is_help=True,
 )
 console = Console()
+
+
+class CandidateExtractionFormat(str, Enum):
+    """Supported candidate extraction output formats."""
+
+    JSON = "json"
+    MD = "md"
+    CSV = "csv"
+    ALL = "all"
 
 
 @app.callback()
@@ -333,6 +347,65 @@ def collect_evidence_command(
             console.print(f"- {warning}")
     else:
         console.print("[green]No connector warnings were recorded.[/green]")
+
+
+@app.command("extract-candidates")
+def extract_candidates_command(
+    evidence_file: Annotated[
+        Path,
+        typer.Option(help="Path to an evidence collection JSON file."),
+    ],
+    institution: Annotated[str, typer.Option(help="Institution context for extraction.")],
+    mode: Annotated[
+        MappingMode,
+        typer.Option(help="Extraction mode matching the source query bundle."),
+    ] = MappingMode.BROAD,
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where candidate extraction reports will be written."),
+    ] = Path("outputs"),
+    min_publications: Annotated[
+        int,
+        typer.Option(min=1, help="Minimum publications required for a candidate cluster."),
+    ] = 1,
+    output_format: Annotated[
+        CandidateExtractionFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = CandidateExtractionFormat.ALL,
+) -> None:
+    """Extract preliminary author candidate clusters from publication evidence."""
+    report = extract_candidates_from_file(
+        evidence_file=evidence_file,
+        institution=institution,
+        mode=mode.value,
+        min_publications=min_publications,
+    )
+    output_paths = write_candidate_extraction_reports(
+        report=report,
+        output_dir=output_dir,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="Candidate Extraction")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Institution", report.institution)
+    table.add_row("Mode", report.mode)
+    table.add_row("Publications processed", str(report.total_publications_processed))
+    table.add_row("Author mentions", str(report.total_author_mentions))
+    table.add_row("Candidate clusters", str(report.total_candidate_clusters))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if report.candidate_clusters:
+        console.print("[bold]Top candidate clusters[/bold]")
+        for cluster in report.candidate_clusters[:5]:
+            console.print(
+                f"- {cluster.display_name} ({cluster.candidate_id}, "
+                f"confidence={cluster.candidate_confidence:.2f})"
+            )
+    else:
+        console.print("[yellow]No candidate clusters met the extraction threshold.[/yellow]")
 
 
 if __name__ == "__main__":

@@ -94,8 +94,15 @@ def _normalize_pubmed_article(
         text for text in (_joined_text(node) for node in article.findall(".//AbstractText")) if text
     )
     authors = _pubmed_authors(article)
+    author_affiliations = _pubmed_author_affiliations(article)
     doi = _article_id(article, "doi")
-    affiliations = _pubmed_affiliations(article)
+    affiliations = _dedupe(
+        [
+            affiliation
+            for author_affiliations_list in author_affiliations.values()
+            for affiliation in author_affiliations_list
+        ]
+    )
     relevance_domains = _infer_relevance_domains(
         " ".join([title, abstract, " ".join(query.relevance_domains)]),
         query.relevance_domains,
@@ -118,10 +125,12 @@ def _normalize_pubmed_article(
     )
     publication = Publication(
         title=title,
-        year=year,
-        journal=journal,
-        authors=authors,
-        doi=doi,
+            year=year,
+            journal=journal,
+            authors=authors,
+            affiliations=affiliations,
+            author_affiliations=author_affiliations,
+            doi=doi,
         pmid=pmid or None,
         url=f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/" if pmid else None,
         abstract=abstract,
@@ -164,18 +173,27 @@ def _publication_year(article: ET.Element) -> int | None:
 
 
 def _pubmed_authors(article: ET.Element) -> list[str]:
-    authors = []
+    return list(_pubmed_author_affiliations(article))
+
+
+def _pubmed_author_affiliations(article: ET.Element) -> dict[str, list[str]]:
+    author_affiliations: dict[str, list[str]] = {}
     for author in article.findall(".//AuthorList/Author"):
         collective = _text(author.find("CollectiveName"))
         if collective:
-            authors.append(collective)
+            author_affiliations[collective] = []
             continue
         last = _text(author.find("LastName"))
         fore = _text(author.find("ForeName"))
         name = " ".join(part for part in [fore, last] if part)
         if name:
-            authors.append(name)
-    return _dedupe(authors)
+            affiliations = [
+                _joined_text(node)
+                for node in author.findall(".//AffiliationInfo/Affiliation")
+                if _joined_text(node)
+            ]
+            author_affiliations[name] = _dedupe(affiliations)
+    return author_affiliations
 
 
 def _article_id(article: ET.Element, id_type: str) -> str | None:
@@ -183,16 +201,6 @@ def _article_id(article: ET.Element, id_type: str) -> str | None:
         if node.attrib.get("IdType") == id_type and node.text:
             return node.text.strip()
     return None
-
-
-def _pubmed_affiliations(article: ET.Element) -> list[str]:
-    return _dedupe(
-        [
-            _joined_text(node)
-            for node in article.findall(".//AffiliationInfo/Affiliation")
-            if _joined_text(node)
-        ]
-    )
 
 
 def _dedupe(values: list[str]) -> list[str]:
