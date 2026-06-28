@@ -304,6 +304,46 @@ class CandidateExtractionReport(BaseModel):
     warnings: list[str] = Field(default_factory=list)
 
 
+class RankedSupervisorCandidate(BaseModel):
+    """A preliminary ranked supervisor candidate produced from author clusters."""
+
+    rank: int | None = None
+    candidate_id: str
+    display_name: str
+    possible_affiliations: list[str] = Field(default_factory=list)
+    matched_institution_units: list[str] = Field(default_factory=list)
+    inferred_domains: list[str] = Field(default_factory=list)
+    publication_count: int = 0
+    recent_publication_count: int = 0
+    senior_author_count: int = 0
+    corresponding_author_count: int = 0
+    first_author_count: int = 0
+    evidence_items: list[EvidenceItem] = Field(default_factory=list)
+    score_breakdown: ScoreBreakdown
+    overall_score: float = Field(ge=0.0, le=5.0)
+    priority_label: str
+    method_heavy_penalty_applied: bool = False
+    warnings: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    suggested_contact_angle: str = ""
+
+
+class CandidateRankingReport(BaseModel):
+    """Preliminary ranked supervisor report from candidate clusters."""
+
+    institution: str
+    mode: str
+    candidate_file: str
+    evidence_file: str | None = None
+    generated_at: str
+    clusters_processed: int = 0
+    ranked_candidate_count: int = 0
+    ranked_candidates: list[RankedSupervisorCandidate] = Field(default_factory=list)
+    methodology_note: str = ""
+    limitations: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list)
+
+
 class Institution(BaseModel):
     """A normalized institution identity and known aliases."""
 

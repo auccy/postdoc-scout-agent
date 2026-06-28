@@ -226,6 +226,28 @@ outputs/candidate_extraction.csv
 
 This is candidate discovery, not final supervisor ranking.
 
+## Candidate Ranking Report
+
+Candidate ranking converts preliminary `CandidateCluster` outputs into scoreable `SupervisorCandidate` records, applies the deterministic scoring framework, and writes an auditable ranked supervisor report. It connects author-cluster evidence to the same score dimensions used by mock candidate scoring.
+
+Scoring is evidence-based and traceable. The ranker infers domains from publication relevance domains, query-derived evidence, matched institution units, journals, and evidence notes. It preserves evidence IDs, ambiguity warnings, method-heavy penalty status, score breakdowns, and limitations for every ranked candidate.
+
+Rankings remain preliminary. Author identity is not verified, publication evidence is not a full CV, affiliation metadata may be incomplete, and the output requires human review before outreach. Method-heavy profiles are penalized when they lack clinical or digital medicine translation signals, while translational methods work can still score well.
+
+Run:
+
+```bash
+postdoc-scout rank-candidates --candidate-file outputs/candidate_extraction.json --evidence-file outputs/evidence_collection.json --institution "Harvard University" --mode broad --output-dir outputs
+```
+
+This writes:
+
+```text
+outputs/ranked_supervisors.json
+outputs/ranked_supervisors.md
+outputs/ranked_supervisors.csv
+```
+
 ## Configuration
 
 The `configs/` directory contains initial YAML configuration for:
