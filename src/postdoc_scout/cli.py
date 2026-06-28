@@ -38,6 +38,7 @@ from postdoc_scout.institution_mapper import (
 from postdoc_scout.models import PipelineConfig
 from postdoc_scout.opening_signals import detect_openings_from_file
 from postdoc_scout.pipeline import run_pipeline
+from postdoc_scout.publication_calibration import calibrate_publications_from_ranked_file
 from postdoc_scout.query_builder import build_query_bundle, write_query_bundle_reports
 from postdoc_scout.review_tracker import (
     export_shortlist,
@@ -93,6 +94,15 @@ class PipelineFormat(str, Enum):
 
 class OpeningSignalFormat(str, Enum):
     """Supported opening-signal output formats."""
+
+    JSON = "json"
+    MD = "md"
+    CSV = "csv"
+    ALL = "all"
+
+
+class PublicationCalibrationFormat(str, Enum):
+    """Supported publication calibration output formats."""
 
     JSON = "json"
     MD = "md"
@@ -549,6 +559,46 @@ def rank_candidates_command(
             )
     else:
         console.print("[yellow]No candidates met the ranking threshold.[/yellow]")
+
+
+@app.command("calibrate-publications")
+def calibrate_publications_command(
+    ranked_file: Annotated[
+        Path,
+        typer.Option(help="Path to ranked_supervisors.json."),
+    ],
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where publication calibration reports will be written."),
+    ] = Path("outputs"),
+    output_format: Annotated[
+        PublicationCalibrationFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = PublicationCalibrationFormat.ALL,
+) -> None:
+    """Calibrate publication impact using journals, authorship, recency, and relevance."""
+    report, output_paths = calibrate_publications_from_ranked_file(
+        ranked_file=ranked_file,
+        output_dir=output_dir,
+        output_format=output_format.value,
+    )
+
+    table = Table(title="Publication Calibration")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Ranked file", str(ranked_file))
+    table.add_row("Candidate file", report.candidate_file or "None")
+    table.add_row("Candidates calibrated", str(report.candidate_count))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    if report.candidates:
+        console.print("[bold]Top calibrated profiles[/bold]")
+        for candidate in report.candidates[:5]:
+            console.print(
+                f"- {candidate.display_name}: mean={candidate.mean_calibrated_score:.3f}, "
+                f"max={candidate.max_calibrated_score:.3f}, warnings={len(candidate.warnings)}"
+            )
 
 
 @app.command("enrich-candidates")

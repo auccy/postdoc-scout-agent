@@ -7,6 +7,7 @@ from pathlib import Path
 from postdoc_scout.models import (
     CandidateCluster,
     CandidateExtractionReport,
+    CandidatePublicationCalibration,
     CandidateRankingReport,
     EvidenceCollection,
     EvidenceItem,
@@ -15,7 +16,12 @@ from postdoc_scout.models import (
     ScoreBreakdown,
     SupervisorCandidate,
 )
-from postdoc_scout.scoring import score_candidate
+from postdoc_scout.publication_calibration import calibrate_candidate_publication_profile
+from postdoc_scout.scoring import (
+    assign_priority_label,
+    calculate_weighted_score,
+    score_candidate,
+)
 
 RANKING_LIMITATIONS = [
     "Identity is preliminary and not verified.",
@@ -87,6 +93,12 @@ def rank_candidate_clusters(
     for cluster in extraction_report.candidate_clusters:
         supervisor = cluster_to_supervisor_candidate(cluster, evidence_by_id)
         scored = score_candidate(supervisor)
+        calibration = calibrate_candidate_publication_profile(
+            candidate_id=cluster.candidate_id,
+            display_name=cluster.display_name,
+            publications=supervisor.publications,
+        )
+        _apply_publication_calibration(scored.score_breakdown, calibration)
         ranked = _ranked_candidate_from_cluster(
             cluster=cluster,
             score_breakdown=scored.score_breakdown,
@@ -408,6 +420,57 @@ def _ranked_candidate_from_cluster(
         limitations=RANKING_LIMITATIONS,
         suggested_contact_angle=suggested_contact_angle(inferred_domains),
     )
+
+
+def _apply_publication_calibration(
+    score_breakdown: ScoreBreakdown,
+    calibration: CandidatePublicationCalibration,
+) -> None:
+    """Blend calibrated publication impact into existing publication score dimensions."""
+    if not calibration.publication_scores:
+        return
+    recent_scores = [
+        score.calibrated_score
+        for score in calibration.publication_scores
+        if score.recency_weight >= 0.82
+    ]
+    publication_score = min(5.0, calibration.mean_calibrated_score + 0.35)
+    recent_score = (
+        min(5.0, sum(recent_scores) / len(recent_scores) + 0.25)
+        if recent_scores
+        else max(0.0, calibration.mean_calibrated_score - 0.75)
+    )
+    for dimension in score_breakdown.dimensions:
+        if dimension.name == "translational_publication_potential":
+            _update_dimension_from_calibration(
+                dimension,
+                max(dimension.numeric_score, publication_score),
+                "Calibrated with journal tier, author role, domain relevance, and article type.",
+            )
+        if dimension.name == "recent_academic_impact":
+            _update_dimension_from_calibration(
+                dimension,
+                max(dimension.numeric_score, recent_score),
+                "Calibrated with publication recency and impact rather than count alone.",
+            )
+    score_breakdown.warnings = _dedupe([*score_breakdown.warnings, *calibration.warnings])
+    raw_score = calculate_weighted_score(score_breakdown.dimensions)
+    score_breakdown.overall_score = round(
+        max(0.0, raw_score - score_breakdown.method_heavy_penalty),
+        3,
+    )
+    score_breakdown.priority_label = assign_priority_label(score_breakdown.overall_score)
+
+
+def _update_dimension_from_calibration(
+    dimension,
+    numeric_score: float,
+    explanation_suffix: str,
+) -> None:
+    dimension.numeric_score = round(max(0.0, min(5.0, numeric_score)), 3)
+    dimension.weighted_contribution = round(dimension.numeric_score * dimension.weight, 3)
+    if explanation_suffix not in dimension.explanation:
+        dimension.explanation = f"{dimension.explanation} {explanation_suffix}".strip()
 
 
 def _publication_for_candidate(

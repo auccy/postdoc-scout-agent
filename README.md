@@ -72,6 +72,7 @@ More detail:
 - [Architecture](docs/architecture.md)
 - [Pipeline](docs/pipeline.md)
 - [Scoring Framework](docs/scoring_framework.md)
+- [Publication Calibration](docs/publication_calibration.md)
 - [Seed Map](docs/seed_map.md)
 - [Limitations](docs/limitations.md)
 - [Roadmap](docs/roadmap.md)
@@ -199,6 +200,26 @@ Ranking output is evidence triage, not a claim that a person is available, inter
 The project downweights profiles dominated by pure statistical theory, benchmark-only ML, optimization theory, simulation-only work, or foundation model architecture when there is no clear clinical translation signal.
 
 This is intentionally a modest penalty rather than a hard exclusion. A strong methods researcher can still rank well if the evidence shows real clinical data, disease applications, digital medicine translation, or implementation-facing work.
+
+## Journal / Authorship Calibration
+
+Publication count alone is not a reliable signal for postdoctoral supervisor fit. A middle-author consortium paper, an old prestige publication, and a recent senior-author clinical AI paper should not contribute equally to a translational supervisor ranking.
+
+Publication calibration uses configured journal baskets, author position, recency, domain relevance, article type, consortium/group authorship warnings, and method-heavy warnings to produce auditable calibrated scores:
+
+```bash
+postdoc-scout calibrate-publications --ranked-file outputs/ranked_supervisors.json --output-dir outputs --format all
+```
+
+This writes:
+
+```text
+outputs/publication_calibration.json
+outputs/publication_calibration.md
+outputs/publication_calibration.csv
+```
+
+Senior, corresponding, and last-author roles receive stronger supervisor-scouting weight than middle-author roles. Field-leading disease, digital medicine, oncology, public health, and general medical journals are handled through `configs/journal_tiers.yml`; no live impact factors are used. Pure method-heavy journals and venues are treated conservatively when the publication lacks clinical translation, disease, or real-world data signals.
 
 ## Lab Website / Opening Signal Discovery
 

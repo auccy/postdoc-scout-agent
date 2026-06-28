@@ -1,24 +1,95 @@
-# Placeholder journal and venue tiers for future evidence scoring.
-tiers:
-  translational_clinical_ai:
+# Configurable journal baskets for deterministic publication calibration.
+#
+# These baskets are scouting heuristics, not live impact-factor claims. They should be
+# interpreted in context with author position, recency, domain relevance, article type,
+# and method-heavy warnings.
+
+journal_baskets:
+  top_general_medical:
     weight: 1.0
+    examples:
+      - NEJM
+      - The Lancet
+      - JAMA
+      - BMJ
+      - Annals of Internal Medicine
+
+  top_science_nature_cell:
+    weight: 1.0
+    examples:
+      - Nature
+      - Science
+      - Cell
+
+  flagship_subjournals:
+    weight: 0.92
+    examples:
+      - Nature Medicine
+      - Nature Neuroscience
+      - Nature Aging
+      - Nature Biomedical Engineering
+      - Nature Machine Intelligence
+      - Science Translational Medicine
+      - Cell Reports Medicine
+      - Lancet Neurology
+      - Lancet Digital Health
+      - Lancet Healthy Longevity
+      - JAMA Neurology
+      - JAMA Network Open
+      - NEJM AI
+
+  field_leading_ad_neurology:
+    weight: 0.86
+    examples:
+      - Alzheimer's & Dementia
+      - Brain
+      - Annals of Neurology
+      - Neurology
+      - Molecular Neurodegeneration
+      - Acta Neuropathologica
+      - NeuroImage
+      - "NeuroImage: Clinical"
+
+  field_leading_digital_medicine:
+    weight: 0.86
     examples:
       - npj Digital Medicine
       - The Lancet Digital Health
-      - Journal of Medical Internet Research
-  disease_area_clinical:
-    weight: 0.9
-    examples:
-      - Alzheimer's & Dementia
-      - JAMA Oncology
-      - Journal of Clinical Oncology
-  real_world_data:
-    weight: 0.8
-    examples:
-      - Journal of Biomedical Informatics
+      - NEJM AI
       - JAMIA
-      - eClinicalMedicine
-  methods_only:
-    weight: 0.3
+      - Journal of Biomedical Informatics
+      - Artificial Intelligence in Medicine
+      - PLOS Digital Health
+
+  field_leading_oncology:
+    weight: 0.86
     examples:
-      - Methodology-focused venues without clinical translation evidence
+      - Journal of Clinical Oncology
+      - JAMA Oncology
+      - Lancet Oncology
+      - Nature Cancer
+      - Cancer Discovery
+      - Clinical Cancer Research
+      - Annals of Oncology
+      - JCO Clinical Cancer Informatics
+
+  field_leading_public_health:
+    weight: 0.78
+    examples:
+      - American Journal of Epidemiology
+      - International Journal of Epidemiology
+      - Epidemiology
+      - American Journal of Public Health
+      - JAMA Health Forum
+
+  field_leading_methods_but_downweighted_if_pure:
+    weight: 0.55
+    examples:
+      - Biostatistics
+      - Biometrics
+      - Statistics in Medicine
+      - JASA
+      - Annals of Statistics
+      - NeurIPS
+      - ICML
+      - ICLR

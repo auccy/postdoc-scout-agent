@@ -71,6 +71,15 @@ OpeningSignalType = Literal[
 
 OpeningSignalStrength = Literal["high", "medium", "low", "none"]
 
+JournalTier = Literal[
+    "top_general_medical",
+    "top_science_nature_cell",
+    "flagship_subjournals",
+    "field_leading",
+    "methods_but_downweighted_if_pure",
+    "other",
+]
+
 ReviewStatus = Literal[
     "interested",
     "maybe",
@@ -384,6 +393,78 @@ class CandidateRankingReport(BaseModel):
     methodology_note: str = ""
     limitations: list[str] = Field(default_factory=list)
     warnings: list[str] = Field(default_factory=list)
+
+
+class JournalClassification(BaseModel):
+    """Configured journal-tier and field-basket classification."""
+
+    journal: str
+    normalized_journal: str
+    journal_tier: JournalTier = "other"
+    field_basket: str = "other"
+    configured_weight: float = 0.45
+    explanation: str = ""
+
+
+class AuthorshipCalibration(BaseModel):
+    """Author-position calibration for one publication."""
+
+    author_position: AuthorPosition = "unknown"
+    author_position_weight: float = 0.55
+    explanation: str = ""
+    warnings: list[str] = Field(default_factory=list)
+
+
+class PublicationImpactScore(BaseModel):
+    """Calibrated impact score for one publication."""
+
+    publication_id: str
+    title: str
+    year: int | None = None
+    journal: str = ""
+    journal_tier: JournalTier = "other"
+    field_basket: str = "other"
+    author_position: AuthorPosition = "unknown"
+    author_position_weight: float = 0.55
+    recency_weight: float = 0.60
+    domain_relevance_weight: float = 0.50
+    article_type_weight: float = 0.65
+    consortium_warning: str = ""
+    method_heavy_warning: str = ""
+    calibrated_score: float = 0.0
+    explanation: str = ""
+
+
+class CandidatePublicationCalibration(BaseModel):
+    """Candidate-level publication calibration summary."""
+
+    candidate_id: str
+    display_name: str
+    publication_count: int = 0
+    mean_calibrated_score: float = 0.0
+    max_calibrated_score: float = 0.0
+    senior_or_corresponding_count: int = 0
+    middle_author_count: int = 0
+    field_leading_count: int = 0
+    method_heavy_count: int = 0
+    consortium_warning_count: int = 0
+    old_impact_only_warning: bool = False
+    warnings: list[str] = Field(default_factory=list)
+    publication_scores: list[PublicationImpactScore] = Field(default_factory=list)
+
+
+class PublicationCalibrationReport(BaseModel):
+    """Auditable candidate publication calibration report."""
+
+    generated_at: str
+    ranked_file: str
+    candidate_file: str | None = None
+    candidate_count: int = 0
+    candidates: list[CandidatePublicationCalibration] = Field(default_factory=list)
+    journal_tier_summary: dict[str, int] = Field(default_factory=dict)
+    author_position_summary: dict[str, int] = Field(default_factory=dict)
+    warnings: list[str] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
 
 
 class FundingEvidence(BaseModel):
