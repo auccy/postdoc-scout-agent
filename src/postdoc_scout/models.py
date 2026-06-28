@@ -25,6 +25,25 @@ AuthorPosition = Literal[
     "unknown",
 ]
 
+QuerySource = Literal[
+    "pubmed",
+    "openalex",
+    "semantic_scholar",
+    "nih_reporter",
+    "web",
+    "generic",
+]
+
+ExpectedEvidenceType = Literal[
+    "publication",
+    "grant",
+    "author",
+    "lab_page",
+    "job_posting",
+    "clinical_trial",
+    "other",
+]
+
 
 class EvidenceItem(BaseModel):
     """A short auditable evidence note from curated or extracted source data."""
@@ -131,6 +150,45 @@ class RankedCandidateList(BaseModel):
     candidates: list[CandidateReport]
     scoring_version: str = "candidate_scoring_v1"
     notes: str = ""
+
+
+class QueryTarget(BaseModel):
+    """Traceable institution unit target used for discovery query generation."""
+
+    institution: str
+    unit_name: str
+    unit_type: str
+    relevance_domains: list[str] = Field(default_factory=list)
+    priority: str = "medium"
+
+
+class SearchQuery(BaseModel):
+    """A reusable structured search query template for a future connector."""
+
+    query_id: str
+    query_text: str
+    source: QuerySource
+    institution: str
+    unit_name: str
+    unit_type: str
+    mode: Literal["broad", "narrow"]
+    relevance_domains: list[str] = Field(default_factory=list)
+    priority: Literal["high", "medium", "low"] = "medium"
+    rationale: str
+    expected_evidence_type: ExpectedEvidenceType
+    notes: str = ""
+
+
+class QueryBundle(BaseModel):
+    """Auditable bundle of discovery queries for an institution ecosystem."""
+
+    institution: str
+    normalized_institution: str
+    mode: Literal["broad", "narrow"]
+    generated_at: str
+    queries: list[SearchQuery] = Field(default_factory=list)
+    limitations: list[str] = Field(default_factory=list)
+    ecosystem_summary: dict[str, object] = Field(default_factory=dict)
 
 
 class Institution(BaseModel):

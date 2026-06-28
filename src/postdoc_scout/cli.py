@@ -15,6 +15,7 @@ from postdoc_scout.institution_mapper import (
     map_institution_ecosystem,
     write_ecosystem_reports,
 )
+from postdoc_scout.query_builder import build_query_bundle, write_query_bundle_reports
 from postdoc_scout.scoring import score_candidates_from_file
 from postdoc_scout.scout import ScoutMode, ScoutRequest, run_placeholder_scout
 from postdoc_scout.seed_map_validation import validate_seed_map, write_validation_reports
@@ -210,6 +211,54 @@ def score_mock_candidates_command(
     console.print("Outputs:")
     for output_path in output_paths:
         console.print(f"- {output_path}")
+
+
+@app.command("build-queries")
+def build_queries_command(
+    institution: Annotated[str, typer.Option(help="Institution to build queries for.")],
+    mode: Annotated[
+        MappingMode,
+        typer.Option(help="Query mode for broad or narrow discovery."),
+    ] = MappingMode.BROAD,
+    country: Annotated[
+        str,
+        typer.Option(help="Country seed layer to use. Only 'us' is curated for now."),
+    ] = "us",
+    output_dir: Annotated[
+        Path,
+        typer.Option(help="Directory where query reports will be written."),
+    ] = Path("outputs"),
+    limit: Annotated[int, typer.Option(min=0, help="Maximum queries to include.")] = 100,
+    output_format: Annotated[
+        OutputFormat,
+        typer.Option("--format", help="Report format to write."),
+    ] = OutputFormat.BOTH,
+) -> None:
+    """Build auditable supervisor-discovery query templates."""
+    bundle = build_query_bundle(
+        institution=institution,
+        mode=mode,
+        country=country,
+        limit=limit,
+    )
+    output_paths = write_query_bundle_reports(bundle, output_dir, output_format.value)
+
+    table = Table(title="Supervisor Discovery Query Bundle")
+    table.add_column("Field", style="bold")
+    table.add_column("Value")
+    table.add_row("Institution", bundle.institution)
+    table.add_row("Mode", bundle.mode)
+    table.add_row("Queries", str(len(bundle.queries)))
+    table.add_row("Outputs", "\n".join(str(path) for path in output_paths))
+    console.print(table)
+
+    top_queries = [query for query in bundle.queries if query.priority == "high"][:5]
+    if top_queries:
+        console.print("[bold]Top queries[/bold]")
+        for query in top_queries:
+            console.print(f"- {query.source} | {query.unit_name}: {query.query_text}")
+    else:
+        console.print("[yellow]No high-priority queries were generated.[/yellow]")
 
 
 if __name__ == "__main__":
